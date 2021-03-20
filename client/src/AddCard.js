@@ -11,7 +11,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import Select from '@material-ui/core/Select';
 import * as cryptoOptions from './cryptoOptions';
+import { Typography } from '@material-ui/core';
 
 const StyledAddCard = styled(MuiCard)`
   max-width: 500px;
@@ -24,8 +26,9 @@ const CardActions = styled(MuiCardActions)`
 const Form = styled.form``;
 
 const AmountArea = styled.div`
-  padding: 32px;
-  text-align: center;
+  display: flex;
+  padding: 32px 0 16px 0;
+  /* text-align: center; */
 `;
 const Fields = styled.div`
   > :not(:last-child) {
@@ -36,9 +39,9 @@ const Fields = styled.div`
 const COVALENT_API_KEY = 'ckey_feace96ca3c74881a6a8f3cdea2';
 
 function AddCard({ setBasket }) {
-  const [selectedValue, setSelectedValue] = React.useState(0);
-  const [selectedPrice, setSelectedPrice] = React.useState(0);
-  const [amount, setAmount] = React.useState(0);
+  const [selectedValue, setSelectedValue] = React.useState('');
+  const [selectedPrice, setSelectedPrice] = React.useState('');
+  const [amount, setAmount] = React.useState('');
 
   const handleChangeAsync = async (e) => {
     const address = e.target.value;
@@ -57,6 +60,9 @@ function AddCard({ setBasket }) {
 
   const handleAddClick = () => {
     setBasket((prev) => ({ ...prev, [selectedValue]: { price: selectedPrice, amount } }));
+    setSelectedValue('');
+    setAmount('');
+    setSelectedPrice(0);
   };
 
   return (
@@ -66,8 +72,7 @@ function AddCard({ setBasket }) {
           <Fields>
             <FormControl variant='outlined'>
               <InputLabel htmlFor='outlined-name-native-simple'>Name</InputLabel>
-              <NativeSelect
-                variant='outlined'
+              <Select
                 native
                 value={selectedValue}
                 onChange={handleChangeAsync}
@@ -83,27 +88,24 @@ function AddCard({ setBasket }) {
                     {cryptoOptions.byId[o].name}
                   </option>
                 ))}
-              </NativeSelect>
+              </Select>
             </FormControl>
-            <TextField
-              variant='outlined'
-              id='standard-number'
-              label='Amount'
-              type='number'
-              onChange={handleAmountChangeAsync}
-              value={amount}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
+            <TextField variant='outlined' id='standard-number' label='Amount' type='number' onChange={handleAmountChangeAsync} value={amount} />
           </Fields>
 
           <AmountArea>
-            ${selectedPrice} x {amount} = ${selectedPrice * amount}
+            <Typography>
+              <strong>Total:</strong>
+            </Typography>
+            {!!(selectedPrice || amount) && (
+              <Typography>
+                ${selectedPrice || 0} x {amount || 0} = ${selectedPrice * amount}
+              </Typography>
+            )}
           </AmountArea>
         </CardContent>
         <CardActions>
-          <Button size='small' color='primary' onClick={handleAddClick}>
+          <Button color='primary' variant='outlined' onClick={handleAddClick} disabled={!(amount && selectedValue)}>
             Add
           </Button>
         </CardActions>
