@@ -51,6 +51,7 @@ function MetaMaskButton() {
       window.ethereum.request({ method: 'eth_requestAccounts' }).then(handleNewAccounts);
       window.ethereum.on('accountsChanged', handleNewAccounts);
       return () => {
+        // This errors and says etherum.off doesn't exist for some reason, need to look into it
         // window.ethereum.off('accountsChanged', handleNewAccounts);
       };
     }
