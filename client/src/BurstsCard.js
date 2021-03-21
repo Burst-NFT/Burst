@@ -51,9 +51,10 @@ function BurstsCard() {
     const _bursts = {};
     for (let i = 0; i < Number.parseInt(balance); i++) {
       const tokenId = await contract.methods.tokenOfOwnerByIndex(ownerAddress, i).call();
-      const nftInfo = await contract.methods.nftIndexToNftInfoMapping[tokenId].call();
-      const assets = nftInfo.assetAddresses.map((val, idx) => ({ address: val, amount: nftInfo.assetAmounts[idx] }));
-      _bursts[tokenId] = { tokenId, assets };
+      const nftInfo = await contract.methods.nftIndexToNftInfoMapping(tokenId).call();
+      console.log(nftInfo);
+      // const assets = nftInfo.assetAddresses.map((val, idx) => ({ address: val, amount: nftInfo.assetAmounts[idx] }));
+      // _bursts[tokenId] = { tokenId, assets };
     }
 
     setBursts(_bursts);
