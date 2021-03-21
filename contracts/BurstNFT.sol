@@ -81,7 +81,6 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         public
     {
         require(_isApprovedOrOwner(_msgSender(), _tokenId), "ERC721Burnable: caller is not owner nor approved");
-        //Need to insert a control here to make sure the below mapped array of addresses exists
         for (uint256 i=0; i<nftIndexToNftInfoMapping[_tokenId].assetAddresses.length; i++) {
             releaseErc20(_tokenId, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
         }

@@ -17,6 +17,7 @@ import BurstNFTContract from './contracts/BurstNFT.json';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import SendIcon from '@material-ui/icons/Send';
 
 const StyledBurstsCard = styled(MuiCard)`
   min-width: 500px;
@@ -37,6 +38,15 @@ function BurstsCard() {
     const contract = new web3Ref.current.eth.Contract(BurstNFTContract.abi, deployedNetwork && deployedNetwork.address);
 
     const response = await contract.methods.destroyBurstWithMultiERC20(tokenId).send({ from: window.ethereum?.selectedAddress });
+    debugger;
+    await handleCheckBurstsClick();
+  };
+  const handleTransferClickFn = (tokenId) => async () => {
+    const networkId = await web3Ref.current.eth.net.getId();
+    const deployedNetwork = BurstNFTContract.networks[networkId];
+    const contract = new web3Ref.current.eth.Contract(BurstNFTContract.abi, deployedNetwork && deployedNetwork.address);
+
+    const response = await contract.methods.transferFrom( window.ethereum?.selectedAddress, "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266" , tokenId).send({ from: window.ethereum?.selectedAddress });
     debugger;
     await handleCheckBurstsClick();
   };
@@ -95,6 +105,9 @@ function BurstsCard() {
               <ListItemSecondaryAction>
                 <IconButton edge='end' aria-label='delete' onClick={handleDestroyClickFn(tokenId)}>
                   <DeleteOutlinedIcon style={{ color: red[500] }} />
+                </IconButton>
+                <IconButton edge='start' aria-label='send' onClick={handleTransferClickFn(tokenId)}>
+                  <SendIcon style={{ color: red[500] }} />
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>

@@ -11181,10 +11181,16 @@
       "links": {},
       "address": "0xFd9825e6Ef1CF47CBB50721DA8fF95ab0297D62C",
       "transactionHash": "0x4a18aa88a64ab44352bbebab31819d89c897791869fde19b39a6c9523a747e6e"
+    },
+    "80001": {
+      "events": {},
+      "links": {},
+      "address": "0xF6cad50Aea13C607C53a063EE059B5f6f5d6F86D",
+      "transactionHash": "0xc50d1182d30774175c66da052e5cb1993cde2f835deca430df4f6f1f5522a113"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-03-21T06:10:08.713Z",
+  "updatedAt": "2021-03-21T07:30:29.773Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "This contract does the following: accepts erc20 as deposit and creates erc721 mapped to deposited erc20 destroys erc721 and transfers mapped erc20 ",
