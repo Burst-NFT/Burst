@@ -19,13 +19,18 @@ import Web3 from 'web3';
 import * as assets from './cryptoOptions';
 import { CardHeader, Typography } from '@material-ui/core';
 import erc20Interface from './erc20Interface.json';
+import { COVALENT_API_KEY, MIN_ADDRESS_LENGTH, COVALENT_CHAIN_ID } from './constants';
 
 const StyledAddCard = styled(MuiCard)`
   max-width: 500px;
 `;
 
 const CardActions = styled(MuiCardActions)`
-  justify-content: flex-end;
+  justify-content: center;
+  margin-bottom: 16px;
+  button {
+    border-radius: 30px;
+  }
 `;
 
 const Form = styled.form``;
@@ -47,10 +52,6 @@ const Fields = styled.div`
     padding-right: 16px;
   }
 `;
-
-const COVALENT_API_KEY = 'ckey_feace96ca3c74881a6a8f3cdea2';
-
-const MIN_ADDRESS_LENGTH = 40;
 
 function AddCard({ setBasket }) {
   // const [web3, setWeb3] = React.useState(null);
@@ -97,7 +98,7 @@ function AddCard({ setBasket }) {
     // Maybe change this to spot price?
     let price = 0;
     if (address) {
-      price = await fetch(`https://api.covalenthq.com/v1/pricing/historical_by_address/1/USD/${address}/?key=${COVALENT_API_KEY}`)
+      price = await fetch(`https://api.covalenthq.com/v1/pricing/historical_by_address/${COVALENT_CHAIN_ID}/USD/${address}/?key=${COVALENT_API_KEY}`)
         .then((res) => res.json())
         .then(({ data }) => data.prices[0].price);
       setSelectedSymbol(assets.byId[address].symbol);
@@ -259,7 +260,7 @@ function AddCard({ setBasket }) {
           )}
         </CardContent>
         <CardActions>
-          <Button color='primary' variant='outlined' onClick={handleAddClick} disabled={!(amount && selectedAddress)} style={{ maxHeight: '56px' }}>
+          <Button color='primary' size='large' variant='contained' onClick={handleAddClick} disabled={!(amount && selectedAddress)}>
             Add
           </Button>
         </CardActions>

@@ -25,6 +25,10 @@ const StyledBasketCard = styled(MuiCard)`
 
 const CardActions = styled(MuiCardActions)`
   justify-content: center;
+  margin-bottom: 16px;
+  button {
+    border-radius: 30px;
+  }
 `;
 
 function BasketCard({ basket, setBasket }) {
@@ -86,7 +90,7 @@ function BasketCard({ basket, setBasket }) {
         </List>
       </CardContent>
       <CardActions>
-        <Button color='primary' size='large' variant='outlined' onClick={handleCreateBurst} disabled={!canCreateBasket}>
+        <Button color='primary' size='large' variant='contained' onClick={handleCreateBurst} disabled={!canCreateBasket}>
           Create BURST
         </Button>
       </CardActions>
