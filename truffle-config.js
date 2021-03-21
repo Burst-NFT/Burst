@@ -1,3 +1,8 @@
+const path = require("path");
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+const AccountIndex = 0;
+require("dotenv").config({path: "./.env"});
+
 module.exports = {
   // Uncommenting the defaults below
   // provides for an easier quick-start with Ganache.
@@ -11,7 +16,14 @@ module.exports = {
       port: 7545,
       network_id: '5777',
     },
+    kovan_infura: {
+      provider: function() {
+        return new HDWalletProvider(process.env.MNEMONIC, "https://kovan.infura.io/v3/" + process.env.KOVANKEY, AccountIndex)
+      },
+      network_id: 42
+    }
   },
+  
   compilers: {
     solc: {
       version: '^0.7.4',
