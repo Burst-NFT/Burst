@@ -80,7 +80,7 @@ function BurstsCard() {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary='1 BURST'
+                primary='BURST'
                 secondary={
                   <>
                     <div>Token Id: {bursts[tokenId].tokenId} </div>

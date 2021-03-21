@@ -55,8 +55,8 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     *
     * */
     function createBurstWithMultiErc20(
-        address[] memory _tokenContracts, 
-        uint256[] memory _amounts
+        address[] calldata _tokenContracts, 
+        uint256[] calldata _amounts
     )
         public
     {
@@ -64,11 +64,11 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         for (uint i=0; i<_tokenContracts.length; i++) {
             depositErc20(_tokenContracts[i], _amounts[i]);
         }
-        mintBurst();
         nftIndexToNftInfoMapping[_tokenIds.current()].assetAddresses = _tokenContracts;
         nftIndexToNftInfoMapping[_tokenIds.current()].assetAmounts = _amounts;
         nftIndexToNftInfoMapping[_tokenIds.current()].creator = _msgSender();
         nftIndexToNftInfoMapping[_tokenIds.current()].exists = true;
+        mintBurst();
     }
       
     /**
