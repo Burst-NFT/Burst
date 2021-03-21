@@ -111,7 +111,10 @@ function AddCard({ setBasket }) {
   };
 
   const handleAddClick = () => {
-    setBasket((prev) => ({ ...prev, [selectedAddress]: { symbol: selectedSymbol, amount, address: selectedAddress } }));
+    setBasket((prev) => ({
+      ...prev,
+      [selectedAddress]: { symbol: selectedSymbol, amount, address: selectedAddress, contract: contracts[selectedAddress] },
+    }));
     clear();
   };
   const displayAccountAddress = !!window.ethereum?.selectedAddress && `${window.ethereum?.selectedAddress.slice(0, -30)}...`;
@@ -156,7 +159,6 @@ function AddCard({ setBasket }) {
       <CardHeader title='Account' subheader={displayAccountAddress} />
       <Form>
         <CardContent>
-          {/* <Fields> */}
           <Fields>
             <FormControlLabel
               control={

@@ -18,7 +18,7 @@ import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
-const StyledBasketCard = styled(MuiCard)`
+const StyledBurstsCard = styled(MuiCard)`
   min-width: 500px;
   max-width: 700px;
 `;
@@ -27,31 +27,37 @@ const CardActions = styled(MuiCardActions)`
   justify-content: center;
 `;
 
-function BasketCard({ basket, setBasket }) {
+function BurstsCard() {
   const web3Ref = React.useRef(null);
-  const canCreateBasket = React.useMemo(() => !!(basket && Object.keys(basket).length), [basket]);
-  const handleDeleteClickFn = (basketKey) => () => {
-    setBasket((prev) => {
-      const { [basketKey]: removed, ...remaining } = prev;
-      return remaining;
-    });
-  };
-  const handleCreateBurst = async () => {
+  const [bursts, setBursts] = React.useState({});
+
+  const handleDestroyClickFn = (tokenId) => async () => {
     const networkId = await web3Ref.current.eth.net.getId();
     const deployedNetwork = BurstNFTContract.networks[networkId];
     const contract = new web3Ref.current.eth.Contract(BurstNFTContract.abi, deployedNetwork && deployedNetwork.address);
 
-    const addresses = Object.keys(basket);
+    const response = await contract.methods.destroyBurstWithMultiERC20(tokenId);
+    debugger;
+    await handleCheckBurstsClick();
+  };
+  const handleCheckBurstsClick = async () => {
+    const networkId = await web3Ref.current.eth.net.getId();
+    const deployedNetwork = BurstNFTContract.networks[networkId];
+    const contract = new web3Ref.current.eth.Contract(BurstNFTContract.abi, deployedNetwork && deployedNetwork.address);
 
-    for (let i = 0; i < addresses.length; i++) {
-      const asset = basket[addresses[i]];
-      debugger;
-      await asset.contract.methods.approve(deployedNetwork.address, asset.amount).send({ from: window.ethereum?.selectedAddress });
+    const ownerAddress = window.ethereum?.selectedAddress;
+    const balance = await contract.methods.balanceOf(ownerAddress).call();
+
+    const _bursts = {};
+    for (let i = 0; i < Number.parseInt(balance); i++) {
+      const tokenId = await contract.methods.tokenOfOwnerByIndex(ownerAddress, i).call();
+      const nftInfo = await contract.methods.nftIndexToNftInfoMapping[tokenId].call();
+      const assets = nftInfo.assetAddresses.map((val, idx) => ({ address: val, amount: nftInfo.assetAmounts[idx] }));
+      _bursts[tokenId] = { tokenId, assets };
     }
 
-    const amounts = addresses.map((k) => basket[k].amount);
-    const response = await contract.methods.createBurstWithMultiErc20(addresses, amounts).send({ from: window.ethereum?.selectedAddress });
-    debugger;
+    setBursts(_bursts);
+    // debugger;
   };
 
   React.useEffect(() => {
@@ -61,23 +67,32 @@ function BasketCard({ basket, setBasket }) {
     })();
   }, []);
   return (
-    <StyledBasketCard>
-      <CardHeader title='Basket' />
+    <StyledBurstsCard>
+      <CardHeader title='Bursts' />
       <CardContent>
         <List dense={true}>
-          {Object.keys(basket).map((k) => (
-            <ListItem key={k}>
+          {Object.keys(bursts).map((tokenId) => (
+            <ListItem key={tokenId}>
               <ListItemAvatar>
                 <Avatar>
                   <MonetizationOnIcon />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={basket[k].symbol ? `${basket[k].symbol}(${basket[k].address})` : basket[k].address}
-                secondary={`Amount: ${basket[k].amount}`}
+                primary='1 BURST'
+                secondary={
+                  <>
+                    <div>Token Id: {bursts[tokenId].tokenId} </div>
+                    {bursts[tokenId].assets.map((asset) => (
+                      <div>
+                        {asset.address}:{asset.amount}
+                      </div>
+                    ))}
+                  </>
+                }
               />
               <ListItemSecondaryAction>
-                <IconButton edge='end' aria-label='delete' onClick={handleDeleteClickFn(k)}>
+                <IconButton edge='end' aria-label='delete' onClick={handleDestroyClickFn(tokenId)}>
                   <DeleteOutlinedIcon style={{ color: red[500] }} />
                 </IconButton>
               </ListItemSecondaryAction>
@@ -86,12 +101,12 @@ function BasketCard({ basket, setBasket }) {
         </List>
       </CardContent>
       <CardActions>
-        <Button color='primary' size='large' variant='outlined' onClick={handleCreateBurst} disabled={!canCreateBasket}>
-          Create BURST
+        <Button color='primary' size='large' variant='outlined' onClick={handleCheckBurstsClick}>
+          Check for BURSTs
         </Button>
       </CardActions>
-    </StyledBasketCard>
+    </StyledBurstsCard>
   );
 }
 
-export default BasketCard;
+export default BurstsCard;
