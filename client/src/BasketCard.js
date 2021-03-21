@@ -12,7 +12,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
 import { red } from '@material-ui/core/colors';
-
+import Web3 from 'web3';
+import BurstNFTContract from './contracts/BurstNFT.json';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
@@ -27,6 +28,7 @@ const CardActions = styled(MuiCardActions)`
 `;
 
 function BasketCard({ basket, setBasket }) {
+  const web3Ref = React.useRef(null);
   const canCreateBasket = React.useMemo(() => !!(basket && Object.keys(basket).length), [basket]);
   const handleDeleteClickFn = (basketKey) => () => {
     setBasket((prev) => {
@@ -34,7 +36,19 @@ function BasketCard({ basket, setBasket }) {
       return remaining;
     });
   };
-  const handleCreateBurst = () => {};
+  const handleCreateBurst = async () => {
+    const contract = new web3Ref.current.eth.Contract(BurstNFTContract.abi);
+    const addresses = Object.keys(basket);
+    const amounts = addresses.map((k) => basket[k].amount);
+    await contract.methods.createBurstWithMultiErc20(addresses, amounts).send({ from: window.ethereum?.selectedAddress });
+  };
+
+  React.useEffect(() => {
+    (async () => {
+      const _web3 = new Web3(window.ethereum);
+      web3Ref.current = _web3;
+    })();
+  }, []);
   return (
     <StyledBasketCard>
       <CardHeader title='Basket' />

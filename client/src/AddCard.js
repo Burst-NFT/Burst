@@ -83,7 +83,7 @@ function AddCard({ setBasket }) {
 
       // build the initial erc20 contracts
       const contracts = assets.allIds.reduce((acc, assetAddress) => {
-        acc[assetAddress] = new _web3.eth.Contract(erc20Interface, assetAddress);
+        acc[assetAddress] = new web3Ref.current.eth.Contract(erc20Interface, assetAddress);
         return acc;
       }, {});
 
