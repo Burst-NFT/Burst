@@ -9,6 +9,7 @@ const CONNECT_TEXT = 'Connect';
 const CONNECTED_TEXT = 'Connected';
 
 const Button = styled(MuiButton)`
+  max-width: 200px;
   && {
     background-color: ${(props) => (props.disabled ? 'rgb(237, 247, 237)' : '')};
   }
@@ -32,7 +33,7 @@ function MetaMaskButton() {
   React.useEffect(() => {
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       if (accounts.length > 0) {
-        console.log(accounts);
+        // console.log(accounts);
         setButtonText(CONNECTED_TEXT);
         setDisabled(true);
         onboarding.current.stopOnboarding();
