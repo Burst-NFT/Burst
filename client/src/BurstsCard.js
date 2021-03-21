@@ -36,7 +36,7 @@ function BurstsCard() {
     const deployedNetwork = BurstNFTContract.networks[networkId];
     const contract = new web3Ref.current.eth.Contract(BurstNFTContract.abi, deployedNetwork && deployedNetwork.address);
 
-    const response = await contract.methods.destroyBurstWithMultiERC20(tokenId);
+    const response = await contract.methods.destroyBurstWithMultiERC20(tokenId).send({ from: window.ethereum?.selectedAddress });
     debugger;
     await handleCheckBurstsClick();
   };
@@ -51,10 +51,10 @@ function BurstsCard() {
     const _bursts = {};
     for (let i = 0; i < Number.parseInt(balance); i++) {
       const tokenId = await contract.methods.tokenOfOwnerByIndex(ownerAddress, i).call();
-      const nftInfo = await contract.methods.nftIndexToNftInfoMapping(tokenId).call();
+      const nftInfo = await contract.methods.getBurstNftInfo(tokenId).call();
       console.log(nftInfo);
-      // const assets = nftInfo.assetAddresses.map((val, idx) => ({ address: val, amount: nftInfo.assetAmounts[idx] }));
-      // _bursts[tokenId] = { tokenId, assets };
+      const assets = nftInfo[0].map((val, idx) => ({ address: val, amount: nftInfo[1][idx] }));
+      _bursts[tokenId] = { tokenId, assets };
     }
 
     setBursts(_bursts);
