@@ -34,13 +34,6 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
 
     // Mapping nft indexId to above struct
     mapping(uint256 => burstNftInfo) public nftIndexToNftInfoMapping;
-
-    function getBurstNftInfo(uint256 index) public view returns(address[] memory, uint256[] memory, address, bool) {
-        return (nftIndexToNftInfoMapping[index].assetAddresses,
-        nftIndexToNftInfoMapping[index].assetAmounts,
-        nftIndexToNftInfoMapping[index].creator, 
-        nftIndexToNftInfoMapping[index].exists);
-    }
     
     constructor () ERC721 ("Burst NFT", "BURST") {
     }
@@ -49,6 +42,17 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
      * Public Functions
      * ****************
      * */
+
+    /**
+    * @dev Public view function to get info on a Burst NFT
+    *
+    * */
+    function getBurstNftInfo(uint256 index) public view returns(address[] memory, uint256[] memory, address, bool) {
+        return (nftIndexToNftInfoMapping[index].assetAddresses,
+        nftIndexToNftInfoMapping[index].assetAmounts,
+        nftIndexToNftInfoMapping[index].creator, 
+        nftIndexToNftInfoMapping[index].exists);
+    }
     
     /**
     * @dev Public function to deposit ERC20 and mint Burst NFT
