@@ -165,9 +165,7 @@ function BurstsCard() {
             {Object.keys(bursts).map((tokenId) => (
               <ListItem key={tokenId} alignItems='flex-start'>
                 <ListItemAvatar>
-                  <Avatar>
-                    <MonetizationOnIcon />
-                  </Avatar>
+                  <Avatar src='/burst40.png' />
                 </ListItemAvatar>
                 <ListItemText
                   primary='BURST'
