@@ -21,8 +21,11 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
+    // Address that can create specific changes in the protocol (e.g., change creatorFee or trigger emergencyBurst)
+    address public governance;
+
     // CreatorFee is the percentage of the erc20 that will go to the creator once the NFT is destroyed 
-    uint256 public creatorFee = 2;
+    uint256 public creatorFee;
     
     // Provides a struct to capture asset address and amount information, nft creator address, and bool of if nft exists or has been destroyed
     struct burstNftInfo {
@@ -35,7 +38,9 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     // Mapping nft indexId to above struct
     mapping(uint256 => burstNftInfo) public nftIndexToNftInfoMapping;
     
-    constructor () ERC721 ("Burst NFT", "BURST") {
+    constructor (address _governance, uint256 _creatorFee) ERC721 ("Burst NFT", "BURST") {
+        governance = _governance;
+        creatorFee = _creatorFee;
     }
     
     /* ****************
@@ -89,12 +94,44 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
             releaseErc20(_tokenId, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
         }
         burn(_tokenId);
-        nftIndexToNftInfoMapping[_tokenIds.current()].exists = false;
+        nftIndexToNftInfoMapping[_tokenId].exists = false;
     }
 
-    /* ****************
+    /**
+     * @dev Public function to burn Burst NFT via governance address and send erc20 assets to any address
+     *
+     * */
+    // function emergencyDestroyBurst(uint256 _tokenId, address _recipient) public {
+    //     require(msg.sender == governance, "!governance");
+    //     for (uint256 i=0; i<nftIndexToNftInfoMapping[_tokenId].assetAddresses.length; i++) {
+    //         emergencyReleaseErc20(_tokenId, _recipient, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
+    //     }
+    //     burn(_tokenId);
+    //     nftIndexToNftInfoMapping[_tokenId].exists = false;
+    // }
+
+    /**
+     * @dev Public function to set the Governane address for the protocol
+     *
+     * */
+    function setGovernance(address _governance) public {
+        require(msg.sender == governance, "!governance");
+        governance = _governance;
+    } 
+
+    /**
+     * @dev Public function to set the NFT Creator Fee for the protocol
+     * Should be a number 0 through 100 that represents a percentage
+     *
+     * */
+    function setCreatorFee(uint _creatorFee) public {
+        require(msg.sender == governance, "!governance");
+        creatorFee = _creatorFee;
+    }
+
+    /* ******************
      * Internal Functions
-     * ****************
+     * ******************
      * */
 
     /**
@@ -124,7 +161,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     {
         uint256 newItemId = _tokenIds.current();
         _safeMint(msg.sender, newItemId);
-        // _setTokenURI(newItemId, _tokenURI); //Taken out
+        approve(governance, newItemId);
         _tokenIds.increment();
         return newItemId;
     }
@@ -146,6 +183,26 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         _transferErc20(nftIndexToNftInfoMapping[_tokenId].creator, _tokenContract, creatorFeeAmount);
         _transferErc20(_msgSender(), _tokenContract, tokenAmount.sub(creatorFeeAmount));
     }
+
+    /**
+     * @dev Internal function to emergency release erc20 through governance
+     * Maintains sending creator fee to creator address
+     *
+     * */
+    // function emergencyReleaseErc20(
+    //     uint256 _tokenId,
+    //     address _recipient,
+    //     address _tokenContract,
+    //     uint256 i
+    // )
+    //     internal
+    // {
+    //     uint256 tokenAmount = nftIndexToNftInfoMapping[_tokenId].assetAmounts[i];
+    //     require(tokenAmount > 0, "NFT does not hold ERC20 asset");
+    //     uint256 creatorFeeAmount = tokenAmount.mul(creatorFee).div(100);
+    //     _transferErc20(nftIndexToNftInfoMapping[_tokenId].creator, _tokenContract, creatorFeeAmount);
+    //     _transferErc20(_recipient, _tokenContract, tokenAmount.sub(creatorFeeAmount));
+    // }
 
     /**
      * @dev Internal function to transfer ERC20 held in the contract
