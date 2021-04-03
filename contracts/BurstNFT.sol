@@ -101,14 +101,14 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
      * @dev Public function to burn Burst NFT via governance address and send erc20 assets to any address
      *
      * */
-    // function emergencyDestroyBurst(uint256 _tokenId, address _recipient) public {
-    //     require(msg.sender == governance, "!governance");
-    //     for (uint256 i=0; i<nftIndexToNftInfoMapping[_tokenId].assetAddresses.length; i++) {
-    //         emergencyReleaseErc20(_tokenId, _recipient, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
-    //     }
-    //     burn(_tokenId);
-    //     nftIndexToNftInfoMapping[_tokenId].exists = false;
-    // }
+    function emergencyDestroyBurst(uint256 _tokenId, address _recipient) public {
+        require(msg.sender == governance, "!governance");
+        for (uint256 i=0; i<nftIndexToNftInfoMapping[_tokenId].assetAddresses.length; i++) {
+            emergencyReleaseErc20(_tokenId, _recipient, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
+        }
+        burn(_tokenId);
+        nftIndexToNftInfoMapping[_tokenId].exists = false;
+    }
 
     /**
      * @dev Public function to set the Governane address for the protocol
@@ -189,20 +189,20 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
      * Maintains sending creator fee to creator address
      *
      * */
-    // function emergencyReleaseErc20(
-    //     uint256 _tokenId,
-    //     address _recipient,
-    //     address _tokenContract,
-    //     uint256 i
-    // )
-    //     internal
-    // {
-    //     uint256 tokenAmount = nftIndexToNftInfoMapping[_tokenId].assetAmounts[i];
-    //     require(tokenAmount > 0, "NFT does not hold ERC20 asset");
-    //     uint256 creatorFeeAmount = tokenAmount.mul(creatorFee).div(100);
-    //     _transferErc20(nftIndexToNftInfoMapping[_tokenId].creator, _tokenContract, creatorFeeAmount);
-    //     _transferErc20(_recipient, _tokenContract, tokenAmount.sub(creatorFeeAmount));
-    // }
+    function emergencyReleaseErc20(
+        uint256 _tokenId,
+        address _recipient,
+        address _tokenContract,
+        uint256 i
+    )
+        internal
+    {
+        uint256 tokenAmount = nftIndexToNftInfoMapping[_tokenId].assetAmounts[i];
+        require(tokenAmount > 0, "NFT does not hold ERC20 asset");
+        uint256 creatorFeeAmount = tokenAmount.mul(creatorFee).div(100);
+        _transferErc20(nftIndexToNftInfoMapping[_tokenId].creator, _tokenContract, creatorFeeAmount);
+        _transferErc20(_recipient, _tokenContract, tokenAmount.sub(creatorFeeAmount));
+    }
 
     /**
      * @dev Internal function to transfer ERC20 held in the contract
