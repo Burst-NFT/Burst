@@ -6,7 +6,7 @@ require("dotenv").config({path: "../.env"});
 
 module.exports = async (deployer) => {
 
-  await deployer.deploy(BurstNFT, process.env.GOVERNANCE, process.env.INITIAL_CREATORFEE);
+  await deployer.deploy(BurstNFT, process.env.GOVERNANCE, process.env.INITIAL_CREATORFEE, "https://gateway.pinata.cloud/ipfs/");
   await deployer.deploy(TestToken1, "100000000000000000000000");
   await deployer.deploy(TestToken2, "100000000000000000000000");
   await deployer.deploy(TestToken3, "100000000000000000000000");  
