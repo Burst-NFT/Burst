@@ -100,7 +100,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     }
 
     /**
-     * @dev Public function to set the Governane address for the protocol
+     * @dev Public function to set the Governace address for the protocol
      *
      * */
     function setGovernance(address _governance) public {

@@ -30,8 +30,8 @@ const pinJSONToIPFS = (pinataApiKey, pinataSecretApiKey, _JSONBody) => {
             }
         })
         .then(function (response) {
-          console.log(response);
-            return response;
+          console.log(response.data.IpfsHash);
+            return response.data.IpfsHash;
         })
         .catch(function (error) {
           console.log(pinataApiKey);
@@ -95,9 +95,9 @@ function BasketCard({ basket, setBasket }) {
     const assetArray = [];
     addresses.forEach((address, i) => assetArray[i] = {"token_address": address, "token_amount": amounts[i]});
     NFTJSON.pinataContent.assets = assetArray;
-    const tokenURI = pinJSONToIPFS("f556fc9bed55416eb9e8", "571cf44a353d9634e85e01c603d7fb03188e1bff14b04c5b3b3f579edb4ce900", NFTJSON);
+    const IPFSResponse = await pinJSONToIPFS("f556fc9bed55416eb9e8", "571cf44a353d9634e85e01c603d7fb03188e1bff14b04c5b3b3f579edb4ce900", NFTJSON);
 
-    const response = await contract.methods.createBurstWithMultiErc20(addresses, amounts, tokenURI).send({ from: window.ethereum?.selectedAddress });
+    const response = await contract.methods.createBurstWithMultiErc20(addresses, amounts, IPFSResponse).send({ from: window.ethereum?.selectedAddress });
     debugger;
   };
 
