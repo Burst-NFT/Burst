@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import Avatar from '@material-ui/core/Avatar';
-import MetaMaskButton from './MetaMaskButton';
+import ConnectToWallet from './components/Wallet/ConnectToWallet';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -47,8 +47,7 @@ function Header() {
             </Link>
           </SiteNav>
           <AccountInfo>
-            <AccountBursts />
-            <MetaMaskButton />
+            <ConnectToWallet />
             <IconButton href='https://github.com/Burst-NFT/Burst' target='_blank' color='primary'>
               <GitHubIcon />
             </IconButton>
