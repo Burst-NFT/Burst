@@ -345,9 +345,15 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721Metadata.sol",
     "exportedSymbols": {
-      "IERC165": [628],
-      "IERC721": [2654],
-      "IERC721Metadata": [2712]
+      "IERC165": [
+        628
+      ],
+      "IERC721": [
+        2654
+      ],
+      "IERC721Metadata": [
+        2712
+      ]
     },
     "id": 2713,
     "license": "MIT",
@@ -355,7 +361,15 @@
     "nodes": [
       {
         "id": 2687,
-        "literals": ["solidity", ">=", "0.6", ".2", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".2",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:14"
       },
@@ -390,7 +404,10 @@
             "src": "254:7:14"
           }
         ],
-        "contractDependencies": [628, 2654],
+        "contractDependencies": [
+          628,
+          2654
+        ],
         "contractKind": "interface",
         "documentation": {
           "id": 2689,
@@ -400,7 +417,11 @@
         },
         "fullyImplemented": false,
         "id": 2712,
-        "linearizedBaseContracts": [2712, 2654, 628],
+        "linearizedBaseContracts": [
+          2712,
+          2654,
+          628
+        ],
         "name": "IERC721Metadata",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -619,16 +640,30 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721Metadata.sol",
       "exportedSymbols": {
-        "IERC165": [628],
-        "IERC721": [2654],
-        "IERC721Metadata": [2712]
+        "IERC165": [
+          628
+        ],
+        "IERC721": [
+          2654
+        ],
+        "IERC721Metadata": [
+          2712
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".2", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".2",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 2687,
         "name": "PragmaDirective",
@@ -640,7 +675,9 @@
           "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
           "file": "./IERC721.sol",
           "scope": 2713,
-          "symbolAliases": [null],
+          "symbolAliases": [
+            null
+          ],
           "unitAlias": ""
         },
         "id": 2688,
@@ -650,10 +687,17 @@
       {
         "attributes": {
           "abstract": false,
-          "contractDependencies": [628, 2654],
+          "contractDependencies": [
+            628,
+            2654
+          ],
           "contractKind": "interface",
           "fullyImplemented": false,
-          "linearizedBaseContracts": [2712, 2654, 628],
+          "linearizedBaseContracts": [
+            2712,
+            2654,
+            628
+          ],
           "name": "IERC721Metadata",
           "scope": 2713
         },
@@ -690,7 +734,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "name",
               "scope": 2712,
               "stateMutability": "view",
@@ -708,7 +754,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 2693,
@@ -759,7 +807,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "symbol",
               "scope": 2712,
               "stateMutability": "view",
@@ -777,7 +827,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 2699,
@@ -828,7 +880,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "tokenURI",
               "scope": 2712,
               "stateMutability": "view",
@@ -931,7 +985,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.848Z",
+  "updatedAt": "2021-04-18T03:13:20.662Z",
   "devdoc": {
     "details": "See https://eips.ethereum.org/EIPS/eip-721",
     "kind": "dev",

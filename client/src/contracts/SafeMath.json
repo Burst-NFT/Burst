@@ -14,7 +14,9 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/math/SafeMath.sol",
     "exportedSymbols": {
-      "SafeMath": [983]
+      "SafeMath": [
+        983
+      ]
     },
     "id": 984,
     "license": "MIT",
@@ -22,7 +24,15 @@
     "nodes": [
       {
         "id": 630,
-        "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:7"
       },
@@ -39,7 +49,9 @@
         },
         "fullyImplemented": true,
         "id": 983,
-        "linearizedBaseContracts": [983],
+        "linearizedBaseContracts": [
+          983
+        ],
         "name": "SafeMath",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -50,7 +62,9 @@
               "src": "865:98:7",
               "statements": [
                 {
-                  "assignments": [644],
+                  "assignments": [
+                    644
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -851,7 +865,9 @@
                   }
                 },
                 {
-                  "assignments": [710],
+                  "assignments": [
+                    710
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -1910,7 +1926,9 @@
               "src": "2757:108:7",
               "statements": [
                 {
-                  "assignments": [795],
+                  "assignments": [
+                    795
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -2061,7 +2079,10 @@
                       "id": 800,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "2794:7:7",
                       "typeDescriptions": {
@@ -2300,7 +2321,10 @@
                       "id": 820,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "3213:7:7",
                       "typeDescriptions": {
@@ -2567,7 +2591,9 @@
                   }
                 },
                 {
-                  "assignments": [849],
+                  "assignments": [
+                    849
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -2748,7 +2774,10 @@
                       "id": 854,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "3672:7:7",
                       "typeDescriptions": {
@@ -2991,7 +3020,10 @@
                       "id": 876,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "4294:7:7",
                       "typeDescriptions": {
@@ -3264,7 +3296,10 @@
                       "id": 898,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "4897:7:7",
                       "typeDescriptions": {
@@ -3529,7 +3564,10 @@
                       "id": 922,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "5537:7:7",
                       "typeDescriptions": {
@@ -3824,7 +3862,10 @@
                       "id": 946,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "6357:7:7",
                       "typeDescriptions": {
@@ -4119,7 +4160,10 @@
                       "id": 970,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "7165:7:7",
                       "typeDescriptions": {
@@ -4343,14 +4387,24 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/math/SafeMath.sol",
       "exportedSymbols": {
-        "SafeMath": [983]
+        "SafeMath": [
+          983
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 630,
         "name": "PragmaDirective",
@@ -4359,11 +4413,17 @@
       {
         "attributes": {
           "abstract": false,
-          "baseContracts": [null],
-          "contractDependencies": [null],
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
           "contractKind": "library",
           "fullyImplemented": true,
-          "linearizedBaseContracts": [983],
+          "linearizedBaseContracts": [
+            983
+          ],
           "name": "SafeMath",
           "scope": 984
         },
@@ -4381,7 +4441,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "tryAdd",
               "scope": 983,
               "stateMutability": "pure",
@@ -4519,7 +4581,9 @@
                 "children": [
                   {
                     "attributes": {
-                      "assignments": [644]
+                      "assignments": [
+                        644
+                      ]
                     },
                     "children": [
                       {
@@ -4564,7 +4628,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 634,
                               "type": "uint256",
                               "value": "a"
@@ -4575,7 +4641,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 636,
                               "type": "uint256",
                               "value": "b"
@@ -4613,7 +4681,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 644,
                               "type": "uint256",
                               "value": "c"
@@ -4624,7 +4694,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 634,
                               "type": "uint256",
                               "value": "a"
@@ -4730,7 +4802,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 644,
                               "type": "uint256",
                               "value": "c"
@@ -4764,7 +4838,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "trySub",
               "scope": 983,
               "stateMutability": "pure",
@@ -4919,7 +4995,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 667,
                               "type": "uint256",
                               "value": "b"
@@ -4930,7 +5008,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 665,
                               "type": "uint256",
                               "value": "a"
@@ -5050,7 +5130,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 665,
                                   "type": "uint256",
                                   "value": "a"
@@ -5061,7 +5143,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 667,
                                   "type": "uint256",
                                   "value": "b"
@@ -5100,7 +5184,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "tryMul",
               "scope": 983,
               "stateMutability": "pure",
@@ -5255,7 +5341,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 692,
                               "type": "uint256",
                               "value": "a"
@@ -5346,7 +5434,9 @@
                   },
                   {
                     "attributes": {
-                      "assignments": [710]
+                      "assignments": [
+                        710
+                      ]
                     },
                     "children": [
                       {
@@ -5391,7 +5481,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 692,
                               "type": "uint256",
                               "value": "a"
@@ -5402,7 +5494,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 694,
                               "type": "uint256",
                               "value": "b"
@@ -5454,7 +5548,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 710,
                                   "type": "uint256",
                                   "value": "c"
@@ -5465,7 +5561,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 692,
                                   "type": "uint256",
                                   "value": "a"
@@ -5481,7 +5579,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 694,
                               "type": "uint256",
                               "value": "b"
@@ -5587,7 +5687,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 710,
                               "type": "uint256",
                               "value": "c"
@@ -5621,7 +5723,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "tryDiv",
               "scope": 983,
               "stateMutability": "pure",
@@ -5776,7 +5880,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 735,
                               "type": "uint256",
                               "value": "b"
@@ -5911,7 +6017,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 733,
                                   "type": "uint256",
                                   "value": "a"
@@ -5922,7 +6030,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 735,
                                   "type": "uint256",
                                   "value": "b"
@@ -5961,7 +6071,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "tryMod",
               "scope": 983,
               "stateMutability": "pure",
@@ -6116,7 +6228,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 762,
                               "type": "uint256",
                               "value": "b"
@@ -6251,7 +6365,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 760,
                                   "type": "uint256",
                                   "value": "a"
@@ -6262,7 +6378,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 762,
                                   "type": "uint256",
                                   "value": "b"
@@ -6301,7 +6419,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "add",
               "scope": 983,
               "stateMutability": "pure",
@@ -6413,7 +6533,9 @@
                 "children": [
                   {
                     "attributes": {
-                      "assignments": [795]
+                      "assignments": [
+                        795
+                      ]
                     },
                     "children": [
                       {
@@ -6458,7 +6580,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 787,
                               "type": "uint256",
                               "value": "a"
@@ -6469,7 +6593,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 789,
                               "type": "uint256",
                               "value": "b"
@@ -6497,7 +6623,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -6515,7 +6643,10 @@
                                   "typeString": "literal_string \"SafeMath: addition overflow\""
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -6540,7 +6671,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 795,
                                   "type": "uint256",
                                   "value": "c"
@@ -6551,7 +6684,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 787,
                                   "type": "uint256",
                                   "value": "a"
@@ -6597,7 +6732,9 @@
                     "children": [
                       {
                         "attributes": {
-                          "overloadedDeclarations": [null],
+                          "overloadedDeclarations": [
+                            null
+                          ],
                           "referencedDeclaration": 795,
                           "type": "uint256",
                           "value": "c"
@@ -6626,7 +6763,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "sub",
               "scope": 983,
               "stateMutability": "pure",
@@ -6745,7 +6884,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -6763,7 +6904,10 @@
                                   "typeString": "literal_string \"SafeMath: subtraction overflow\""
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -6788,7 +6932,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 815,
                                   "type": "uint256",
                                   "value": "b"
@@ -6799,7 +6945,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 813,
                                   "type": "uint256",
                                   "value": "a"
@@ -6859,7 +7007,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 813,
                               "type": "uint256",
                               "value": "a"
@@ -6870,7 +7020,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 815,
                               "type": "uint256",
                               "value": "b"
@@ -6904,7 +7056,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "mul",
               "scope": 983,
               "stateMutability": "pure",
@@ -7033,7 +7187,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 835,
                               "type": "uint256",
                               "value": "a"
@@ -7094,7 +7250,9 @@
                   },
                   {
                     "attributes": {
-                      "assignments": [849]
+                      "assignments": [
+                        849
+                      ]
                     },
                     "children": [
                       {
@@ -7139,7 +7297,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 835,
                               "type": "uint256",
                               "value": "a"
@@ -7150,7 +7310,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 837,
                               "type": "uint256",
                               "value": "b"
@@ -7178,7 +7340,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -7196,7 +7360,10 @@
                                   "typeString": "literal_string \"SafeMath: multiplication overflow\""
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -7235,7 +7402,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 849,
                                       "type": "uint256",
                                       "value": "c"
@@ -7246,7 +7415,9 @@
                                   },
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 835,
                                       "type": "uint256",
                                       "value": "a"
@@ -7262,7 +7433,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 837,
                                   "type": "uint256",
                                   "value": "b"
@@ -7308,7 +7481,9 @@
                     "children": [
                       {
                         "attributes": {
-                          "overloadedDeclarations": [null],
+                          "overloadedDeclarations": [
+                            null
+                          ],
                           "referencedDeclaration": 849,
                           "type": "uint256",
                           "value": "c"
@@ -7337,7 +7512,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "div",
               "scope": 983,
               "stateMutability": "pure",
@@ -7456,7 +7633,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -7474,7 +7653,10 @@
                                   "typeString": "literal_string \"SafeMath: division by zero\""
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -7499,7 +7681,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 871,
                                   "type": "uint256",
                                   "value": "b"
@@ -7574,7 +7758,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 869,
                               "type": "uint256",
                               "value": "a"
@@ -7585,7 +7771,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 871,
                               "type": "uint256",
                               "value": "b"
@@ -7619,7 +7807,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "mod",
               "scope": 983,
               "stateMutability": "pure",
@@ -7738,7 +7928,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -7756,7 +7948,10 @@
                                   "typeString": "literal_string \"SafeMath: modulo by zero\""
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -7781,7 +7976,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 893,
                                   "type": "uint256",
                                   "value": "b"
@@ -7856,7 +8053,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 891,
                               "type": "uint256",
                               "value": "a"
@@ -7867,7 +8066,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 893,
                               "type": "uint256",
                               "value": "b"
@@ -7901,7 +8102,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "sub",
               "scope": 983,
               "stateMutability": "pure",
@@ -8046,7 +8249,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -8064,7 +8269,10 @@
                                   "typeString": "string memory"
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -8089,7 +8297,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 915,
                                   "type": "uint256",
                                   "value": "b"
@@ -8100,7 +8310,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 913,
                                   "type": "uint256",
                                   "value": "a"
@@ -8116,7 +8328,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 917,
                               "type": "string memory",
                               "value": "errorMessage"
@@ -8156,7 +8370,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 913,
                               "type": "uint256",
                               "value": "a"
@@ -8167,7 +8383,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 915,
                               "type": "uint256",
                               "value": "b"
@@ -8201,7 +8419,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "div",
               "scope": 983,
               "stateMutability": "pure",
@@ -8346,7 +8566,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -8364,7 +8586,10 @@
                                   "typeString": "string memory"
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -8389,7 +8614,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 939,
                                   "type": "uint256",
                                   "value": "b"
@@ -8420,7 +8647,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 941,
                               "type": "string memory",
                               "value": "errorMessage"
@@ -8460,7 +8689,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 937,
                               "type": "uint256",
                               "value": "a"
@@ -8471,7 +8702,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 939,
                               "type": "uint256",
                               "value": "b"
@@ -8505,7 +8738,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "mod",
               "scope": 983,
               "stateMutability": "pure",
@@ -8650,7 +8885,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -8668,7 +8905,10 @@
                                   "typeString": "string memory"
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -8693,7 +8933,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 963,
                                   "type": "uint256",
                                   "value": "b"
@@ -8724,7 +8966,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 965,
                               "type": "string memory",
                               "value": "errorMessage"
@@ -8764,7 +9008,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 961,
                               "type": "uint256",
                               "value": "a"
@@ -8775,7 +9021,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 963,
                               "type": "uint256",
                               "value": "b"
@@ -8820,7 +9068,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.750Z",
+  "updatedAt": "2021-04-18T03:13:20.626Z",
   "devdoc": {
     "details": "Wrappers over Solidity's arithmetic operations with added overflow checks. Arithmetic operations in Solidity wrap on overflow. This can easily result in bugs, because programmers usually assume that an overflow raises an error, which is the standard behavior in high level programming languages. `SafeMath` restores this intuition by reverting the transaction when an operation overflows. Using this library instead of the unchecked operations eliminates an entire class of bugs, so it's recommended to use it always.",
     "kind": "dev",

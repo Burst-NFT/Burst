@@ -198,7 +198,9 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
     "exportedSymbols": {
-      "IERC20": [1564]
+      "IERC20": [
+        1564
+      ]
     },
     "id": 1565,
     "license": "MIT",
@@ -206,7 +208,15 @@
     "nodes": [
       {
         "id": 1488,
-        "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:9"
       },
@@ -223,7 +233,9 @@
         },
         "fullyImplemented": false,
         "id": 1564,
-        "linearizedBaseContracts": [1564],
+        "linearizedBaseContracts": [
+          1564
+        ],
         "name": "IERC20",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -1070,14 +1082,24 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "exportedSymbols": {
-        "IERC20": [1564]
+        "IERC20": [
+          1564
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 1488,
         "name": "PragmaDirective",
@@ -1086,11 +1108,17 @@
       {
         "attributes": {
           "abstract": false,
-          "baseContracts": [null],
-          "contractDependencies": [null],
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
           "contractKind": "interface",
           "fullyImplemented": false,
-          "linearizedBaseContracts": [1564],
+          "linearizedBaseContracts": [
+            1564
+          ],
           "name": "IERC20",
           "scope": 1565
         },
@@ -1109,7 +1137,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "totalSupply",
               "scope": 1564,
               "stateMutability": "view",
@@ -1127,7 +1157,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 1491,
@@ -1178,7 +1210,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "balanceOf",
               "scope": 1564,
               "stateMutability": "view",
@@ -1272,7 +1306,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "transfer",
               "scope": 1564,
               "stateMutability": "nonpayable",
@@ -1392,7 +1428,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "allowance",
               "scope": 1564,
               "stateMutability": "view",
@@ -1513,7 +1551,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "approve",
               "scope": 1564,
               "stateMutability": "nonpayable",
@@ -1633,7 +1673,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "transferFrom",
               "scope": 1564,
               "stateMutability": "nonpayable",
@@ -2008,7 +2050,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.798Z",
+  "updatedAt": "2021-04-18T03:13:20.640Z",
   "devdoc": {
     "details": "Interface of the ERC20 standard as defined in the EIP.",
     "events": {

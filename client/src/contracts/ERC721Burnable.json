@@ -427,20 +427,48 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol",
     "exportedSymbols": {
-      "Address": [3026],
-      "Context": [3049],
-      "ERC165": [616],
-      "ERC721": [2508],
-      "ERC721Burnable": [2538],
-      "EnumerableMap": [3659],
-      "EnumerableSet": [4151],
-      "IERC165": [628],
-      "IERC721": [2654],
-      "IERC721Enumerable": [2685],
-      "IERC721Metadata": [2712],
-      "IERC721Receiver": [2730],
-      "SafeMath": [983],
-      "Strings": [4238]
+      "Address": [
+        3026
+      ],
+      "Context": [
+        3049
+      ],
+      "ERC165": [
+        616
+      ],
+      "ERC721": [
+        2508
+      ],
+      "ERC721Burnable": [
+        2538
+      ],
+      "EnumerableMap": [
+        3659
+      ],
+      "EnumerableSet": [
+        4151
+      ],
+      "IERC165": [
+        628
+      ],
+      "IERC721": [
+        2654
+      ],
+      "IERC721Enumerable": [
+        2685
+      ],
+      "IERC721Metadata": [
+        2712
+      ],
+      "IERC721Receiver": [
+        2730
+      ],
+      "SafeMath": [
+        983
+      ],
+      "Strings": [
+        4238
+      ]
     },
     "id": 2539,
     "license": "MIT",
@@ -448,7 +476,15 @@
     "nodes": [
       {
         "id": 2510,
-        "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:11"
       },
@@ -510,7 +546,15 @@
             "src": "275:6:11"
           }
         ],
-        "contractDependencies": [616, 628, 2508, 2654, 2685, 2712, 3049],
+        "contractDependencies": [
+          616,
+          628,
+          2508,
+          2654,
+          2685,
+          2712,
+          3049
+        ],
         "contractKind": "contract",
         "documentation": {
           "id": 2513,
@@ -520,7 +564,16 @@
         },
         "fullyImplemented": false,
         "id": 2538,
-        "linearizedBaseContracts": [2538, 2508, 2685, 2712, 2654, 616, 628, 3049],
+        "linearizedBaseContracts": [
+          2538,
+          2508,
+          2685,
+          2712,
+          2654,
+          616,
+          628,
+          3049
+        ],
         "name": "ERC721Burnable",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -646,7 +699,10 @@
                       "id": 2523,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "563:7:11",
                       "typeDescriptions": {
@@ -797,27 +853,63 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol",
       "exportedSymbols": {
-        "Address": [3026],
-        "Context": [3049],
-        "ERC165": [616],
-        "ERC721": [2508],
-        "ERC721Burnable": [2538],
-        "EnumerableMap": [3659],
-        "EnumerableSet": [4151],
-        "IERC165": [628],
-        "IERC721": [2654],
-        "IERC721Enumerable": [2685],
-        "IERC721Metadata": [2712],
-        "IERC721Receiver": [2730],
-        "SafeMath": [983],
-        "Strings": [4238]
+        "Address": [
+          3026
+        ],
+        "Context": [
+          3049
+        ],
+        "ERC165": [
+          616
+        ],
+        "ERC721": [
+          2508
+        ],
+        "ERC721Burnable": [
+          2538
+        ],
+        "EnumerableMap": [
+          3659
+        ],
+        "EnumerableSet": [
+          4151
+        ],
+        "IERC165": [
+          628
+        ],
+        "IERC721": [
+          2654
+        ],
+        "IERC721Enumerable": [
+          2685
+        ],
+        "IERC721Metadata": [
+          2712
+        ],
+        "IERC721Receiver": [
+          2730
+        ],
+        "SafeMath": [
+          983
+        ],
+        "Strings": [
+          4238
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 2510,
         "name": "PragmaDirective",
@@ -829,7 +921,9 @@
           "absolutePath": "@openzeppelin/contracts/utils/Context.sol",
           "file": "../../utils/Context.sol",
           "scope": 2539,
-          "symbolAliases": [null],
+          "symbolAliases": [
+            null
+          ],
           "unitAlias": ""
         },
         "id": 2511,
@@ -842,7 +936,9 @@
           "absolutePath": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
           "file": "./ERC721.sol",
           "scope": 2539,
-          "symbolAliases": [null],
+          "symbolAliases": [
+            null
+          ],
           "unitAlias": ""
         },
         "id": 2512,
@@ -852,10 +948,27 @@
       {
         "attributes": {
           "abstract": true,
-          "contractDependencies": [616, 628, 2508, 2654, 2685, 2712, 3049],
+          "contractDependencies": [
+            616,
+            628,
+            2508,
+            2654,
+            2685,
+            2712,
+            3049
+          ],
           "contractKind": "contract",
           "fullyImplemented": false,
-          "linearizedBaseContracts": [2538, 2508, 2685, 2712, 2654, 616, 628, 3049],
+          "linearizedBaseContracts": [
+            2538,
+            2508,
+            2685,
+            2712,
+            2654,
+            616,
+            628,
+            3049
+          ],
           "name": "ERC721Burnable",
           "scope": 2539
         },
@@ -910,7 +1023,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "burn",
               "scope": 2538,
               "stateMutability": "nonpayable",
@@ -961,7 +1076,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 2522,
@@ -979,7 +1096,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -997,7 +1116,10 @@
                                   "typeString": "literal_string \"ERC721Burnable: caller is not owner nor approved\""
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -1013,7 +1135,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "bool",
                               "type_conversion": false
@@ -1031,7 +1155,9 @@
                                       "typeString": "uint256"
                                     }
                                   ],
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 2137,
                                   "type": "function (address,uint256) view returns (bool)",
                                   "value": "_isApprovedOrOwner"
@@ -1042,13 +1168,17 @@
                               },
                               {
                                 "attributes": {
-                                  "arguments": [null],
+                                  "arguments": [
+                                    null
+                                  ],
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "tryCall": false,
                                   "type": "address payable",
                                   "type_conversion": false
@@ -1056,8 +1186,12 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "argumentTypes": [null],
-                                      "overloadedDeclarations": [null],
+                                      "argumentTypes": [
+                                        null
+                                      ],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3037,
                                       "type": "function () view returns (address payable)",
                                       "value": "_msgSender"
@@ -1073,7 +1207,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 2520,
                                   "type": "uint256",
                                   "value": "tokenId"
@@ -1121,7 +1257,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -1135,7 +1273,9 @@
                                   "typeString": "uint256"
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 2309,
                               "type": "function (uint256)",
                               "value": "_burn"
@@ -1146,7 +1286,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 2520,
                               "type": "uint256",
                               "value": "tokenId"
@@ -1191,7 +1333,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.821Z",
+  "updatedAt": "2021-04-18T03:13:20.655Z",
   "devdoc": {
     "details": "ERC721 Token that can be irreversibly burned (destroyed).",
     "kind": "dev",

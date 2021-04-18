@@ -14,7 +14,9 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/utils/EnumerableMap.sol",
     "exportedSymbols": {
-      "EnumerableMap": [3659]
+      "EnumerableMap": [
+        3659
+      ]
     },
     "id": 3660,
     "license": "MIT",
@@ -22,7 +24,15 @@
     "nodes": [
       {
         "id": 3101,
-        "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:19"
       },
@@ -39,7 +49,9 @@
         },
         "fullyImplemented": true,
         "id": 3659,
-        "linearizedBaseContracts": [3659],
+        "linearizedBaseContracts": [
+          3659
+        ],
         "name": "EnumerableMap",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -205,7 +217,9 @@
               "src": "1918:596:19",
               "statements": [
                 {
-                  "assignments": [3128],
+                  "assignments": [
+                    3128
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -564,7 +578,10 @@
                               "isPure": false,
                               "kind": "structConstructorCall",
                               "lValueRequested": false,
-                              "names": ["_key", "_value"],
+                              "names": [
+                                "_key",
+                                "_value"
+                              ],
                               "nodeType": "FunctionCall",
                               "src": "2161:38:19",
                               "tryCall": false,
@@ -923,7 +940,9 @@
               "src": "2752:1447:19",
               "statements": [
                 {
-                  "assignments": [3188],
+                  "assignments": [
+                    3188
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -1093,7 +1112,9 @@
                     "src": "2926:1224:19",
                     "statements": [
                       {
-                        "assignments": [3198],
+                        "assignments": [
+                          3198
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -1173,7 +1194,9 @@
                         "src": "3267:36:19"
                       },
                       {
-                        "assignments": [3204],
+                        "assignments": [
+                          3204
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -1282,7 +1305,9 @@
                         "src": "3317:43:19"
                       },
                       {
-                        "assignments": [3212],
+                        "assignments": [
+                          3212
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -2319,7 +2344,10 @@
                       "id": 3301,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "5037:7:19",
                       "typeDescriptions": {
@@ -2347,7 +2375,9 @@
                   "src": "5037:74:19"
                 },
                 {
-                  "assignments": [3311],
+                  "assignments": [
+                    3311
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -2655,7 +2685,9 @@
               "src": "5442:220:19",
               "statements": [
                 {
-                  "assignments": [3337],
+                  "assignments": [
+                    3337
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -3130,7 +3162,9 @@
               "src": "5889:232:19",
               "statements": [
                 {
-                  "assignments": [3373],
+                  "assignments": [
+                    3373
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -3295,7 +3329,10 @@
                       "id": 3379,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "5945:7:19",
                       "typeDescriptions": {
@@ -3549,7 +3586,9 @@
               "src": "6506:212:19",
               "statements": [
                 {
-                  "assignments": [3408],
+                  "assignments": [
+                    3408
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -3710,7 +3749,10 @@
                       "id": 3414,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [4294967278, 4294967278],
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
                       "referencedDeclaration": 4294967278,
                       "src": "6562:7:19",
                       "typeDescriptions": {
@@ -5109,7 +5151,10 @@
               "src": "8367:135:19",
               "statements": [
                 {
-                  "assignments": [3532, 3534],
+                  "assignments": [
+                    3532,
+                    3534
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -5616,7 +5661,10 @@
               "src": "8779:142:19",
               "statements": [
                 {
-                  "assignments": [3571, 3573],
+                  "assignments": [
+                    3571,
+                    3573
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -6229,7 +6277,10 @@
                                   "id": 3613,
                                   "name": "_get",
                                   "nodeType": "Identifier",
-                                  "overloadedDeclarations": [3395, 3430],
+                                  "overloadedDeclarations": [
+                                    3395,
+                                    3430
+                                  ],
                                   "referencedDeclaration": 3395,
                                   "src": "9202:4:19",
                                   "typeDescriptions": {
@@ -6626,7 +6677,10 @@
                                   "id": 3644,
                                   "name": "_get",
                                   "nodeType": "Identifier",
-                                  "overloadedDeclarations": [3395, 3430],
+                                  "overloadedDeclarations": [
+                                    3395,
+                                    3430
+                                  ],
                                   "referencedDeclaration": 3430,
                                   "src": "9679:4:19",
                                   "typeDescriptions": {
@@ -6931,14 +6985,24 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/utils/EnumerableMap.sol",
       "exportedSymbols": {
-        "EnumerableMap": [3659]
+        "EnumerableMap": [
+          3659
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 3101,
         "name": "PragmaDirective",
@@ -6947,11 +7011,17 @@
       {
         "attributes": {
           "abstract": false,
-          "baseContracts": [null],
-          "contractDependencies": [null],
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
           "contractKind": "library",
           "fullyImplemented": true,
-          "linearizedBaseContracts": [3659],
+          "linearizedBaseContracts": [
+            3659
+          ],
           "name": "EnumerableMap",
           "scope": 3660
         },
@@ -7129,7 +7199,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "_set",
               "scope": 3659,
               "stateMutability": "nonpayable",
@@ -7268,7 +7340,9 @@
                 "children": [
                   {
                     "attributes": {
-                      "assignments": [3128]
+                      "assignments": [
+                        3128
+                      ]
                     },
                     "children": [
                       {
@@ -7319,7 +7393,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3118,
                                   "type": "struct EnumerableMap.Map storage pointer",
                                   "value": "map"
@@ -7335,7 +7411,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3120,
                               "type": "bytes32",
                               "value": "key"
@@ -7372,7 +7450,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3128,
                               "type": "uint256",
                               "value": "keyIndex"
@@ -7412,7 +7492,9 @@
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "tryCall": false,
                                   "type": "tuple()",
                                   "type_conversion": false
@@ -7447,7 +7529,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3118,
                                               "type": "struct EnumerableMap.Map storage pointer",
                                               "value": "map"
@@ -7473,7 +7557,10 @@
                                       "isPure": false,
                                       "isStructConstructorCall": true,
                                       "lValueRequested": false,
-                                      "names": ["_key", "_value"],
+                                      "names": [
+                                        "_key",
+                                        "_value"
+                                      ],
                                       "tryCall": false,
                                       "type": "struct EnumerableMap.MapEntry memory",
                                       "type_conversion": false
@@ -7491,7 +7578,9 @@
                                               "typeString": "bytes32"
                                             }
                                           ],
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3107,
                                           "type": "type(struct EnumerableMap.MapEntry storage pointer)",
                                           "value": "MapEntry"
@@ -7502,7 +7591,9 @@
                                       },
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3120,
                                           "type": "bytes32",
                                           "value": "key"
@@ -7513,7 +7604,9 @@
                                       },
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3122,
                                           "type": "bytes32",
                                           "value": "value"
@@ -7571,7 +7664,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3118,
                                               "type": "struct EnumerableMap.Map storage pointer",
                                               "value": "map"
@@ -7587,7 +7682,9 @@
                                       },
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3120,
                                           "type": "bytes32",
                                           "value": "key"
@@ -7624,7 +7721,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3118,
                                               "type": "struct EnumerableMap.Map storage pointer",
                                               "value": "map"
@@ -7730,7 +7829,9 @@
                                             "children": [
                                               {
                                                 "attributes": {
-                                                  "overloadedDeclarations": [null],
+                                                  "overloadedDeclarations": [
+                                                    null
+                                                  ],
                                                   "referencedDeclaration": 3118,
                                                   "type": "struct EnumerableMap.Map storage pointer",
                                                   "value": "map"
@@ -7760,7 +7861,9 @@
                                             "children": [
                                               {
                                                 "attributes": {
-                                                  "overloadedDeclarations": [null],
+                                                  "overloadedDeclarations": [
+                                                    null
+                                                  ],
                                                   "referencedDeclaration": 3128,
                                                   "type": "uint256",
                                                   "value": "keyIndex"
@@ -7801,7 +7904,9 @@
                                   },
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3122,
                                       "type": "bytes32",
                                       "value": "value"
@@ -7870,7 +7975,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "_remove",
               "scope": 3659,
               "stateMutability": "nonpayable",
@@ -7983,7 +8090,9 @@
                 "children": [
                   {
                     "attributes": {
-                      "assignments": [3188]
+                      "assignments": [
+                        3188
+                      ]
                     },
                     "children": [
                       {
@@ -8034,7 +8143,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3180,
                                   "type": "struct EnumerableMap.Map storage pointer",
                                   "value": "map"
@@ -8050,7 +8161,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3182,
                               "type": "bytes32",
                               "value": "key"
@@ -8087,7 +8200,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3188,
                               "type": "uint256",
                               "value": "keyIndex"
@@ -8120,7 +8235,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "assignments": [3198]
+                              "assignments": [
+                                3198
+                              ]
                             },
                             "children": [
                               {
@@ -8165,7 +8282,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3188,
                                       "type": "uint256",
                                       "value": "keyIndex"
@@ -8201,7 +8320,9 @@
                           },
                           {
                             "attributes": {
-                              "assignments": [3204]
+                              "assignments": [
+                                3204
+                              ]
                             },
                             "children": [
                               {
@@ -8267,7 +8388,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3180,
                                               "type": "struct EnumerableMap.Map storage pointer",
                                               "value": "map"
@@ -8313,7 +8436,9 @@
                           },
                           {
                             "attributes": {
-                              "assignments": [3212]
+                              "assignments": [
+                                3212
+                              ]
                             },
                             "children": [
                               {
@@ -8365,7 +8490,9 @@
                                     "children": [
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3180,
                                           "type": "struct EnumerableMap.Map storage pointer",
                                           "value": "map"
@@ -8381,7 +8508,9 @@
                                   },
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3204,
                                       "type": "uint256",
                                       "value": "lastIndex"
@@ -8434,7 +8563,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3180,
                                               "type": "struct EnumerableMap.Map storage pointer",
                                               "value": "map"
@@ -8450,7 +8581,9 @@
                                       },
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3198,
                                           "type": "uint256",
                                           "value": "toDeleteIndex"
@@ -8466,7 +8599,9 @@
                                   },
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3212,
                                       "type": "struct EnumerableMap.MapEntry storage pointer",
                                       "value": "lastEntry"
@@ -8519,7 +8654,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3180,
                                               "type": "struct EnumerableMap.Map storage pointer",
                                               "value": "map"
@@ -8546,7 +8683,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3212,
                                               "type": "struct EnumerableMap.MapEntry storage pointer",
                                               "value": "lastEntry"
@@ -8581,7 +8720,9 @@
                                     "children": [
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3198,
                                           "type": "uint256",
                                           "value": "toDeleteIndex"
@@ -8624,13 +8765,17 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "arguments": [null],
+                                  "arguments": [
+                                    null
+                                  ],
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "tryCall": false,
                                   "type": "tuple()",
                                   "type_conversion": false
@@ -8638,7 +8783,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "argumentTypes": [null],
+                                      "argumentTypes": [
+                                        null
+                                      ],
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": false,
@@ -8660,7 +8807,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3180,
                                               "type": "struct EnumerableMap.Map storage pointer",
                                               "value": "map"
@@ -8724,7 +8873,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3180,
                                               "type": "struct EnumerableMap.Map storage pointer",
                                               "value": "map"
@@ -8740,7 +8891,9 @@
                                       },
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3182,
                                           "type": "bytes32",
                                           "value": "key"
@@ -8846,7 +8999,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "_contains",
               "scope": 3659,
               "stateMutability": "view",
@@ -8998,7 +9153,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3261,
                                       "type": "struct EnumerableMap.Map storage pointer",
                                       "value": "map"
@@ -9014,7 +9171,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3263,
                                   "type": "bytes32",
                                   "value": "key"
@@ -9068,7 +9227,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "_length",
               "scope": 3659,
               "stateMutability": "view",
@@ -9181,7 +9342,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3279,
                                   "type": "struct EnumerableMap.Map storage pointer",
                                   "value": "map"
@@ -9220,7 +9383,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "_at",
               "scope": 3659,
               "stateMutability": "view",
@@ -9366,7 +9531,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -9384,7 +9551,10 @@
                                   "typeString": "literal_string \"EnumerableMap: index out of bounds\""
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -9430,7 +9600,9 @@
                                     "children": [
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3292,
                                           "type": "struct EnumerableMap.Map storage pointer",
                                           "value": "map"
@@ -9451,7 +9623,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3294,
                                   "type": "uint256",
                                   "value": "index"
@@ -9492,7 +9666,9 @@
                   },
                   {
                     "attributes": {
-                      "assignments": [3311]
+                      "assignments": [
+                        3311
+                      ]
                     },
                     "children": [
                       {
@@ -9544,7 +9720,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3292,
                                   "type": "struct EnumerableMap.Map storage pointer",
                                   "value": "map"
@@ -9560,7 +9738,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3294,
                               "type": "uint256",
                               "value": "index"
@@ -9607,7 +9787,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3311,
                                   "type": "struct EnumerableMap.MapEntry storage pointer",
                                   "value": "entry"
@@ -9634,7 +9816,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3311,
                                   "type": "struct EnumerableMap.MapEntry storage pointer",
                                   "value": "entry"
@@ -9673,7 +9857,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "_tryGet",
               "scope": 3659,
               "stateMutability": "view",
@@ -9812,7 +9998,9 @@
                 "children": [
                   {
                     "attributes": {
-                      "assignments": [3337]
+                      "assignments": [
+                        3337
+                      ]
                     },
                     "children": [
                       {
@@ -9863,7 +10051,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3327,
                                   "type": "struct EnumerableMap.Map storage pointer",
                                   "value": "map"
@@ -9879,7 +10069,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3329,
                               "type": "bytes32",
                               "value": "key"
@@ -9917,7 +10109,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3337,
                               "type": "uint256",
                               "value": "keyIndex"
@@ -10069,7 +10263,9 @@
                                     "children": [
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3327,
                                           "type": "struct EnumerableMap.Map storage pointer",
                                           "value": "map"
@@ -10099,7 +10295,9 @@
                                     "children": [
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3337,
                                           "type": "uint256",
                                           "value": "keyIndex"
@@ -10163,7 +10361,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "_get",
               "scope": 3659,
               "stateMutability": "view",
@@ -10276,7 +10476,9 @@
                 "children": [
                   {
                     "attributes": {
-                      "assignments": [3373]
+                      "assignments": [
+                        3373
+                      ]
                     },
                     "children": [
                       {
@@ -10327,7 +10529,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3365,
                                   "type": "struct EnumerableMap.Map storage pointer",
                                   "value": "map"
@@ -10343,7 +10547,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3367,
                               "type": "bytes32",
                               "value": "key"
@@ -10371,7 +10577,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -10389,7 +10597,10 @@
                                   "typeString": "literal_string \"EnumerableMap: nonexistent key\""
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -10414,7 +10625,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3373,
                                   "type": "uint256",
                                   "value": "keyIndex"
@@ -10506,7 +10719,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3365,
                                       "type": "struct EnumerableMap.Map storage pointer",
                                       "value": "map"
@@ -10536,7 +10751,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3373,
                                       "type": "uint256",
                                       "value": "keyIndex"
@@ -10595,7 +10812,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "_get",
               "scope": 3659,
               "stateMutability": "view",
@@ -10734,7 +10953,9 @@
                 "children": [
                   {
                     "attributes": {
-                      "assignments": [3408]
+                      "assignments": [
+                        3408
+                      ]
                     },
                     "children": [
                       {
@@ -10785,7 +11006,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3398,
                                   "type": "struct EnumerableMap.Map storage pointer",
                                   "value": "map"
@@ -10801,7 +11024,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3400,
                               "type": "bytes32",
                               "value": "key"
@@ -10829,7 +11054,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple()",
                           "type_conversion": false
@@ -10847,7 +11074,10 @@
                                   "typeString": "string memory"
                                 }
                               ],
-                              "overloadedDeclarations": [4294967278, 4294967278],
+                              "overloadedDeclarations": [
+                                4294967278,
+                                4294967278
+                              ],
                               "referencedDeclaration": 4294967278,
                               "type": "function (bool,string memory) pure",
                               "value": "require"
@@ -10872,7 +11102,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3408,
                                   "type": "uint256",
                                   "value": "keyIndex"
@@ -10903,7 +11135,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3402,
                               "type": "string memory",
                               "value": "errorMessage"
@@ -10960,7 +11194,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3398,
                                       "type": "struct EnumerableMap.Map storage pointer",
                                       "value": "map"
@@ -10990,7 +11226,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 3408,
                                       "type": "uint256",
                                       "value": "keyIndex"
@@ -11089,7 +11327,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "set",
               "scope": 3659,
               "stateMutability": "nonpayable",
@@ -11239,7 +11479,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "bool",
                           "type_conversion": false
@@ -11261,7 +11503,9 @@
                                   "typeString": "bytes32"
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3177,
                               "type": "function (struct EnumerableMap.Map storage pointer,bytes32,bytes32) returns (bool)",
                               "value": "_set"
@@ -11283,7 +11527,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3436,
                                   "type": "struct EnumerableMap.UintToAddressMap storage pointer",
                                   "value": "map"
@@ -11304,7 +11550,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "bytes32",
                               "type_conversion": true
@@ -11340,7 +11588,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3438,
                                   "type": "uint256",
                                   "value": "key"
@@ -11361,7 +11611,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "bytes32",
                               "type_conversion": true
@@ -11402,7 +11654,9 @@
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "tryCall": false,
                                   "type": "uint256",
                                   "type_conversion": true
@@ -11443,7 +11697,9 @@
                                       "isPure": false,
                                       "isStructConstructorCall": false,
                                       "lValueRequested": false,
-                                      "names": [null],
+                                      "names": [
+                                        null
+                                      ],
                                       "tryCall": false,
                                       "type": "uint160",
                                       "type_conversion": true
@@ -11479,7 +11735,9 @@
                                       },
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3440,
                                           "type": "address",
                                           "value": "value"
@@ -11528,7 +11786,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "remove",
               "scope": 3659,
               "stateMutability": "nonpayable",
@@ -11651,7 +11911,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "bool",
                           "type_conversion": false
@@ -11669,7 +11931,9 @@
                                   "typeString": "bytes32"
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3258,
                               "type": "function (struct EnumerableMap.Map storage pointer,bytes32) returns (bool)",
                               "value": "_remove"
@@ -11691,7 +11955,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3468,
                                   "type": "struct EnumerableMap.UintToAddressMap storage pointer",
                                   "value": "map"
@@ -11712,7 +11978,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "bytes32",
                               "type_conversion": true
@@ -11748,7 +12016,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3470,
                                   "type": "uint256",
                                   "value": "key"
@@ -11787,7 +12057,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "contains",
               "scope": 3659,
               "stateMutability": "view",
@@ -11910,7 +12182,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "bool",
                           "type_conversion": false
@@ -11928,7 +12202,9 @@
                                   "typeString": "bytes32"
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3276,
                               "type": "function (struct EnumerableMap.Map storage pointer,bytes32) view returns (bool)",
                               "value": "_contains"
@@ -11950,7 +12226,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3488,
                                   "type": "struct EnumerableMap.UintToAddressMap storage pointer",
                                   "value": "map"
@@ -11971,7 +12249,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "bytes32",
                               "type_conversion": true
@@ -12007,7 +12287,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3490,
                                   "type": "uint256",
                                   "value": "key"
@@ -12046,7 +12328,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "length",
               "scope": 3659,
               "stateMutability": "view",
@@ -12143,7 +12427,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "uint256",
                           "type_conversion": false
@@ -12157,7 +12443,9 @@
                                   "typeString": "struct EnumerableMap.Map storage ref"
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3289,
                               "type": "function (struct EnumerableMap.Map storage pointer) view returns (uint256)",
                               "value": "_length"
@@ -12179,7 +12467,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3508,
                                   "type": "struct EnumerableMap.UintToAddressMap storage pointer",
                                   "value": "map"
@@ -12218,7 +12508,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "at",
               "scope": 3659,
               "stateMutability": "view",
@@ -12358,7 +12650,10 @@
                 "children": [
                   {
                     "attributes": {
-                      "assignments": [3532, 3534]
+                      "assignments": [
+                        3532,
+                        3534
+                      ]
                     },
                     "children": [
                       {
@@ -12420,7 +12715,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple(bytes32,bytes32)",
                           "type_conversion": false
@@ -12438,7 +12735,9 @@
                                   "typeString": "uint256"
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3324,
                               "type": "function (struct EnumerableMap.Map storage pointer,uint256) view returns (bytes32,bytes32)",
                               "value": "_at"
@@ -12460,7 +12759,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3522,
                                   "type": "struct EnumerableMap.UintToAddressMap storage pointer",
                                   "value": "map"
@@ -12476,7 +12777,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3524,
                               "type": "uint256",
                               "value": "index"
@@ -12517,7 +12820,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "uint256",
                               "type_conversion": true
@@ -12553,7 +12858,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3532,
                                   "type": "bytes32",
                                   "value": "key"
@@ -12574,7 +12881,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "address payable",
                               "type_conversion": true
@@ -12615,7 +12924,9 @@
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "tryCall": false,
                                   "type": "uint160",
                                   "type_conversion": true
@@ -12656,7 +12967,9 @@
                                       "isPure": false,
                                       "isStructConstructorCall": false,
                                       "lValueRequested": false,
-                                      "names": [null],
+                                      "names": [
+                                        null
+                                      ],
                                       "tryCall": false,
                                       "type": "uint256",
                                       "type_conversion": true
@@ -12692,7 +13005,9 @@
                                       },
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3534,
                                           "type": "bytes32",
                                           "value": "value"
@@ -12741,7 +13056,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "tryGet",
               "scope": 3659,
               "stateMutability": "view",
@@ -12881,7 +13198,10 @@
                 "children": [
                   {
                     "attributes": {
-                      "assignments": [3571, 3573]
+                      "assignments": [
+                        3571,
+                        3573
+                      ]
                     },
                     "children": [
                       {
@@ -12943,7 +13263,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "tuple(bool,bytes32)",
                           "type_conversion": false
@@ -12961,7 +13283,9 @@
                                   "typeString": "bytes32"
                                 }
                               ],
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3362,
                               "type": "function (struct EnumerableMap.Map storage pointer,bytes32) view returns (bool,bytes32)",
                               "value": "_tryGet"
@@ -12983,7 +13307,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3561,
                                   "type": "struct EnumerableMap.UintToAddressMap storage pointer",
                                   "value": "map"
@@ -13004,7 +13330,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "bytes32",
                               "type_conversion": true
@@ -13040,7 +13368,9 @@
                               },
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3563,
                                   "type": "uint256",
                                   "value": "key"
@@ -13081,7 +13411,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3571,
                               "type": "bool",
                               "value": "success"
@@ -13097,7 +13429,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "address payable",
                               "type_conversion": true
@@ -13138,7 +13472,9 @@
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "tryCall": false,
                                   "type": "uint160",
                                   "type_conversion": true
@@ -13179,7 +13515,9 @@
                                       "isPure": false,
                                       "isStructConstructorCall": false,
                                       "lValueRequested": false,
-                                      "names": [null],
+                                      "names": [
+                                        null
+                                      ],
                                       "tryCall": false,
                                       "type": "uint256",
                                       "type_conversion": true
@@ -13215,7 +13553,9 @@
                                       },
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3573,
                                           "type": "bytes32",
                                           "value": "value"
@@ -13264,7 +13604,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "get",
               "scope": 3659,
               "stateMutability": "view",
@@ -13388,7 +13730,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "address payable",
                           "type_conversion": true
@@ -13429,7 +13773,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "uint160",
                               "type_conversion": true
@@ -13470,7 +13816,9 @@
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "tryCall": false,
                                   "type": "uint256",
                                   "type_conversion": true
@@ -13511,7 +13859,9 @@
                                       "isPure": false,
                                       "isStructConstructorCall": false,
                                       "lValueRequested": false,
-                                      "names": [null],
+                                      "names": [
+                                        null
+                                      ],
                                       "tryCall": false,
                                       "type": "bytes32",
                                       "type_conversion": false
@@ -13529,7 +13879,10 @@
                                               "typeString": "bytes32"
                                             }
                                           ],
-                                          "overloadedDeclarations": [3395, 3430],
+                                          "overloadedDeclarations": [
+                                            3395,
+                                            3430
+                                          ],
                                           "referencedDeclaration": 3395,
                                           "type": "function (struct EnumerableMap.Map storage pointer,bytes32) view returns (bytes32)",
                                           "value": "_get"
@@ -13551,7 +13904,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3600,
                                               "type": "struct EnumerableMap.UintToAddressMap storage pointer",
                                               "value": "map"
@@ -13572,7 +13927,9 @@
                                           "isPure": false,
                                           "isStructConstructorCall": false,
                                           "lValueRequested": false,
-                                          "names": [null],
+                                          "names": [
+                                            null
+                                          ],
                                           "tryCall": false,
                                           "type": "bytes32",
                                           "type_conversion": true
@@ -13608,7 +13965,9 @@
                                           },
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3602,
                                               "type": "uint256",
                                               "value": "key"
@@ -13662,7 +14021,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "get",
               "scope": 3659,
               "stateMutability": "view",
@@ -13812,7 +14173,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "address payable",
                           "type_conversion": true
@@ -13853,7 +14216,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "uint160",
                               "type_conversion": true
@@ -13894,7 +14259,9 @@
                                   "isPure": false,
                                   "isStructConstructorCall": false,
                                   "lValueRequested": false,
-                                  "names": [null],
+                                  "names": [
+                                    null
+                                  ],
                                   "tryCall": false,
                                   "type": "uint256",
                                   "type_conversion": true
@@ -13935,7 +14302,9 @@
                                       "isPure": false,
                                       "isStructConstructorCall": false,
                                       "lValueRequested": false,
-                                      "names": [null],
+                                      "names": [
+                                        null
+                                      ],
                                       "tryCall": false,
                                       "type": "bytes32",
                                       "type_conversion": false
@@ -13957,7 +14326,10 @@
                                               "typeString": "string memory"
                                             }
                                           ],
-                                          "overloadedDeclarations": [3395, 3430],
+                                          "overloadedDeclarations": [
+                                            3395,
+                                            3430
+                                          ],
                                           "referencedDeclaration": 3430,
                                           "type": "function (struct EnumerableMap.Map storage pointer,bytes32,string memory) view returns (bytes32)",
                                           "value": "_get"
@@ -13979,7 +14351,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3629,
                                               "type": "struct EnumerableMap.UintToAddressMap storage pointer",
                                               "value": "map"
@@ -14000,7 +14374,9 @@
                                           "isPure": false,
                                           "isStructConstructorCall": false,
                                           "lValueRequested": false,
-                                          "names": [null],
+                                          "names": [
+                                            null
+                                          ],
                                           "tryCall": false,
                                           "type": "bytes32",
                                           "type_conversion": true
@@ -14036,7 +14412,9 @@
                                           },
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 3631,
                                               "type": "uint256",
                                               "value": "key"
@@ -14052,7 +14430,9 @@
                                       },
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3633,
                                           "type": "string memory",
                                           "value": "errorMessage"
@@ -14112,7 +14492,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.863Z",
+  "updatedAt": "2021-04-18T03:13:20.676Z",
   "devdoc": {
     "details": "Library for managing an enumerable variant of Solidity's https://solidity.readthedocs.io/en/latest/types.html#mapping-types[`mapping`] type. Maps have the following properties: - Entries are added, removed, and checked for existence in constant time (O(1)). - Entries are enumerated in O(n). No guarantees are made on the ordering. ``` contract Example {     // Add the library methods     using EnumerableMap for EnumerableMap.UintToAddressMap;     // Declare a set state variable     EnumerableMap.UintToAddressMap private myMap; } ``` As of v3.0.0, only maps of type `uint256 -> address` (`UintToAddressMap`) are supported.",
     "kind": "dev",

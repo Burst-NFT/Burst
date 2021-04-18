@@ -356,9 +356,15 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721Enumerable.sol",
     "exportedSymbols": {
-      "IERC165": [628],
-      "IERC721": [2654],
-      "IERC721Enumerable": [2685]
+      "IERC165": [
+        628
+      ],
+      "IERC721": [
+        2654
+      ],
+      "IERC721Enumerable": [
+        2685
+      ]
     },
     "id": 2686,
     "license": "MIT",
@@ -366,7 +372,15 @@
     "nodes": [
       {
         "id": 2656,
-        "literals": ["solidity", ">=", "0.6", ".2", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".2",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:13"
       },
@@ -401,7 +415,10 @@
             "src": "259:7:13"
           }
         ],
-        "contractDependencies": [628, 2654],
+        "contractDependencies": [
+          628,
+          2654
+        ],
         "contractKind": "interface",
         "documentation": {
           "id": 2658,
@@ -411,7 +428,11 @@
         },
         "fullyImplemented": false,
         "id": 2685,
-        "linearizedBaseContracts": [2685, 2654, 628],
+        "linearizedBaseContracts": [
+          2685,
+          2654,
+          628
+        ],
         "name": "IERC721Enumerable",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -684,16 +705,30 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721Enumerable.sol",
       "exportedSymbols": {
-        "IERC165": [628],
-        "IERC721": [2654],
-        "IERC721Enumerable": [2685]
+        "IERC165": [
+          628
+        ],
+        "IERC721": [
+          2654
+        ],
+        "IERC721Enumerable": [
+          2685
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".2", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".2",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 2656,
         "name": "PragmaDirective",
@@ -705,7 +740,9 @@
           "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
           "file": "./IERC721.sol",
           "scope": 2686,
-          "symbolAliases": [null],
+          "symbolAliases": [
+            null
+          ],
           "unitAlias": ""
         },
         "id": 2657,
@@ -715,10 +752,17 @@
       {
         "attributes": {
           "abstract": false,
-          "contractDependencies": [628, 2654],
+          "contractDependencies": [
+            628,
+            2654
+          ],
           "contractKind": "interface",
           "fullyImplemented": false,
-          "linearizedBaseContracts": [2685, 2654, 628],
+          "linearizedBaseContracts": [
+            2685,
+            2654,
+            628
+          ],
           "name": "IERC721Enumerable",
           "scope": 2686
         },
@@ -755,7 +799,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "totalSupply",
               "scope": 2685,
               "stateMutability": "view",
@@ -773,7 +819,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 2662,
@@ -824,7 +872,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "tokenOfOwnerByIndex",
               "scope": 2685,
               "stateMutability": "view",
@@ -944,7 +994,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "tokenByIndex",
               "scope": 2685,
               "stateMutability": "view",
@@ -1047,7 +1099,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.846Z",
+  "updatedAt": "2021-04-18T03:13:20.660Z",
   "devdoc": {
     "details": "See https://eips.ethereum.org/EIPS/eip-721",
     "kind": "dev",

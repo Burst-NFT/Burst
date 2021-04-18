@@ -300,8 +300,12 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
     "exportedSymbols": {
-      "IERC165": [628],
-      "IERC721": [2654]
+      "IERC165": [
+        628
+      ],
+      "IERC721": [
+        2654
+      ]
     },
     "id": 2655,
     "license": "MIT",
@@ -309,7 +313,15 @@
     "nodes": [
       {
         "id": 2540,
-        "literals": ["solidity", ">=", "0.6", ".2", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".2",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:12"
       },
@@ -344,7 +356,9 @@
             "src": "198:7:12"
           }
         ],
-        "contractDependencies": [628],
+        "contractDependencies": [
+          628
+        ],
         "contractKind": "interface",
         "documentation": {
           "id": 2542,
@@ -354,7 +368,10 @@
         },
         "fullyImplemented": false,
         "id": 2654,
-        "linearizedBaseContracts": [2654, 628],
+        "linearizedBaseContracts": [
+          2654,
+          628
+        ],
         "name": "IERC721",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -1590,15 +1607,27 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
       "exportedSymbols": {
-        "IERC165": [628],
-        "IERC721": [2654]
+        "IERC165": [
+          628
+        ],
+        "IERC721": [
+          2654
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".2", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".2",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 2540,
         "name": "PragmaDirective",
@@ -1610,7 +1639,9 @@
           "absolutePath": "@openzeppelin/contracts/introspection/IERC165.sol",
           "file": "../../introspection/IERC165.sol",
           "scope": 2655,
-          "symbolAliases": [null],
+          "symbolAliases": [
+            null
+          ],
           "unitAlias": ""
         },
         "id": 2541,
@@ -1620,10 +1651,15 @@
       {
         "attributes": {
           "abstract": false,
-          "contractDependencies": [628],
+          "contractDependencies": [
+            628
+          ],
           "contractKind": "interface",
           "fullyImplemented": false,
-          "linearizedBaseContracts": [2654, 628],
+          "linearizedBaseContracts": [
+            2654,
+            628
+          ],
           "name": "IERC721",
           "scope": 2655
         },
@@ -1987,7 +2023,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "balanceOf",
               "scope": 2654,
               "stateMutability": "view",
@@ -2081,7 +2119,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "ownerOf",
               "scope": 2654,
               "stateMutability": "view",
@@ -2175,7 +2215,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "safeTransferFrom",
               "scope": 2654,
               "stateMutability": "nonpayable",
@@ -2280,7 +2322,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 2596,
@@ -2298,7 +2342,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "transferFrom",
               "scope": 2654,
               "stateMutability": "nonpayable",
@@ -2403,7 +2449,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 2606,
@@ -2421,7 +2469,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "approve",
               "scope": 2654,
               "stateMutability": "nonpayable",
@@ -2499,7 +2549,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 2614,
@@ -2517,7 +2569,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "getApproved",
               "scope": 2654,
               "stateMutability": "view",
@@ -2611,7 +2665,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "setApprovalForAll",
               "scope": 2654,
               "stateMutability": "nonpayable",
@@ -2689,7 +2745,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 2630,
@@ -2707,7 +2765,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "isApprovedForAll",
               "scope": 2654,
               "stateMutability": "view",
@@ -2828,7 +2888,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "safeTransferFrom",
               "scope": 2654,
               "stateMutability": "nonpayable",
@@ -2959,7 +3021,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 2652,
@@ -2987,7 +3051,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.843Z",
+  "updatedAt": "2021-04-18T03:13:20.658Z",
   "devdoc": {
     "details": "Required interface of an ERC721 compliant contract.",
     "events": {

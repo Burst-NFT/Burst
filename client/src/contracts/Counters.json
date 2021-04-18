@@ -14,8 +14,12 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/utils/Counters.sol",
     "exportedSymbols": {
-      "Counters": [3099],
-      "SafeMath": [983]
+      "Counters": [
+        3099
+      ],
+      "SafeMath": [
+        983
+      ]
     },
     "id": 3100,
     "license": "MIT",
@@ -23,7 +27,15 @@
     "nodes": [
       {
         "id": 3051,
-        "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:18"
       },
@@ -51,7 +63,9 @@
         },
         "fullyImplemented": true,
         "id": 3099,
-        "linearizedBaseContracts": [3099],
+        "linearizedBaseContracts": [
+          3099
+        ],
         "name": "Counters",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -559,15 +573,27 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/utils/Counters.sol",
       "exportedSymbols": {
-        "Counters": [3099],
-        "SafeMath": [983]
+        "Counters": [
+          3099
+        ],
+        "SafeMath": [
+          983
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 3051,
         "name": "PragmaDirective",
@@ -579,7 +605,9 @@
           "absolutePath": "@openzeppelin/contracts/math/SafeMath.sol",
           "file": "../math/SafeMath.sol",
           "scope": 3100,
-          "symbolAliases": [null],
+          "symbolAliases": [
+            null
+          ],
           "unitAlias": ""
         },
         "id": 3052,
@@ -589,11 +617,17 @@
       {
         "attributes": {
           "abstract": false,
-          "baseContracts": [null],
-          "contractDependencies": [null],
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
           "contractKind": "library",
           "fullyImplemented": true,
-          "linearizedBaseContracts": [3099],
+          "linearizedBaseContracts": [
+            3099
+          ],
           "name": "Counters",
           "scope": 3100
         },
@@ -676,7 +710,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "current",
               "scope": 3099,
               "stateMutability": "view",
@@ -771,7 +807,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 3061,
                               "type": "struct Counters.Counter storage pointer",
                               "value": "counter"
@@ -805,7 +843,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "increment",
               "scope": 3099,
               "stateMutability": "nonpayable",
@@ -849,7 +889,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 3074,
@@ -883,7 +925,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3072,
                                   "type": "struct Counters.Counter storage pointer",
                                   "value": "counter"
@@ -937,7 +981,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "decrement",
               "scope": 3099,
               "stateMutability": "nonpayable",
@@ -981,7 +1027,9 @@
               },
               {
                 "attributes": {
-                  "parameters": [null]
+                  "parameters": [
+                    null
+                  ]
                 },
                 "children": [],
                 "id": 3086,
@@ -1015,7 +1063,9 @@
                             "children": [
                               {
                                 "attributes": {
-                                  "overloadedDeclarations": [null],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
                                   "referencedDeclaration": 3084,
                                   "type": "struct Counters.Counter storage pointer",
                                   "value": "counter"
@@ -1036,7 +1086,9 @@
                               "isPure": false,
                               "isStructConstructorCall": false,
                               "lValueRequested": false,
-                              "names": [null],
+                              "names": [
+                                null
+                              ],
                               "tryCall": false,
                               "type": "uint256",
                               "type_conversion": false
@@ -1072,7 +1124,9 @@
                                     "children": [
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 3084,
                                           "type": "struct Counters.Counter storage pointer",
                                           "value": "counter"
@@ -1147,7 +1201,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.861Z",
+  "updatedAt": "2021-04-18T03:13:20.672Z",
   "devdoc": {
     "author": "Matt Condon (@shrugs)",
     "details": "Provides counters that can only be incremented or decremented by one. This can be used e.g. to track the number of elements in a mapping, issuing ERC721 ids, or counting request ids. Include with `using Counters for Counters.Counter;` Since it is not possible to overflow a 256 bit integer with increments of one, `increment` can skip the {SafeMath} overflow check, thereby saving gas. This does assume however correct usage, in that the underlying `_value` is never directly accessed.",

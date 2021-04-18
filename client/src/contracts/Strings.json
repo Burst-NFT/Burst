@@ -14,7 +14,9 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/utils/Strings.sol",
     "exportedSymbols": {
-      "Strings": [4238]
+      "Strings": [
+        4238
+      ]
     },
     "id": 4239,
     "license": "MIT",
@@ -22,7 +24,15 @@
     "nodes": [
       {
         "id": 4153,
-        "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:21"
       },
@@ -39,7 +49,9 @@
         },
         "fullyImplemented": true,
         "id": 4238,
-        "linearizedBaseContracts": [4238],
+        "linearizedBaseContracts": [
+          4238
+        ],
         "name": "Strings",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -130,7 +142,9 @@
                   }
                 },
                 {
-                  "assignments": [4170],
+                  "assignments": [
+                    4170
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -176,7 +190,9 @@
                   "src": "539:20:21"
                 },
                 {
-                  "assignments": [4174],
+                  "assignments": [
+                    4174
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -347,7 +363,9 @@
                   "src": "593:75:21"
                 },
                 {
-                  "assignments": [4189],
+                  "assignments": [
+                    4189
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -440,7 +458,9 @@
                   "src": "677:39:21"
                 },
                 {
-                  "assignments": [4196],
+                  "assignments": [
+                    4196
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -1065,14 +1085,24 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/utils/Strings.sol",
       "exportedSymbols": {
-        "Strings": [4238]
+        "Strings": [
+          4238
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 4153,
         "name": "PragmaDirective",
@@ -1081,11 +1111,17 @@
       {
         "attributes": {
           "abstract": false,
-          "baseContracts": [null],
-          "contractDependencies": [null],
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
           "contractKind": "library",
           "fullyImplemented": true,
-          "linearizedBaseContracts": [4238],
+          "linearizedBaseContracts": [
+            4238
+          ],
           "name": "Strings",
           "scope": 4239
         },
@@ -1103,7 +1139,9 @@
               "implemented": true,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "toString",
               "scope": 4238,
               "stateMutability": "pure",
@@ -1206,7 +1244,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 4157,
                               "type": "uint256",
                               "value": "value"
@@ -1274,7 +1314,9 @@
                   },
                   {
                     "attributes": {
-                      "assignments": [4170]
+                      "assignments": [
+                        4170
+                      ]
                     },
                     "children": [
                       {
@@ -1305,7 +1347,9 @@
                       },
                       {
                         "attributes": {
-                          "overloadedDeclarations": [null],
+                          "overloadedDeclarations": [
+                            null
+                          ],
                           "referencedDeclaration": 4157,
                           "type": "uint256",
                           "value": "value"
@@ -1321,7 +1365,9 @@
                   },
                   {
                     "attributes": {
-                      "assignments": [4174]
+                      "assignments": [
+                        4174
+                      ]
                     },
                     "children": [
                       {
@@ -1373,7 +1419,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 4170,
                               "type": "uint256",
                               "value": "temp"
@@ -1419,7 +1467,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 4174,
                                       "type": "uint256",
                                       "value": "digits"
@@ -1452,7 +1502,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 4170,
                                       "type": "uint256",
                                       "value": "temp"
@@ -1498,7 +1550,9 @@
                   },
                   {
                     "attributes": {
-                      "assignments": [4189]
+                      "assignments": [
+                        4189
+                      ]
                     },
                     "children": [
                       {
@@ -1534,7 +1588,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "bytes memory",
                           "type_conversion": false
@@ -1571,7 +1627,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 4174,
                               "type": "uint256",
                               "value": "digits"
@@ -1592,7 +1650,9 @@
                   },
                   {
                     "attributes": {
-                      "assignments": [4196]
+                      "assignments": [
+                        4196
+                      ]
                     },
                     "children": [
                       {
@@ -1637,7 +1697,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 4174,
                               "type": "uint256",
                               "value": "digits"
@@ -1685,7 +1747,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 4170,
                               "type": "uint256",
                               "value": "temp"
@@ -1696,7 +1760,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 4157,
                               "type": "uint256",
                               "value": "value"
@@ -1733,7 +1799,9 @@
                         "children": [
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 4170,
                               "type": "uint256",
                               "value": "temp"
@@ -1787,7 +1855,9 @@
                                     "children": [
                                       {
                                         "attributes": {
-                                          "overloadedDeclarations": [null],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
                                           "referencedDeclaration": 4189,
                                           "type": "bytes memory",
                                           "value": "buffer"
@@ -1809,7 +1879,9 @@
                                         "children": [
                                           {
                                             "attributes": {
-                                              "overloadedDeclarations": [null],
+                                              "overloadedDeclarations": [
+                                                null
+                                              ],
                                               "referencedDeclaration": 4196,
                                               "type": "uint256",
                                               "value": "index"
@@ -1835,7 +1907,9 @@
                                       "isPure": false,
                                       "isStructConstructorCall": false,
                                       "lValueRequested": false,
-                                      "names": [null],
+                                      "names": [
+                                        null
+                                      ],
                                       "tryCall": false,
                                       "type": "bytes1",
                                       "type_conversion": true
@@ -1876,7 +1950,9 @@
                                           "isPure": false,
                                           "isStructConstructorCall": false,
                                           "lValueRequested": false,
-                                          "names": [null],
+                                          "names": [
+                                            null
+                                          ],
                                           "tryCall": false,
                                           "type": "uint8",
                                           "type_conversion": true
@@ -1955,7 +2031,9 @@
                                                 "children": [
                                                   {
                                                     "attributes": {
-                                                      "overloadedDeclarations": [null],
+                                                      "overloadedDeclarations": [
+                                                        null
+                                                      ],
                                                       "referencedDeclaration": 4170,
                                                       "type": "uint256",
                                                       "value": "temp"
@@ -2023,7 +2101,9 @@
                                 "children": [
                                   {
                                     "attributes": {
-                                      "overloadedDeclarations": [null],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
                                       "referencedDeclaration": 4170,
                                       "type": "uint256",
                                       "value": "temp"
@@ -2079,7 +2159,9 @@
                           "isPure": false,
                           "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [null],
+                          "names": [
+                            null
+                          ],
                           "tryCall": false,
                           "type": "string memory",
                           "type_conversion": true
@@ -2115,7 +2197,9 @@
                           },
                           {
                             "attributes": {
-                              "overloadedDeclarations": [null],
+                              "overloadedDeclarations": [
+                                null
+                              ],
                               "referencedDeclaration": 4189,
                               "type": "bytes memory",
                               "value": "buffer"
@@ -2160,7 +2244,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.944Z",
+  "updatedAt": "2021-04-18T03:13:20.692Z",
   "devdoc": {
     "details": "String operations.",
     "kind": "dev",

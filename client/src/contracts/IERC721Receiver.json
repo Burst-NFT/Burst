@@ -49,7 +49,9 @@
   "ast": {
     "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
     "exportedSymbols": {
-      "IERC721Receiver": [2730]
+      "IERC721Receiver": [
+        2730
+      ]
     },
     "id": 2731,
     "license": "MIT",
@@ -57,7 +59,15 @@
     "nodes": [
       {
         "id": 2714,
-        "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.8",
+          ".0"
+        ],
         "nodeType": "PragmaDirective",
         "src": "33:31:15"
       },
@@ -74,7 +84,9 @@
         },
         "fullyImplemented": false,
         "id": 2730,
-        "linearizedBaseContracts": [2730],
+        "linearizedBaseContracts": [
+          2730
+        ],
         "name": "IERC721Receiver",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -255,14 +267,24 @@
     "attributes": {
       "absolutePath": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
       "exportedSymbols": {
-        "IERC721Receiver": [2730]
+        "IERC721Receiver": [
+          2730
+        ]
       },
       "license": "MIT"
     },
     "children": [
       {
         "attributes": {
-          "literals": ["solidity", ">=", "0.6", ".0", "<", "0.8", ".0"]
+          "literals": [
+            "solidity",
+            ">=",
+            "0.6",
+            ".0",
+            "<",
+            "0.8",
+            ".0"
+          ]
         },
         "id": 2714,
         "name": "PragmaDirective",
@@ -271,11 +293,17 @@
       {
         "attributes": {
           "abstract": false,
-          "baseContracts": [null],
-          "contractDependencies": [null],
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
           "contractKind": "interface",
           "fullyImplemented": false,
-          "linearizedBaseContracts": [2730],
+          "linearizedBaseContracts": [
+            2730
+          ],
           "name": "IERC721Receiver",
           "scope": 2731
         },
@@ -294,7 +322,9 @@
               "implemented": false,
               "isConstructor": false,
               "kind": "function",
-              "modifiers": [null],
+              "modifiers": [
+                null
+              ],
               "name": "onERC721Received",
               "scope": 2730,
               "stateMutability": "nonpayable",
@@ -477,7 +507,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:18:38.850Z",
+  "updatedAt": "2021-04-18T03:13:20.663Z",
   "devdoc": {
     "details": "Interface for any contract that wants to support safeTransfers from ERC721 asset contracts.",
     "kind": "dev",
