@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import Avatar from '@material-ui/core/Avatar';
 import MetaMaskButton from './MetaMaskButton';
@@ -15,6 +18,19 @@ const StyledHeader = styled.header`
   padding: 16px;
 `;
 
+const Wrapper = styled.div`
+  margin-bottom: 64px;
+`;
+
+const SiteNav = styled.div`
+  display: flex;
+  flex-grow: 1;
+`;
+
+const AccountInfo = styled.div`
+  display: flex;
+`;
+
 const Address = styled.div`
   margin-top: 16px;
 `;
@@ -22,13 +38,24 @@ const Address = styled.div`
 function Header() {
   // const displayAddress = !!window.ethereum?.selectedAddress && `${window.ethereum?.selectedAddress.slice(0, -30)}...`;
   return (
-    <StyledHeader>
-      <Avatar alt='BURST' src='/burst40.png' />
-      <MetaMaskButton />
-      <IconButton href='https://github.com/Burst-NFT/Burst' target='_blank' color='primary'>
-        <GitHubIcon />
-      </IconButton>
-    </StyledHeader>
+    <Wrapper>
+      <AppBar position='static'>
+        <Toolbar>
+          <SiteNav>
+            <Link href='/'>
+              <Avatar alt='BURST' src='/burst40.png' />
+            </Link>
+          </SiteNav>
+          <AccountInfo>
+            <AccountBursts />
+            <MetaMaskButton />
+            <IconButton href='https://github.com/Burst-NFT/Burst' target='_blank' color='primary'>
+              <GitHubIcon />
+            </IconButton>
+          </AccountInfo>
+        </Toolbar>
+      </AppBar>
+    </Wrapper>
   );
 }
 

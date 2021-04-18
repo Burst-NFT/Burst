@@ -18,7 +18,7 @@ const Button = styled(MuiButton)`
   }
 `;
 
-function MetaMaskButton() {
+function MetaMask() {
   const [buttonText, setButtonText] = React.useState(ONBOARD_TEXT);
   const [isDisabled, setDisabled] = React.useState(false);
   const [accounts, setAccounts] = React.useState([]);
@@ -33,7 +33,6 @@ function MetaMaskButton() {
   React.useEffect(() => {
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       if (accounts.length > 0) {
-        // console.log(accounts);
         setButtonText(CONNECTED_TEXT);
         setDisabled(true);
         onboarding.current.stopOnboarding();

@@ -12,6 +12,11 @@ import BasketCard from './BasketCard';
 import BurstsCard from './BurstsCard';
 import Header from './Header';
 
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
+const queryClient = new QueryClient();
+
 const LogoImg = styled.img`
   max-height: 64px;
 `;
@@ -22,20 +27,23 @@ function App() {
   const [basket, setBasket] = React.useState({});
 
   return (
-    <Content>
-      <Header />
-      <Grid container spacing={3}>
-        <Grid container item xs={12} justify='center'>
-          <AddCard setBasket={setBasket} />
+    <QueryClientProvider client={queryClient}>
+      <Content>
+        <Header />
+        <Grid container spacing={3}>
+          <Grid container item xs={12} justify='center'>
+            <AddCard setBasket={setBasket} />
+          </Grid>
+          <Grid container item xs={6} justify='flex-end'>
+            <BasketCard basket={basket} setBasket={setBasket} />
+          </Grid>
+          <Grid container item xs={6}>
+            <BurstsCard />
+          </Grid>
         </Grid>
-        <Grid container item xs={6} justify='flex-end'>
-          <BasketCard basket={basket} setBasket={setBasket} />
-        </Grid>
-        <Grid container item xs={6}>
-          <BurstsCard />
-        </Grid>
-      </Grid>
-    </Content>
+      </Content>
+      <ReactQueryDevtools initialIsOpen />
+    </QueryClientProvider>
   );
 }
 
