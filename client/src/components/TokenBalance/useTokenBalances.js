@@ -8,7 +8,7 @@ const initialObj = {
   byId: {},
   allIds: [],
   cryptoIds: [],
-  nftIds: []
+  nftIds: [],
 };
 
 const allowedTokenTypes = new Set(['cryptocurrency', 'nft']);
@@ -23,8 +23,7 @@ const normalizeData = ({ items = [] }) => {
         draft.byId[token.contract_address] = token;
         // set ids
         draft.allIds.push(token.contract_address);
-        if (token.type === 'cryptocurrency')
-          draft.cryptoIds.push(token.contract_address);
+        if (token.type === 'cryptocurrency') draft.cryptoIds.push(token.contract_address);
         if (token.type === 'nft') draft.nftIds.push(token.contract_address);
       }
     }
@@ -39,7 +38,7 @@ function useTokenBalances() {
     if (networkId && account) {
       const { data } = await axios.get(
         // `https://api.covalenthq.com/v1/pricing/historical_by_address/${networkId}/USD/${account}/?key=${process.env.COVALENT_API_KEY}`
-        `https://api.covalenthq.com/v1/${networkId}/address/${account}/balances_v2/?nft=true&no-nft-fetch=true&key=${process.env.COVALENT_API_KEY}`
+        `https://api.covalenthq.com/v1/${networkId}/address/${account}/balances_v2/?nft=true&no-nft-fetch=true&key=${process.env.REACT_APP_COVALENT_API_KEY}`
       );
       // console.log(data);
       return normalizeData(data?.data);
