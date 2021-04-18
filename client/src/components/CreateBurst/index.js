@@ -19,6 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import CardHeader from '../CardHeader';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import { MaxUint256 } from '@ethersproject/constants';
 import { formatUnits } from '@ethersproject/units';
 import produce from 'immer';
 import useTokenBalances from '../TokenBalance/useTokenBalances';
@@ -155,17 +156,18 @@ function CreateBurst() {
     // approve transactions, 1 by 1, Promise all seems to make metamask hang a bit, especially for long running transactions
     for (let i = 0; i < basket.allIds.length; i++) {
       const id = basket.allIds[i];
-      await basket.byId[id].contract.methods.approve(burstToken.address, basket.byId[id].amount).send({ from: account });
+      await basket.byId[id].contract.methods.approve(burstToken.address, MaxUint256).send({ from: account });
     }
 
     // create required fields to create burst
-    const amounts = basket.allIds.map((id) => {
-      // console.log(basket.byId[id].amount * (10**(basket.byId[id].decimals)));
+    const amounts = basket.allIds.map((id) => toFixed(basket.byId[id].amount * (10**(basket.byId[id].decimals)));
+
+      // console.log(basket.byId[id].amount * (10**(basket.byId[id].decimals)).toFixed());
       // return (new BN(basket.byId[id].amount * (10**(basket.byId[id].decimals))).toString());
-      // return (basket.byId[id].amount * (10**(basket.byId[id].decimals)));
-      return basket.byId[id].amount;
-    });
-    const metadataAssets = basket.allIds.map((id) => ({ token_address: id, token_amount: basket.byId[id].amount }));
+    //   return ;
+    //   // return basket.byId[id].amount;
+    // });
+    const metadataAssets = basket.allIds.map((id) => ({ token_address: id, token_amount: (basket.byId[id].amount * (10**(basket.byId[id].decimals))) }));
     const ipfsHash = await createMetadataAsync(metadataAssets);
 
     // create burst
