@@ -40,7 +40,6 @@ const OkButton = styled(Button)`
 function CreateSuccessDialog({ open, handleClose, data: { basket, result } }) {
   const { network } = useWallet();
   const { numberFormatter } = useNumberFormatter();
-  const burstToken = React.useMemo(() => findTokenBySymbol({ networkId: network?.networkId, symbol: 'BURST' }), [network]);
   console.log('result', result);
 
   return (

@@ -31,14 +31,13 @@ const normalizeData = ({ items = [] }) => {
 };
 
 function useTokenBalances() {
-  const { account, network } = useWallet();
-  const networkId = network?.networkId;
+  const { account, chainId } = useWallet();
 
-  return useQuery(['tokenbalances', networkId, account], async () => {
-    if (networkId && account) {
+  return useQuery(['tokenbalances', chainId, account], async () => {
+    if (chainId && account) {
       const { data } = await axios.get(
-        // `https://api.covalenthq.com/v1/pricing/historical_by_address/${networkId}/USD/${account}/?key=${process.env.COVALENT_API_KEY}`
-        `https://api.covalenthq.com/v1/${networkId}/address/${account}/balances_v2/?nft=true&no-nft-fetch=true&key=${process.env.REACT_APP_COVALENT_API_KEY}`
+        // `https://api.covalenthq.com/v1/pricing/historical_by_address/${chainId}/USD/${account}/?key=${process.env.COVALENT_API_KEY}`
+        `https://api.covalenthq.com/v1/${chainId}/address/${account}/balances_v2/?nft=true&no-nft-fetch=true&key=${process.env.REACT_APP_COVALENT_API_KEY}`
       );
       // console.log(data);
       return normalizeData(data?.data);

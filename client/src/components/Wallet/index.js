@@ -35,7 +35,7 @@ function Wallet({ children }) {
   React.useEffect(() => {
     if (ethereumRef.current != null) {
       setAccount(ethereumRef.current.selectedAddress);
-      setChainId(ethereumRef.current.chainId);
+      setChainId(parseInt(ethereumRef.current.chainId));
       ethereumRef.current.on('accountsChanged', accountsChangedCallback);
       ethereumRef.current.on('chainChanged', chainChangedCallback);
     }

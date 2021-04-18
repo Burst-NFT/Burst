@@ -50,26 +50,49 @@ const networkByKey = {
     name: 'Ganache',
     chainId: 1337,
   },
-  // avalancheCChainMainnet: {
-  //   key: 'avalancheCChainMainnet',
-  //   networkId: 43114,
-  //   name: 'Avalanche C-Chain Mainnet',
-  //   chainId: ''
-  // }
+  avalancheCChainMainnet: {
+    key: 'avalancheCChainMainnet',
+    networkId: 1,
+    name: 'Avalanche C-Chain Mainnet',
+    chainId: 43114,
+  },
+  avalancheFujiCChain: {
+    key: 'avalancheFujiCChain',
+    networkId: 1,
+    name: 'Avalanche FUJI C-Chain',
+    chainId: 43113,
+  },
 };
-
-const networkById = Object.keys(networkByKey).reduce((acc, key) => {
-  acc[networkByKey[key].networkId] = networkByKey[key];
-  return acc;
-}, {});
 
 const networkByChainId = Object.keys(networkByKey).reduce((acc, key) => {
   acc[networkByKey[key].chainId] = networkByKey[key];
   return acc;
 }, {});
 
-const predfinedTokensByNetworkId = {
-  [networkByKey.maticMumbaiTestnet.networkId]: [
+const tokensByChainId = {
+  [networkByKey.avalancheFujiCChain.chainId]: [
+    {
+      address: '0x76ad232bf3b42bab513768fdd5ae2f26cb943033',
+      name: 'Burst NFT',
+      symbol: 'BURST',
+      decimals: 18,
+      abi: BurstNFT.abi,
+      networkId: networkByKey.avalancheFujiCChain.networkId,
+      chainId: networkByKey.avalancheFujiCChain.chainId,
+    },
+  ],
+  [networkByKey.ganache.chainId]: [
+    {
+      address: BurstNFT.networks[Object.keys(BurstNFT.networks)[0]].address,
+      name: 'Burst NFT',
+      symbol: 'BURST',
+      decimals: 18,
+      abi: BurstNFT.abi,
+      networkId: networkByKey.ganache.networkId,
+      chainId: networkByKey.ganache.chainId,
+    },
+  ],
+  [networkByKey.maticMumbaiTestnet.chainId]: [
     {
       address: '0xF6cad50Aea13C607C53a063EE059B5f6f5d6F86D',
       name: 'Burst NFT',
@@ -80,7 +103,7 @@ const predfinedTokensByNetworkId = {
       chainId: networkByKey.maticMumbaiTestnet.chainId,
     },
   ],
-  [networkByKey.mainNet.networkId]: [
+  [networkByKey.mainNet.chainId]: [
     {
       address: '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2',
       name: 'Maker',
@@ -100,7 +123,7 @@ const predfinedTokensByNetworkId = {
       chainId: networkByKey.mainNet.chainId,
     },
   ],
-  [networkByKey.rinkeby.networkId]: [
+  [networkByKey.rinkeby.chainId]: [
     {
       address: '0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa',
       symbol: 'DAI',
@@ -122,40 +145,45 @@ const predfinedTokensByNetworkId = {
   ],
 };
 
-// Add BURST tokens
-const tokensByNetworkId = Object.keys(BurstNFT.networks).reduce((acc, networkId) => {
-  // if the networkId doesn't exist yet, create the field on the object
-  if (!acc[networkId]) acc[networkId] = [];
+// Add test/local BURST tokens
+// const tokensByChainId = Object.keys(BurstNFT.networks).reduce((acc, networkId) => {
+//   // look up chainId
 
-  // add the burst nft info under the network
-  acc[networkId].push({
-    address: BurstNFT.networks[networkId].address,
-    name: 'Burst NFT',
-    symbol: 'BURST',
-    decimals: 18,
-    abi: BurstNFT.abi,
-    networkId,
-    chainId: networkById[networkId]?.chainId || networkId, // if a new network, then assume that the chainId as networkId is the same for now
-  });
-  return acc;
-}, predfinedTokensByNetworkId);
+//   // if the networkId doesn't exist yet, create the field on the object
+//   if (!acc[networkId]) acc[networkId] = [];
+
+//   // add the burst nft info under the network
+//   acc[networkId].push({
+//     address: BurstNFT.networks[networkId].address,
+//     name: 'Burst NFT',
+//     symbol: 'BURST',
+//     decimals: 18,
+//     abi: BurstNFT.abi,
+//     networkId,
+//     chainId: networkById[networkId]?.chainId || networkId, // if a new network, then assume that the chainId as networkId is the same for now
+//   });
+//   return acc;
+// }, predfinedTokensByNetworkId);
 
 // TODO: Change to a single reduce function for better performance
 // Builds an object to access the token by address
-const tokenByAddress = Object.values(tokensByNetworkId)
+const tokenByAddress = Object.values(tokensByChainId)
   .flat()
   .reduce((acc, token) => {
     acc[token.address] = token;
     return acc;
   }, {});
 
-const findTokenBySymbol = ({ networkId, symbol }) => {
-  if (networkId && tokensByNetworkId[networkId]) {
-    const token = tokensByNetworkId[networkId].find((_token) => _token.symbol === symbol);
+/**
+ * Find the first token matching the symbol
+ */
+const findTokenBySymbol = ({ chainId, symbol }) => {
+  if (chainId && tokensByChainId[chainId]) {
+    const token = tokensByChainId[chainId].find((_token) => _token.symbol === symbol);
     return token;
   }
 
   return undefined;
 };
 
-export { tokenByAddress, findTokenBySymbol, networkById, networkByKey, networkByChainId, tokensByNetworkId };
+export { tokenByAddress, findTokenBySymbol, networkByKey, networkByChainId, tokensByChainId };

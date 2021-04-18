@@ -4,10 +4,10 @@ import useTokenBalances from './TokenBalance/useTokenBalances';
 import { getBurstAddress } from './Burst/utils';
 
 function DisplayBalance() {
-  const { network } = useWallet();
+  const { chainId } = useWallet();
   const result = useTokenBalances();
   const data = result?.data || { byId: {} };
-  const burstAddress = React.useMemo(() => getBurstAddress(network), [network]);
+  const burstAddress = React.useMemo(() => getBurstAddress({ chainId }), [chainId]);
   return (
     <div>
       BURST:

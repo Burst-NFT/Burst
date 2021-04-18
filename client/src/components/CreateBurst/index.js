@@ -91,7 +91,7 @@ function CreateBurst() {
   const { web3, account, network } = useWallet();
   const { isLoading, error, data: tokens } = useTokenBalances();
   const { numberFormatter } = useNumberFormatter();
-  const burstToken = React.useMemo(() => findTokenBySymbol({ networkId: network?.networkId, symbol: 'BURST' }), [network]);
+  const burstToken = React.useMemo(() => findTokenBySymbol({ chainId: network?.chainId, symbol: 'BURST' }), [network]);
 
   // Internal state
   const [basket, setBasket] = React.useState(initialBasketState);
@@ -143,8 +143,8 @@ function CreateBurst() {
   };
 
   const handleCreateBurstAsync = async () => {
-    const { networkId } = network;
-    const contract = createBurstContract({ web3, networkId });
+    const { chainId } = network;
+    const contract = createBurstContract({ web3, chainId });
 
     // approve transactions, 1 by 1, Promise all seems to make metamask hang a bit, especially for long running transactions
     for (let i = 0; i < basket.allIds.length; i++) {
