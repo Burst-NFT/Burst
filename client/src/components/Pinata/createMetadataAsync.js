@@ -2,16 +2,11 @@ import axios from 'axios';
 import produce from 'immer';
 
 const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
-
-const pinJSONToIPFSAsync = async (body) => {
-  const response = await axios.post(url, body, {
-    headers: {
-      pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
-      pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_API_KEY,
-    },
-  });
-  console.log(response.data.IpfsHash);
-  return response.data.IpfsHash;
+const config = {
+  headers: {
+    pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+    pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_API_KEY,
+  },
 };
 
 const initialBody = {
@@ -26,11 +21,19 @@ const initialBody = {
   },
 };
 
-const createMetadataAsync = (assets = []) => {
+const createMetadataAsync = async (assets = []) => {
   const postBody = produce(initialBody, (draft) => {
     draft.pinataContent.assets = assets;
   });
-  return pinJSONToIPFSAsync(postBody);
+  /*
+  Example response:
+  {
+    "IpfsHash": "QmQ6xZB4uZ9GSsU53KP8NU5XmrCo4PNHohMrbrMZ1thTxu",
+    "PinSize": 267,
+    "Timestamp": "2021-04-18T14:20:54.393Z"}
+  */
+  const response = await axios.post(url, postBody, config);
+  return response.data.IpfsHash;
 };
 
 export default createMetadataAsync;

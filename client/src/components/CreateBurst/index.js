@@ -156,10 +156,10 @@ function CreateBurst() {
     // create required fields to create burst
     const amounts = basket.allIds.map((id) => basket.byId[id].amount);
     const metadataAssets = basket.allIds.map((id) => ({ token_address: id, token_amount: basket.byId[id].amount }));
-    const tokenMetadataUrl = await createMetadataAsync(metadataAssets);
+    const ipfsHash = await createMetadataAsync(metadataAssets);
 
     // create burst
-    const result = await contract.methods.createBurstWithMultiErc20(basket.allIds, amounts, tokenMetadataUrl).send({ from: account });
+    const result = await contract.methods.createBurstWithMultiErc20(basket.allIds, amounts, ipfsHash).send({ from: account });
 
     setSuccessDialogData({ basket: { ...basket }, result });
     setSuccessDialogOpen(true);
