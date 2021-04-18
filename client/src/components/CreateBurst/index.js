@@ -29,6 +29,7 @@ import { createBurstContract } from '../Burst/utils';
 import { findTokenBySymbol } from '../utils';
 import useNumberFormatter from '../useNumberFormatter';
 import TokenName from '../TokenName';
+import createMetadataAsync from '../Pinata/createMetadataAsync';
 import CreateSuccessDialog from './CreateSuccessDialog';
 
 const StyledAddCard = styled(MuiCard)`
@@ -152,9 +153,13 @@ function CreateBurst() {
       await basket.byId[id].contract.methods.approve(burstToken.address, basket.byId[id].amount).send({ from: account });
     }
 
-    // create burst
+    // create required fields to create burst
     const amounts = basket.allIds.map((id) => basket.byId[id].amount);
-    const result = await contract.methods.createBurstWithMultiErc20(basket.allIds, amounts).send({ from: account });
+    const metadataAssets = basket.allIds.map((id) => ({ token_address: id, token_amount: basket.byId[id].amount }));
+    const tokenMetadataUrl = await createMetadataAsync(metadataAssets);
+
+    // create burst
+    const result = await contract.methods.createBurstWithMultiErc20(basket.allIds, amounts, tokenMetadataUrl).send({ from: account });
 
     setSuccessDialogData({ basket: { ...basket }, result });
     setSuccessDialogOpen(true);
