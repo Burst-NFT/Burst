@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import useWallet from './Wallet/useWallet';
-import useTokenBalances from './TokenBalance/useTokenBalances';
 import { getBurstAddress } from './Burst/utils';
 import MuiButton from '@material-ui/core/Button';
+import { useAccountTokens } from './queries';
 
 // function
 
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 
 function DisplayBalance() {
   const { chainId } = useWallet();
-  const { isLoading, data: tokens } = useTokenBalances();
+  const { isLoading, data: tokens } = useAccountTokens();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

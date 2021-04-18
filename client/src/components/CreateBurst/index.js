@@ -21,7 +21,6 @@ import CardHeader from '../CardHeader';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { formatUnits } from '@ethersproject/units';
 import produce from 'immer';
-import useTokenBalances from '../TokenBalance/useTokenBalances';
 import useWallet from '../Wallet/useWallet';
 import { abi as ERC20ABI } from '../../contracts/IERC20.json';
 import ErrorAlert from '../ErrorAlert';
@@ -31,6 +30,7 @@ import useNumberFormatter from '../useNumberFormatter';
 import TokenName from '../TokenName';
 import createMetadataAsync from '../Pinata/createMetadataAsync';
 import CreateSuccessDialog from './CreateSuccessDialog';
+import { useAccountTokens } from '../queries';
 
 const StyledAddCard = styled(MuiCard)`
   max-width: 650px;
@@ -62,7 +62,7 @@ const StyledAvailableBalance = styled.div`
   }
 `;
 function AvailableBalance({ tokenAddress }) {
-  const { data: tokens } = useTokenBalances();
+  const { data: tokens } = useAccountTokens();
 
   const token = tokens.byId[tokenAddress];
   const balance = React.useMemo(() => {
@@ -90,7 +90,7 @@ const initialDialogData = {
 function CreateBurst() {
   // Setup
   const { web3, account, network } = useWallet();
-  const { isLoading, error, data: tokens } = useTokenBalances();
+  const { isLoading, error, data: tokens } = useAccountTokens();
   const { numberFormatter } = useNumberFormatter();
   const burstToken = React.useMemo(() => findTokenBySymbol({ chainId: network?.chainId, symbol: 'BURST' }), [network]);
 
