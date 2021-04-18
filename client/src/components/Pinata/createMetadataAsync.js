@@ -17,13 +17,15 @@ const initialBody = {
     description: 'An NFT that represents ERC20 assets',
     image: 'https://gateway.pinata.cloud/ipfs/QmTgep8UJZxkumYWmfNoUYaqej1Fh2pDezxsgfZBa3RqVm',
     name: 'Burst NFT',
-    assets: [],
+    attributes: {
+      assets: []
+    },
   },
 };
 
-const createMetadataAsync = async (assets = []) => {
+const createMetadataAsync = async (attributes = []) => {
   const postBody = produce(initialBody, (draft) => {
-    draft.pinataContent.assets = assets;
+    draft.pinataContent.attributes = attributes;
   });
   /*
   Example response:

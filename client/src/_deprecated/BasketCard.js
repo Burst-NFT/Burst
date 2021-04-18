@@ -50,7 +50,7 @@ const JSONBody = {
       "description": "An NFT that represents ERC20 assets", 
       "image": "https://gateway.pinata.cloud/ipfs/QmTgep8UJZxkumYWmfNoUYaqej1Fh2pDezxsgfZBa3RqVm", 
       "name": "Burst NFT",
-      "assets": []
+      "attributes": []
   }
 };
 

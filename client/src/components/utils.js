@@ -72,7 +72,7 @@ const networkByChainId = Object.keys(networkByKey).reduce((acc, key) => {
 const tokensByChainId = {
   [networkByKey.avalancheFujiCChain.chainId]: [
     {
-      address: '0x76ad232bf3b42bab513768fdd5ae2f26cb943033',
+      address: '0x85CFE8b56f6E76F6c694279e3eFd0Efd4Da84863',
       name: 'Burst NFT',
       symbol: 'BURST',
       decimals: 18,

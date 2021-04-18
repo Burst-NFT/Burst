@@ -31,6 +31,7 @@ import useNumberFormatter from '../useNumberFormatter';
 import TokenName from '../TokenName';
 import createMetadataAsync from '../Pinata/createMetadataAsync';
 import CreateSuccessDialog from './CreateSuccessDialog';
+import Web3 from 'web3'
 
 const StyledAddCard = styled(MuiCard)`
   max-width: 650px;
@@ -61,6 +62,9 @@ const StyledAvailableBalance = styled.div`
     padding-right: 0;
   }
 `;
+
+const BN = Web3.utils.toBN;
+
 function AvailableBalance({ tokenAddress }) {
   const { data: tokens } = useTokenBalances();
 
@@ -106,7 +110,7 @@ function CreateBurst() {
     // attempt to create a contract, will error if invalid
     const contract = new web3.eth.Contract(ERC20ABI, selectedAddress);
     // map covalent response to friendly field names
-    const { logo_url: logo, contract_name: name, contract_ticker_symbol: symbol, quote_rate } = token;
+    const { logo_url: logo, contract_name: name, contract_ticker_symbol: symbol, quote_rate, contract_decimals: decimals } = token;
     setBasket(
       produce((draft) => {
         draft.byId[selectedAddress] = {
@@ -114,6 +118,7 @@ function CreateBurst() {
           name,
           symbol,
           amount,
+          decimals,
           address: selectedAddress,
           total: quote_rate * amount,
           contract,
@@ -154,7 +159,12 @@ function CreateBurst() {
     }
 
     // create required fields to create burst
-    const amounts = basket.allIds.map((id) => basket.byId[id].amount);
+    const amounts = basket.allIds.map((id) => {
+      // console.log(basket.byId[id].amount * (10**(basket.byId[id].decimals)));
+      // return (new BN(basket.byId[id].amount * (10**(basket.byId[id].decimals))).toString());
+      // return (basket.byId[id].amount * (10**(basket.byId[id].decimals)));
+      return basket.byId[id].amount;
+    });
     const metadataAssets = basket.allIds.map((id) => ({ token_address: id, token_amount: basket.byId[id].amount }));
     const ipfsHash = await createMetadataAsync(metadataAssets);
 
