@@ -11,11 +11,11 @@ function ConnectToWallet() {
     ethereum.enable();
   };
   return !!displayAccount ? (
-    <Button variant='contained' disableElevation>
+    <Button variant='contained' disableElevation style={{ backgroundColor: 'white' }} disabled>
       {displayAccount}
     </Button>
   ) : (
-    <Button onClick={handleClick} variant='contained' disableElevation>
+    <Button onClick={handleClick} variant='contained' disableElevation style={{ backgroundColor: 'white' }}>
       Connect
     </Button>
   );

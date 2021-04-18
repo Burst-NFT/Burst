@@ -7,6 +7,7 @@ import Link from '@material-ui/core/Link';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import Avatar from '@material-ui/core/Avatar';
 import ConnectToWallet from './components/Wallet/ConnectToWallet';
+import DisplayBalance from './components/DisplayBalance';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -29,6 +30,9 @@ const SiteNav = styled.div`
 
 const AccountInfo = styled.div`
   display: flex;
+  > *:not(:last-child) {
+    margin-right: 16px;
+  }
 `;
 
 const Address = styled.div`
@@ -47,8 +51,9 @@ function Header() {
             </Link>
           </SiteNav>
           <AccountInfo>
+            <DisplayBalance />
             <ConnectToWallet />
-            <IconButton href='https://github.com/Burst-NFT/Burst' target='_blank' color='primary'>
+            <IconButton href='https://github.com/Burst-NFT/Burst' target='_blank' style={{ color: 'white' }}>
               <GitHubIcon />
             </IconButton>
           </AccountInfo>

@@ -17,7 +17,7 @@ import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
-import CardHeader from '@material-ui/core/CardHeader';
+import CardHeader from '../CardHeader';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { formatUnits } from '@ethersproject/units';
 import produce from 'immer';
@@ -178,7 +178,7 @@ function CreateBurst() {
   if (isLoading)
     return (
       <StyledAddCard>
-        <CardHeader />
+        <CardHeader title='Create' />
         <CardContent>Loading...</CardContent>
       </StyledAddCard>
     );
@@ -189,7 +189,7 @@ function CreateBurst() {
     <>
       <CreateSuccessDialog data={successDialogData} open={successDialogOpen} handleClose={handleCloseSuccessDialog} />
       <StyledAddCard>
-        <CardHeader />
+        <CardHeader title='Create' />
         <Form>
           <CardContent>
             <Fields style={{ marginBottom: '16px', flexDirection: 'column' }}>
