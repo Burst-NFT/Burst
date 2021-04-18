@@ -38,9 +38,10 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     // Mapping nft indexId to above struct
     mapping(uint256 => burstNftInfo) public nftIndexToNftInfoMapping;
     
-    constructor (address _governance, uint256 _creatorFee) ERC721 ("Burst NFT", "BURST") {
+    constructor (address _governance, uint256 _creatorFee, string memory _baseURI) ERC721 ("Burst NFT", "BURST") {
         governance = _governance;
         creatorFee = _creatorFee;
+        _setBaseURI(_baseURI);
     }
     
     /* ****************
@@ -65,7 +66,8 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     * */
     function createBurstWithMultiErc20(
         address[] calldata _tokenContracts, 
-        uint256[] calldata _amounts
+        uint256[] calldata _amounts,
+        string memory _tokenURI
     )
         public
     {
@@ -77,7 +79,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         nftIndexToNftInfoMapping[_tokenIds.current()].assetAmounts = _amounts;
         nftIndexToNftInfoMapping[_tokenIds.current()].creator = _msgSender();
         nftIndexToNftInfoMapping[_tokenIds.current()].exists = true;
-        mintBurst();
+        mintBurst(_tokenURI);
     }
       
     /**
@@ -98,20 +100,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     }
 
     /**
-     * @dev Public function to burn Burst NFT via governance address and send erc20 assets to any address
-     *
-     * */
-    function emergencyDestroyBurst(uint256 _tokenId, address _recipient) public {
-        require(msg.sender == governance, "!governance");
-        for (uint256 i=0; i<nftIndexToNftInfoMapping[_tokenId].assetAddresses.length; i++) {
-            emergencyReleaseErc20(_tokenId, _recipient, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
-        }
-        burn(_tokenId);
-        nftIndexToNftInfoMapping[_tokenId].exists = false;
-    }
-
-    /**
-     * @dev Public function to set the Governane address for the protocol
+     * @dev Public function to set the Governace address for the protocol
      *
      * */
     function setGovernance(address _governance) public {
@@ -155,13 +144,13 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
      * @dev Internal function to mint Burst NFT
      *
      * */
-    function mintBurst() 
+    function mintBurst(string memory _tokenURI) 
         internal
         returns (uint256)
     {
         uint256 newItemId = _tokenIds.current();
         _safeMint(msg.sender, newItemId);
-        approve(governance, newItemId);
+        _setTokenURI(newItemId, _tokenURI);
         _tokenIds.increment();
         return newItemId;
     }
@@ -182,26 +171,6 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         uint256 creatorFeeAmount = tokenAmount.mul(creatorFee).div(100);
         _transferErc20(nftIndexToNftInfoMapping[_tokenId].creator, _tokenContract, creatorFeeAmount);
         _transferErc20(_msgSender(), _tokenContract, tokenAmount.sub(creatorFeeAmount));
-    }
-
-    /**
-     * @dev Internal function to emergency release erc20 through governance
-     * Maintains sending creator fee to creator address
-     *
-     * */
-    function emergencyReleaseErc20(
-        uint256 _tokenId,
-        address _recipient,
-        address _tokenContract,
-        uint256 i
-    )
-        internal
-    {
-        uint256 tokenAmount = nftIndexToNftInfoMapping[_tokenId].assetAmounts[i];
-        require(tokenAmount > 0, "NFT does not hold ERC20 asset");
-        uint256 creatorFeeAmount = tokenAmount.mul(creatorFee).div(100);
-        _transferErc20(nftIndexToNftInfoMapping[_tokenId].creator, _tokenContract, creatorFeeAmount);
-        _transferErc20(_recipient, _tokenContract, tokenAmount.sub(creatorFeeAmount));
     }
 
     /**

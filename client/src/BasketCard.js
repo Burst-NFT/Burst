@@ -17,6 +17,42 @@ import BurstNFTContract from './contracts/BurstNFT.json';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+require("dotenv").config({path: "client/.env"});
+const axios = require('axios');
+
+const pinJSONToIPFS = (pinataApiKey, pinataSecretApiKey, _JSONBody) => {
+    const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+    return axios
+        .post(url, _JSONBody, {
+            "headers": {
+                "pinata_api_key": pinataApiKey,
+                "pinata_secret_api_key": pinataSecretApiKey
+            }
+        })
+        .then(function (response) {
+          console.log(response.data.IpfsHash);
+            return response.data.IpfsHash;
+        })
+        .catch(function (error) {
+          console.log(pinataApiKey);
+          console.log(pinataSecretApiKey);
+          console.log(process.env.PINATAAPIKEY);
+          console.log(process.env.PINATASECRETAPIKEY);  
+          return error;
+        });
+};
+
+const JSONBody = {
+  "pinataMetadata": {
+      "name": "Burst NFT JSON"
+  },
+  "pinataContent": {
+      "description": "An NFT that represents ERC20 assets", 
+      "image": "https://gateway.pinata.cloud/ipfs/QmTgep8UJZxkumYWmfNoUYaqej1Fh2pDezxsgfZBa3RqVm", 
+      "name": "Burst NFT",
+      "assets": []
+  }
+};
 
 const StyledBasketCard = styled(MuiCard)`
   min-width: 500px;
@@ -54,7 +90,14 @@ function BasketCard({ basket, setBasket }) {
     }
 
     const amounts = addresses.map((k) => basket[k].amount);
-    const response = await contract.methods.createBurstWithMultiErc20(addresses, amounts).send({ from: window.ethereum?.selectedAddress });
+
+    const NFTJSON = JSONBody;
+    const assetArray = [];
+    addresses.forEach((address, i) => assetArray[i] = {"token_address": address, "token_amount": amounts[i]});
+    NFTJSON.pinataContent.assets = assetArray;
+    const IPFSResponse = await pinJSONToIPFS("f556fc9bed55416eb9e8", "571cf44a353d9634e85e01c603d7fb03188e1bff14b04c5b3b3f579edb4ce900", NFTJSON);
+
+    const response = await contract.methods.createBurstWithMultiErc20(addresses, amounts, IPFSResponse).send({ from: window.ethereum?.selectedAddress });
     debugger;
   };
 
