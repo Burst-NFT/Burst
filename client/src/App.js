@@ -50,13 +50,15 @@ const theme = createMuiTheme({
     MuiCssBaseline: {
       '@global': {
         body: {
-          backgroundColor: '#303030',
+          backgroundColor: '#7700b3',
         },
       },
     },
   },
   palette: {
-    primary: blue,
+    primary: {
+      main: '#4a148c',
+    },
     // type: 'dark',
   },
 });
