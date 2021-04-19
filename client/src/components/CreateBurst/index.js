@@ -22,7 +22,6 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { MaxUint256 } from '@ethersproject/constants';
 import { formatUnits } from '@ethersproject/units';
 import produce from 'immer';
-import useTokenBalances from '../TokenBalance/useTokenBalances';
 import useWallet from '../Wallet/useWallet';
 import { abi as ERC20ABI } from '../../contracts/IERC20.json';
 import ErrorAlert from '../ErrorAlert';
@@ -32,7 +31,7 @@ import useNumberFormatter from '../useNumberFormatter';
 import TokenName from '../TokenName';
 import createMetadataAsync from '../Pinata/createMetadataAsync';
 import CreateSuccessDialog from './CreateSuccessDialog';
-import Web3 from 'web3'
+import { useAccountTokens } from '../queries';
 
 const StyledAddCard = styled(MuiCard)`
   max-width: 650px;
@@ -64,10 +63,8 @@ const StyledAvailableBalance = styled.div`
   }
 `;
 
-const BN = Web3.utils.toBN;
-
 function AvailableBalance({ tokenAddress }) {
-  const { data: tokens } = useTokenBalances();
+  const { data: tokens } = useAccountTokens();
 
   const token = tokens.byId[tokenAddress];
   const balance = React.useMemo(() => {
@@ -95,7 +92,7 @@ const initialDialogData = {
 function CreateBurst() {
   // Setup
   const { web3, account, network } = useWallet();
-  const { isLoading, error, data: tokens } = useTokenBalances();
+  const { isLoading, error, data: tokens } = useAccountTokens();
   const { numberFormatter } = useNumberFormatter();
   const burstToken = React.useMemo(() => findTokenBySymbol({ chainId: network?.chainId, symbol: 'BURST' }), [network]);
 
@@ -160,7 +157,7 @@ function CreateBurst() {
     }
 
     // create required fields to create burst
-    const amounts = basket.allIds.map((id) => toFixed(basket.byId[id].amount * (10**(basket.byId[id].decimals)));
+    const amounts = basket.allIds.map((id) => Math.floor((basket.byId[id].amount * (10**(basket.byId[id].decimals)))).toFixed());
 
       // console.log(basket.byId[id].amount * (10**(basket.byId[id].decimals)).toFixed());
       // return (new BN(basket.byId[id].amount * (10**(basket.byId[id].decimals))).toString());

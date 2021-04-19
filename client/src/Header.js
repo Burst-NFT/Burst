@@ -6,6 +6,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import { NavLink } from 'react-router-dom';
+
 import ConnectToWallet from './components/Wallet/ConnectToWallet';
 import DisplayBalance from './components/DisplayBalance';
 
@@ -26,6 +29,10 @@ const Wrapper = styled.div`
 const SiteNav = styled.div`
   display: flex;
   flex-grow: 1;
+  align-items: center;
+  > * {
+    margin-right: 16px;
+  }
 `;
 
 const AccountInfo = styled.div`
@@ -39,6 +46,15 @@ const Address = styled.div`
   margin-top: 16px;
 `;
 
+const SiteNavLink = styled(Link).attrs({ component: NavLink })`
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+  &.active {
+    text-decoration: underline;
+  }
+`;
+
 function Header() {
   // const displayAddress = !!window.ethereum?.selectedAddress && `${window.ethereum?.selectedAddress.slice(0, -30)}...`;
   return (
@@ -49,6 +65,16 @@ function Header() {
             <Link href='/'>
               <Avatar alt='BURST' src='/burst40.png' />
             </Link>
+            <SiteNavLink exact to='/'>
+              <Typography variant='subtitle1' gutterBottom>
+                Create
+              </Typography>
+            </SiteNavLink>
+            <SiteNavLink exact to='/manage'>
+              <Typography variant='subtitle1' gutterBottom>
+                Manage
+              </Typography>
+            </SiteNavLink>
           </SiteNav>
           <AccountInfo>
             <DisplayBalance />

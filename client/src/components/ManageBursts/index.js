@@ -19,12 +19,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import MuiAppBar from '@material-ui/core/AppBar';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import useTokenBalances from '../TokenBalance/useTokenBalances';
+import { useNftTokensWithValue } from '../queries';
 import useWallet from '../Wallet/useWallet';
 import ErrorAlert from '../ErrorAlert';
+import { getBurstAddress } from '../Burst/utils';
 
 const Card = styled(MuiCard)`
-  max-width: 650px;
+  /* max-width: 650px; */
 `;
 
 const CardActions = styled(MuiCardActions)`
@@ -38,52 +39,56 @@ const CardActions = styled(MuiCardActions)`
 const Title = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center;
-  justify-content: flex-start; */
   flex-grow: 1;
   padding-left: 16px;
 `;
 
 // const Toolbar = styled(MuiToolbar)
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  min-width: 600px;
+`;
 
 const AppBar = styled(MuiAppBar)`
   margin-bottom: 16px;
 `;
-
+const initialState = {
+  byId: {},
+  allIds: [],
+  burstIds: [],
+};
 function ManageBurstsCard() {
-  const { web3, account, network } = useWallet();
-  const { isLoading, error, data: tokens } = useTokenBalances();
+  const { web3, account, network, chainId } = useWallet();
+  // const { isLoading, error, data: tokens } = useNftTokensWithValue();
   const [showOnlyBursts, setShowOnlyBursts] = React.useState(true);
+  const burstAddress = React.useMemo(() => getBurstAddress({ chainId }), [chainId]);
+  const [displayTokens, setDisplayTokens] = React.useState({ ...initialState });
 
   const handleChangeShowBursts = (e) => {
     setShowOnlyBursts(e.target.checked);
   };
-  // no need to memoize a reference
-  // const ids = showOnlyBursts ? tokens.
 
-  // React.useEffect(() => {}, [showOnlyBursts]);
+  const isLoading = false;
+  // React.useEffect(() => {}, [tokens, burstAddress]);
+  // if (isLoading)
+  //   return (
+  //     <Card>
+  //       <CardContent>Loading...</CardContent>
+  //     </Card>
+  //   );
 
-  if (isLoading)
-    return (
-      <Card>
-        <CardContent>Loading...</CardContent>
-      </Card>
-    );
-
-  if (error) return <ErrorAlert text='An error occured. Please reload the page and try again.' />;
+  // if (error) return <ErrorAlert text='An error occured. Please reload the page and try again.' />;
 
   return (
     <Wrapper>
-      <AppBar position='relative' color='secondary'>
+      <Card square>
         <Toolbar>
           <FormControlLabel
             control={<Switch checked={showOnlyBursts} onChange={handleChangeShowBursts} name='showBursts' color='primary' />}
             label='Show only BURSTs'
           />
         </Toolbar>
-      </AppBar>
+      </Card>
       {isLoading ? (
         <Card>
           <CardContent>Loading...</CardContent>

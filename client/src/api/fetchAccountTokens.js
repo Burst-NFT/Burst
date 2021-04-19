@@ -1,7 +1,4 @@
-import React from 'react';
-import useWallet from '../Wallet/useWallet';
 import axios from 'axios';
-import { useQuery } from 'react-query';
 import produce from 'immer';
 
 const initialObj = {
@@ -30,22 +27,17 @@ const normalizeData = ({ items = [] }) => {
   });
 };
 
-function useTokenBalances() {
-  const { account, chainId } = useWallet();
+const fetchAccountTokens = async ({ account, chainId }) => {
+  if (chainId && account) {
+    const { data } = await axios.get(
+      `https://api.covalenthq.com/v1/${chainId}/address/${account}/balances_v2/?nft=true&no-nft-fetch=true&key=${process.env.REACT_APP_COVALENT_API_KEY}`
+    );
+    // console.log(data);
+    return normalizeData(data?.data);
+  } else {
+    // probably overkill spread operating it
+    return { ...initialObj };
+  }
+};
 
-  return useQuery(['tokenbalances', chainId, account], async () => {
-    if (chainId && account) {
-      const { data } = await axios.get(
-        // `https://api.covalenthq.com/v1/pricing/historical_by_address/${chainId}/USD/${account}/?key=${process.env.COVALENT_API_KEY}`
-        `https://api.covalenthq.com/v1/${chainId}/address/${account}/balances_v2/?nft=true&no-nft-fetch=true&key=${process.env.REACT_APP_COVALENT_API_KEY}`
-      );
-      // console.log(data);
-      return normalizeData(data?.data);
-    } else {
-      // probably overkill spread operating it
-      return { ...initialObj };
-    }
-  });
-}
-
-export default useTokenBalances;
+export default fetchAccountTokens;

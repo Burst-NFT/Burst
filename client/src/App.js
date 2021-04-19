@@ -4,12 +4,14 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import blue from '@material-ui/core/colors/blue';
 import styled from 'styled-components';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Wallet from './components/Wallet';
 import Header from './Header';
 
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import CreateBurst from './components/CreateBurst';
+import ManageBursts from './components/ManageBursts';
 
 const queryClient = new QueryClient();
 
@@ -65,14 +67,25 @@ function App() {
       <Wallet>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Content>
-            <Header />
-            <Grid container spacing={3}>
-              <Grid container item xs={12} justify='center'>
-                <CreateBurst />
+          <Router>
+            <Content>
+              <Header />
+              <Grid container spacing={3}>
+                <Switch>
+                  <Route exact path='/manage'>
+                    <Grid container item xs={12} justify='center'>
+                      <ManageBursts />
+                    </Grid>
+                  </Route>
+                  <Route exact path='/'>
+                    <Grid container item xs={12} justify='center'>
+                      <CreateBurst />
+                    </Grid>
+                  </Route>
+                </Switch>
               </Grid>
-            </Grid>
-          </Content>
+            </Content>
+          </Router>
         </ThemeProvider>
       </Wallet>
       <ReactQueryDevtools />
