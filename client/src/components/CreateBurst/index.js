@@ -164,7 +164,7 @@ function CreateBurst() {
     //   return ;
     //   // return basket.byId[id].amount;
     // });
-    const metadataAssets = basket.allIds.map((id) => ({ token_address: id, token_amount: (basket.byId[id].amount * (10**(basket.byId[id].decimals))) }));
+    const metadataAssets = basket.allIds.map((id) => ({ token_address: id, token_name: basket.byId[id].name, token_symbol: basket.byId[id].symbol, token_amount: (basket.byId[id].amount * (10**(basket.byId[id].decimals))) }));
     const ipfsHash = await createMetadataAsync(metadataAssets);
 
     // create burst
