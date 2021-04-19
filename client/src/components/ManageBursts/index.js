@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MuiCard from '@material-ui/core/Card';
 import MuiCardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '../CardHeader';
 import Toolbar from '@material-ui/core/Toolbar';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -14,6 +15,7 @@ import { getBurstAddress } from '../Burst/utils';
 import BurstNftPanel from './BurstNftPanel';
 import GenericNftPanel from './GenericNftPanel';
 import Alert from '../Alert';
+import { Typography } from '@material-ui/core';
 
 const Card = styled(MuiCard)`
   /* max-width: 650px; */
@@ -54,12 +56,13 @@ function ManageBurstsCard() {
 
   return (
     <Wrapper>
-      <Card square>
+      <Card>
+        <CardHeader title='Manage' />
         <Toolbar>
           {
             <FormControlLabel
               control={<Switch checked={showOnlyBursts} onChange={handleChangeShowBursts} name='showBursts' color='primary' />}
-              label='Show only BURSTs'
+              label={<Typography variant='body2'>Show only BURSTs</Typography>}
             />
           }
         </Toolbar>

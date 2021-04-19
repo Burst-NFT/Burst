@@ -31,6 +31,7 @@ function SendBurstDialog({ open = false, handleClose, handleOnClickSend, sendDia
       <DialogContent>
         <DialogContentText>Send your burst token to the following address:</DialogContentText>
         <TextField
+          variant='outlined'
           autoFocus
           margin='dense'
           id='name'

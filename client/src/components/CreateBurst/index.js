@@ -33,7 +33,8 @@ import { useAccountTokens } from '../queries';
 import AvailableBalance from './AvailableBalance';
 
 const StyledAddCard = styled(MuiCard)`
-  max-width: 650px;
+  min-width: 450px;
+  /* max-width: 650px; */
 `;
 
 const CardActions = styled(MuiCardActions)`
@@ -48,9 +49,6 @@ const Form = styled.form``;
 const Fields = styled.div`
   display: flex;
   flex-direction: row;
-  > :not(:last-child) {
-    padding-right: 16px;
-  }
 `;
 
 const initialBasketState = { byId: {}, allIds: [] };
@@ -207,7 +205,7 @@ function CreateBurst() {
             </Fields>
             <Fields>
               <TextField
-                style={{ width: '100%' }}
+                style={{ width: '100%', paddingRight: '16px' }}
                 variant='outlined'
                 id='add-amount-input'
                 label='Amount'
