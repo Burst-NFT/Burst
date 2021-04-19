@@ -1,5 +1,6 @@
 import axios from 'axios';
 import produce from 'immer';
+import { getBurstAddress } from '../components/Burst/utils';
 
 const initialObj = {
   byId: {},
@@ -12,7 +13,7 @@ const allowedTokenTypes = new Set(['cryptocurrency', 'nft']);
 
 const normalizeData = ({ items = [] }) => {
   // using immer for clarity with immutability
-  return produce(initialObj, (draft) => {
+  const normalized = produce(initialObj, (draft) => {
     for (let i = 0; i < items.length; i++) {
       const token = items[i];
       // if acceptable/preset type, then can add
@@ -25,15 +26,21 @@ const normalizeData = ({ items = [] }) => {
       }
     }
   });
+
+  // console.log('normalizeData', items, normalized);
+
+  return normalized;
 };
 
 const fetchAccountTokens = async ({ account, chainId }) => {
   if (chainId && account) {
     const { data } = await axios.get(
-      `https://api.covalenthq.com/v1/${chainId}/address/${account}/balances_v2/?nft=true&no-nft-fetch=true&key=${process.env.REACT_APP_COVALENT_API_KEY}`
+      `https://api.covalenthq.com/v1/${chainId}/address/${account}/balances_v2/?nft=true&no-nft-fetch=false&key=${process.env.REACT_APP_COVALENT_API_KEY}`
     );
-    // console.log(data);
-    return normalizeData(data?.data);
+
+    const items = data?.data?.items || [];
+    const burstAddress = getBurstAddress({ chainId });
+    return normalizeData({ items, burstAddress });
   } else {
     // probably overkill spread operating it
     return { ...initialObj };

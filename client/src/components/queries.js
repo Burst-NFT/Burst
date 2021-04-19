@@ -1,19 +1,15 @@
 import useWallet from './Wallet/useWallet';
 import { useQuery } from 'react-query';
 import fetchAccountTokens from '../api/fetchAccountTokens';
-import fetchSpotPrices from '../api/fetchSpotPrices';
+import fetchTokenPrices from '../api/fetchTokenPrices';
 
 function useAccountTokens() {
   const { account, chainId } = useWallet();
   return useQuery(['tokenbalances', chainId, account], () => fetchAccountTokens({ account, chainId }));
 }
 
-function useNftTokensWithValue({ addresses = [] }) {
-  const { account, chainId } = useWallet();
-  return useQuery(['spotprices', chainId, account], async () => {
-    const tokens = await fetchAccountTokens({ account, chainId });
-    return { byId: {}, allIds: [] };
-  });
+function useBurstAssets({ assets = [] }) {
+  return useQuery(['spotprices', ...assets.map((asset) => asset.token_name?.toLowerCase())], () => fetchTokenPrices({ burstAssets: assets }));
 }
 
-export { useAccountTokens, useNftTokensWithValue };
+export { useAccountTokens, useBurstAssets };

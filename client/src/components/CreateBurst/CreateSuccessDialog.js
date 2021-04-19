@@ -12,10 +12,9 @@ import MuiTableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
 import Zoom from '@material-ui/core/Zoom';
 import useWallet from '../Wallet/useWallet';
-import { Typography } from '@material-ui/core';
-import { findTokenBySymbol } from '../utils';
 import useNumberFormatter from '../useNumberFormatter';
 import TokenName from '../TokenName';
 
@@ -40,7 +39,7 @@ const OkButton = styled(Button)`
 function CreateSuccessDialog({ open, handleClose, data: { basket, result } }) {
   const { network } = useWallet();
   const { numberFormatter } = useNumberFormatter();
-  console.log('result', result);
+  // console.log('result', result);
 
   return (
     <Dialog

@@ -50,7 +50,8 @@ const theme = createMuiTheme({
     MuiCssBaseline: {
       '@global': {
         body: {
-          backgroundColor: '#7700b3',
+          background: 'rgb(2,0,36)',
+          background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(124,67,189,1) 35%, rgba(0,212,255,1) 100%)',
         },
       },
     },
@@ -90,7 +91,7 @@ function App() {
           </Router>
         </ThemeProvider>
       </Wallet>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   );
 }

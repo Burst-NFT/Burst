@@ -14,24 +14,23 @@ import MuiTableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Select from '@material-ui/core/Select';
-import Chip from '@material-ui/core/Chip';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
-import CardHeader from '../CardHeader';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { MaxUint256 } from '@ethersproject/constants';
-import { formatUnits } from '@ethersproject/units';
 import produce from 'immer';
+
+import CardHeader from '../CardHeader';
 import useWallet from '../Wallet/useWallet';
 import { abi as ERC20ABI } from '../../contracts/IERC20.json';
 import ErrorAlert from '../ErrorAlert';
-import { createBurstContract } from '../Burst/utils';
-import { findTokenBySymbol } from '../utils';
+import { createBurstContract, getBurstAddress } from '../Burst/utils';
 import useNumberFormatter from '../useNumberFormatter';
 import TokenName from '../TokenName';
-import createMetadataAsync from '../Pinata/createMetadataAsync';
+import createBurstMetadataAsync from '../../api/createBurstMetadataAsync';
 import CreateSuccessDialog from './CreateSuccessDialog';
 import { useAccountTokens } from '../queries';
+import AvailableBalance from './AvailableBalance';
 
 const StyledAddCard = styled(MuiCard)`
   max-width: 650px;
@@ -54,30 +53,6 @@ const Fields = styled.div`
   }
 `;
 
-const StyledAvailableBalance = styled.div`
-  padding-bottom: 16px;
-  display: flex;
-  justify-content: flex-end;
-  && {
-    padding-right: 0;
-  }
-`;
-
-function AvailableBalance({ tokenAddress }) {
-  const { data: tokens } = useAccountTokens();
-
-  const token = tokens.byId[tokenAddress];
-  const balance = React.useMemo(() => {
-    const _balance = token?.balance;
-    return _balance ? parseFloat(formatUnits(_balance, token.contract_decimals)).toPrecision(4) : 0;
-  }, [token]);
-  return (
-    <StyledAvailableBalance>
-      <Chip color='primary' label={`Available balance: ${balance}`} />
-    </StyledAvailableBalance>
-  );
-}
-
 const initialBasketState = { byId: {}, allIds: [] };
 
 const TableContainer = styled(MuiTableContainer)`
@@ -91,10 +66,10 @@ const initialDialogData = {
 
 function CreateBurst() {
   // Setup
-  const { web3, account, network } = useWallet();
+  const { web3, account, network, chainId } = useWallet();
   const { isLoading, error, data: tokens } = useAccountTokens();
   const { numberFormatter } = useNumberFormatter();
-  const burstToken = React.useMemo(() => findTokenBySymbol({ chainId: network?.chainId, symbol: 'BURST' }), [network]);
+  const burstAddress = React.useMemo(() => getBurstAddress({ chainId }), [chainId]);
 
   // Internal state
   const [basket, setBasket] = React.useState(initialBasketState);
@@ -153,19 +128,24 @@ function CreateBurst() {
     // approve transactions, 1 by 1, Promise all seems to make metamask hang a bit, especially for long running transactions
     for (let i = 0; i < basket.allIds.length; i++) {
       const id = basket.allIds[i];
-      await basket.byId[id].contract.methods.approve(burstToken.address, MaxUint256).send({ from: account });
+      await basket.byId[id].contract.methods.approve(burstAddress, MaxUint256).send({ from: account });
     }
 
     // create required fields to create burst
-    const amounts = basket.allIds.map((id) => Math.floor((basket.byId[id].amount * (10**(basket.byId[id].decimals)))).toFixed());
+    const amounts = basket.allIds.map((id) => Math.floor(basket.byId[id].amount * 10 ** basket.byId[id].decimals).toFixed());
 
-      // console.log(basket.byId[id].amount * (10**(basket.byId[id].decimals)).toFixed());
-      // return (new BN(basket.byId[id].amount * (10**(basket.byId[id].decimals))).toString());
+    // console.log(basket.byId[id].amount * (10**(basket.byId[id].decimals)).toFixed());
+    // return (new BN(basket.byId[id].amount * (10**(basket.byId[id].decimals))).toString());
     //   return ;
     //   // return basket.byId[id].amount;
     // });
-    const metadataAssets = basket.allIds.map((id) => ({ token_address: id, token_name: basket.byId[id].name, token_symbol: basket.byId[id].symbol, token_amount: (basket.byId[id].amount * (10**(basket.byId[id].decimals))) }));
-    const ipfsHash = await createMetadataAsync(metadataAssets);
+    const metadataAssets = basket.allIds.map((id) => ({
+      token_address: id,
+      token_name: basket.byId[id].name,
+      token_symbol: basket.byId[id].symbol,
+      token_amount: basket.byId[id].amount * 10 ** basket.byId[id].decimals,
+    }));
+    const ipfsHash = await createBurstMetadataAsync(metadataAssets);
 
     // create burst
     const result = await contract.methods.createBurstWithMultiErc20(basket.allIds, amounts, ipfsHash).send({ from: account });

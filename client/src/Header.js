@@ -31,7 +31,7 @@ const SiteNav = styled.div`
   flex-grow: 1;
   align-items: center;
   > * {
-    margin-right: 16px;
+    margin-right: 32px;
   }
 `;
 
@@ -48,10 +48,12 @@ const Address = styled.div`
 
 const SiteNavLink = styled(Link).attrs({ component: NavLink })`
   color: white;
-  text-transform: uppercase;
-  font-weight: 500;
+  /* text-transform: uppercase; */
+
   &.active {
-    text-decoration: underline;
+    h6 {
+      font-weight: 600;
+    }
   }
 `;
 
@@ -66,14 +68,10 @@ function Header() {
               <Avatar alt='BURST' src='/burst40.png' />
             </Link>
             <SiteNavLink exact to='/'>
-              <Typography variant='subtitle1' gutterBottom>
-                Create
-              </Typography>
+              <Typography variant='subtitle1'>Create</Typography>
             </SiteNavLink>
             <SiteNavLink exact to='/manage'>
-              <Typography variant='subtitle1' gutterBottom>
-                Manage
-              </Typography>
+              <Typography variant='subtitle1'>Manage</Typography>
             </SiteNavLink>
           </SiteNav>
           <AccountInfo>
