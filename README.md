@@ -4,7 +4,7 @@
 
 ## Burst is utilizing NFTs to improve exchanging multiple assets at once for DeFi participants, so that they may easily conduct basket and OTC trades
 
-[Demo hosted on IPFS and contract deployed on Matic Mumbai Testnet](https://gateway.pinata.cloud/ipfs/QmZerA6c3QyMKg5Xhi85hbkP8vg6hbqXVGkwBZDPPYdfbC/)
+[Demo hosted on IPFS and contract deployed on Avalanche C-Chain Fuji Testnet](https://spring-wave-9660.on.fleek.co/)
 
 We have developed a protocol that allows a user to create a unique basket of an unlimited number of assets (beginning with ERC20). This basket can be be used for multi-asset Over-The-Counter trades without requiring a third party holder or escrow service, as the user can instead use any available and decentralized marketplace. Any user that owns a Burst NFT can destroy it at any time to collect the underlying assets. A Burst NFT creator fee (currently set at 2%) will go back to the basket creator.
 
