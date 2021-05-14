@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Wallet from './components/Wallet';
 import Header from './Header';
+import Footer from './Footer';
 
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -19,31 +20,9 @@ const LogoImg = styled.img`
   max-height: 64px;
 `;
 
-const Content = styled.div``;
-
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: {
-//       // light: will be calculated from palette.primary.main,
-//       main: '#ff4400',
-//       // dark: will be calculated from palette.primary.main,
-//       // contrastText: will be calculated to contrast with palette.primary.main
-//     },
-//     secondary: {
-//       light: '#0066ff',
-//       main: '#0044ff',
-//       // dark: will be calculated from palette.secondary.main,
-//       contrastText: '#ffcc00',
-//     },
-//     // Used by `getContrastText()` to maximize the contrast between
-//     // the background and the text.
-//     contrastThreshold: 3,
-//     // Used by the functions below to shift a color's luminance by approximately
-//     // two indexes within its tonal palette.
-//     // E.g., shift from Red 500 to Red 300 or Red 700.
-//     tonalOffset: 0.2,
-//   },
-// });
+const Content = styled.div`
+  min-height: 100vh;
+`;
 
 const theme = createMuiTheme({
   overrides: {
@@ -52,6 +31,11 @@ const theme = createMuiTheme({
         body: {
           background: 'rgb(2,0,36)',
           background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(124,67,189,1) 35%, rgba(0,212,255,1) 100%)',
+          // minHeight: '100vh',
+          // minHeight: '-webkit-fill-available',
+        },
+        html: {
+          // height: '-webkit-fill-available',
         },
       },
     },
@@ -71,9 +55,9 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Router>
+            <Header />
             <Content>
-              <Header />
-              <Grid container spacing={3}>
+              <Grid container>
                 <Switch>
                   <Route exact path='/manage'>
                     <Grid container item xs={12} justify='center'>
@@ -88,6 +72,7 @@ function App() {
                 </Switch>
               </Grid>
             </Content>
+            <Footer />
           </Router>
         </ThemeProvider>
       </Wallet>
