@@ -21,6 +21,16 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
+    event BurstCreated(
+    address indexed _creator,
+    bytes32 indexed _tokenId
+    );
+
+    event BurstDestroyed(
+    address indexed _owner,
+    bytes32 indexed _tokenId
+    );
+
     // Address that can create specific changes in the protocol (e.g., change creatorFee or trigger emergencyBurst)
     address public governance;
 
@@ -33,6 +43,8 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         uint256[] assetAmounts;
         address creator;
         bool exists;
+        bool isPayable;
+        uint256 payableAmount;
     }
 
     // Mapping nft indexId to above struct
@@ -57,21 +69,29 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         return (nftIndexToNftInfoMapping[index].assetAddresses,
         nftIndexToNftInfoMapping[index].assetAmounts,
         nftIndexToNftInfoMapping[index].creator, 
-        nftIndexToNftInfoMapping[index].exists);
+        nftIndexToNftInfoMapping[index].exists,
+        nftIndexToNftInfoMapping[index].isPayable,
+        nftIndexToNftInfoMapping[index].payableAmount);
     }
     
     /**
     * @dev Public function to deposit ERC20 and mint Burst NFT
     *
     * */
-    function createBurstWithMultiErc20(
+    function createBurst(
         address[] calldata _tokenContracts, 
         uint256[] calldata _amounts,
         string memory _tokenURI
     )
         public
+        payable
     {
-        assert(_tokenContracts.length == _amounts.length);        
+        assert(_tokenContracts.length == _amounts.length);
+        // Used to account Eth/native token deposit
+        if (msg.value > 0) {
+            nftIndexToNftInfoMapping[_tokenIds.current()].isPayable = true;
+            nftIndexToNftInfoMapping[_tokenIds.current()].payableAmount = msg.value;
+        }      
         for (uint i=0; i<_tokenContracts.length; i++) {
             depositErc20(_tokenContracts[i], _amounts[i]);
         }
@@ -86,16 +106,24 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
      * @dev Public function to burn Burst NFT that contains multiple erc20 and release those erc20
      *
      * */
-    function destroyBurstWithMultiERC20(
+    function destroyBurst(
         uint256 _tokenId
     )
         public
     {
         require(_isApprovedOrOwner(_msgSender(), _tokenId), "ERC721Burnable: caller is not owner nor approved");
+        // Used to account Eth/native token withdraw
+        if (nftIndexToNftInfoMapping[_tokenId].isPayable) {
+            uint256 ethAmount = nftIndexToNftInfoMapping[_tokenIds.current()].payableAmount;
+            uint256 creatorEthFeeAmount = ethAmount.mul(creatorFee).div(100);
+            nftIndexToNftInfoMapping[_tokenId].creator.transfer(creatorEthFeeAmount);
+            ownerOf(_tokenId).transfer(ethAmount.sub(creatorEthFeeAmount));
+        }
         for (uint256 i=0; i<nftIndexToNftInfoMapping[_tokenId].assetAddresses.length; i++) {
             releaseErc20(_tokenId, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
         }
         burn(_tokenId);
+        emit BurstDestroyed(ownerOf(_tokenId), _tokenId);
         nftIndexToNftInfoMapping[_tokenId].exists = false;
     }
 
@@ -149,8 +177,9 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         returns (uint256)
     {
         uint256 newItemId = _tokenIds.current();
-        _safeMint(msg.sender, newItemId);
+        _safeMint(_msgSender(), newItemId);
         _setTokenURI(newItemId, _tokenURI);
+        emit BurstCreated(_msgSender(), bytes32(newItemId));
         _tokenIds.increment();
         return newItemId;
     }
@@ -170,7 +199,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         require(tokenAmount > 0, "NFT does not hold ERC20 asset");
         uint256 creatorFeeAmount = tokenAmount.mul(creatorFee).div(100);
         _transferErc20(nftIndexToNftInfoMapping[_tokenId].creator, _tokenContract, creatorFeeAmount);
-        _transferErc20(_msgSender(), _tokenContract, tokenAmount.sub(creatorFeeAmount));
+        _transferErc20(ownerOf(_tokenId), _tokenContract, tokenAmount.sub(creatorFeeAmount));
     }
 
     /**
