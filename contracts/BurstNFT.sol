@@ -31,23 +31,23 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     bytes32 indexed _tokenId
     );
 
-    // Address that can create specific changes in the protocol (e.g., change creatorFee or trigger emergencyBurst)
+    /* Address that can create specific changes in the protocol (e.g., change creatorFee or trigger emergencyBurst) */
     address public governance;
 
-    // CreatorFee is the percentage of the erc20 that will go to the creator once the NFT is destroyed 
+    /* CreatorFee is the percentage of the erc20 that will go to the creator once the NFT is destroyed */ 
     uint256 public creatorFee;
     
-    // Provides a struct to capture asset address and amount information, nft creator address, and bool of if nft exists or has been destroyed
+    /* Provides a struct to capture asset address and amount information, nft creator address, and bool of if nft exists or has been destroyed */
     struct burstNftInfo {
         address[] assetAddresses;
         uint256[] assetAmounts;
-        address creator;
+        address payable creator;
         bool exists;
         bool isPayable;
         uint256 payableAmount;
     }
 
-    // Mapping nft indexId to above struct
+    /* Mapping nft indexId to above struct */
     mapping(uint256 => burstNftInfo) public nftIndexToNftInfoMapping;
     
     constructor (address _governance, uint256 _creatorFee, string memory _baseURI) ERC721 ("Burst NFT", "BURST") {
@@ -65,7 +65,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     * @dev Public view function to get info on a Burst NFT
     *
     * */
-    function getBurstNftInfo(uint256 index) public view returns(address[] memory, uint256[] memory, address, bool) {
+    function getBurstNftInfo(uint256 index) public view returns(address[] memory, uint256[] memory, address, bool, bool, uint256) {
         return (nftIndexToNftInfoMapping[index].assetAddresses,
         nftIndexToNftInfoMapping[index].assetAmounts,
         nftIndexToNftInfoMapping[index].creator, 
@@ -86,7 +86,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         public
         payable
     {
-        assert(_tokenContracts.length == _amounts.length);
+        require(_tokenContracts.length == _amounts.length, "Length of tokenContracts and amounts arrays are not equal");
         // Used to account Eth/native token deposit
         if (msg.value > 0) {
             nftIndexToNftInfoMapping[_tokenIds.current()].isPayable = true;
@@ -97,7 +97,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         }
         nftIndexToNftInfoMapping[_tokenIds.current()].assetAddresses = _tokenContracts;
         nftIndexToNftInfoMapping[_tokenIds.current()].assetAmounts = _amounts;
-        nftIndexToNftInfoMapping[_tokenIds.current()].creator = _msgSender();
+        nftIndexToNftInfoMapping[_tokenIds.current()].creator = payable(_msgSender());
         nftIndexToNftInfoMapping[_tokenIds.current()].exists = true;
         mintBurst(_tokenURI);
     }
@@ -110,20 +110,23 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         uint256 _tokenId
     )
         public
+        payable
     {
         require(_isApprovedOrOwner(_msgSender(), _tokenId), "ERC721Burnable: caller is not owner nor approved");
         // Used to account Eth/native token withdraw
         if (nftIndexToNftInfoMapping[_tokenId].isPayable) {
             uint256 ethAmount = nftIndexToNftInfoMapping[_tokenIds.current()].payableAmount;
             uint256 creatorEthFeeAmount = ethAmount.mul(creatorFee).div(100);
-            nftIndexToNftInfoMapping[_tokenId].creator.transfer(creatorEthFeeAmount);
-            ownerOf(_tokenId).transfer(ethAmount.sub(creatorEthFeeAmount));
+            (bool success, ) = nftIndexToNftInfoMapping[_tokenId].creator.call{value: creatorEthFeeAmount}("");
+            require(success, "Transfer failed.");
+            (bool greatSuccess, ) = ownerOf(_tokenId).call{value: ethAmount.sub(creatorEthFeeAmount)}("");
+            require(greatSuccess, "Transfer failed.");
         }
         for (uint256 i=0; i<nftIndexToNftInfoMapping[_tokenId].assetAddresses.length; i++) {
             releaseErc20(_tokenId, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
         }
         burn(_tokenId);
-        emit BurstDestroyed(ownerOf(_tokenId), _tokenId);
+        emit BurstDestroyed(ownerOf(_tokenId), bytes32(_tokenId));
         nftIndexToNftInfoMapping[_tokenId].exists = false;
     }
 
