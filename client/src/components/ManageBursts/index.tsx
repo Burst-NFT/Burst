@@ -9,7 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
 import { useAccountTokens } from '../queries';
-import useWallet from '../Wallet/useWallet';
+import { useWallet } from '../Wallet';
 import ErrorAlert from '../ErrorAlert';
 import { getBurstAddress } from '../Burst/utils';
 import BurstNftPanel from './BurstNftPanel';
@@ -78,12 +78,14 @@ function ManageBurstsCard() {
           <CardContent>Loading...</CardContent>
         </Card>
       ) : (
-        !!tokens && <>
-          {tokens.byId[burstAddress]?.nft_data?.map((data) => (
-            <BurstNftPanel data={data} key={data.token_id} setAlert={setAlert} />
-          ))}
-          {!showOnlyBursts && tokens.nftIds.filter((id) => id !== burstAddress).map((id) => <GenericNftPanel data={tokens.byId[id]} key={id} />)}
-        </>
+        !!tokens && (
+          <>
+            {tokens.byId[burstAddress]?.nft_data?.map((data) => (
+              <BurstNftPanel data={data} key={data.token_id} setAlert={setAlert} />
+            ))}
+            {!showOnlyBursts && tokens.nftIds.filter((id) => id !== burstAddress).map((id) => <GenericNftPanel data={tokens.byId[id]} key={id} />)}
+          </>
+        )
       )}
       <Alert text={alert.msg} open={!!alert.msg} severity={alert.type as Color} destroyAlert={() => setAlert({ msg: '', type: '' })} />
     </Wrapper>

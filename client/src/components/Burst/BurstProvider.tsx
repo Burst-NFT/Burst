@@ -1,16 +1,14 @@
 import React from 'react';
-import BurstContext, { BurstAsset, BurstsState} from './BurstContext';
-import useWallet from '../Wallet/useWallet';
+import { BurstContext, BurstAsset, BurstsState } from './BurstContext';
+import { useWallet } from '../Wallet';
 import { createBurstContract } from './utils';
 import { tokensByChainId } from '../../utils/data/tokens';
 
-export interface BurstProps {
-  children: React.ReactChildren;
+export interface BurstProviderProps {
+  children: React.ReactNode;
 }
 
-
-
-function Burst({ children }: BurstProps) {
+export function BurstProvider({ children }: BurstProviderProps) {
   const [bursts, setBursts] = React.useState<BurstsState>({});
   const balance = React.useMemo(() => Object.keys(bursts)?.length || 0, [bursts]);
   const { web3, account, chainId } = useWallet();
@@ -42,5 +40,3 @@ function Burst({ children }: BurstProps) {
 
   return <BurstContext.Provider children={children} value={{ bursts, balance }} />;
 }
-
-export default Burst;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
-import useWallet from './Wallet/useWallet';
+import { useWallet } from './Wallet';
 import { getBurstAddress } from './Burst/utils';
 import MuiButton from '@material-ui/core/Button';
 import { useAccountTokens } from './queries';

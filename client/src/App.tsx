@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import blue from '@material-ui/core/colors/blue';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Wallet from './components/Wallet';
+import { MoralisProvider } from 'react-moralis';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -13,6 +13,7 @@ import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import CreateBurst from './components/CreateBurst';
 import ManageBursts from './components/ManageBursts';
+import { WalletProvider } from './components/Wallet';
 
 const queryClient = new QueryClient();
 
@@ -51,34 +52,36 @@ const theme = createMuiTheme({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Wallet>
-        {/* @ts-ignore ignore this Type 'Element' is missing the following properties from type 'ReactChildren': map, forEach, count, only, toArray  */}
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Router>
-            <Header />
-            <Content>
-              <Grid container>
-                <Switch>
-                  {/* @ts-ignore weird error with exact */}
-                  <Route exact path='/manage'>
-                    <Grid container item xs={12} justify='center'>
-                      <ManageBursts />
-                    </Grid>
-                  </Route>
-                  {/* @ts-ignore weird error with exact */}
-                  <Route exact path='/'>
-                    <Grid container item xs={12} justify='center'>
-                      <CreateBurst />
-                    </Grid>
-                  </Route>
-                </Switch>
-              </Grid>
-            </Content>
-            <Footer />
-          </Router>
-        </ThemeProvider>
-      </Wallet>
+      {/* @ts-ignore we can trust that appId and serverUrl won't be undefined */}
+      <MoralisProvider appId={process.env.REACT_APP_MORALIS_APP_ID} serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}>
+        <WalletProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Router>
+              <Header />
+              <Content>
+                <Grid container>
+                  <Switch>
+                    {/* @ts-ignore weird error with exact */}
+                    <Route exact path='/manage'>
+                      <Grid container item xs={12} justify='center'>
+                        <ManageBursts />
+                      </Grid>
+                    </Route>
+                    {/* @ts-ignore weird error with exact */}
+                    <Route exact path='/'>
+                      <Grid container item xs={12} justify='center'>
+                        <CreateBurst />
+                      </Grid>
+                    </Route>
+                  </Switch>
+                </Grid>
+              </Content>
+              <Footer />
+            </Router>
+          </ThemeProvider>
+        </WalletProvider>
+      </MoralisProvider>
       {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   );

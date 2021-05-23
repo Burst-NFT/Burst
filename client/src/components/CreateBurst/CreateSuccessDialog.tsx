@@ -14,7 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Zoom from '@material-ui/core/Zoom';
-import useWallet from '../Wallet/useWallet';
+import { useWallet } from '../Wallet';
 import useNumberFormatter from '../useNumberFormatter';
 import TokenName from '../TokenName';
 
@@ -42,7 +42,7 @@ export interface CreateSuccessDialogProps {
   data: any;
 }
 
-function CreateSuccessDialog({ open, handleClose, data: { basket, result } } : CreateSuccessDialogProps) {
+function CreateSuccessDialog({ open, handleClose, data: { basket, result } }: CreateSuccessDialogProps) {
   const { network } = useWallet();
   const { numberFormatter } = useNumberFormatter();
   // console.log('result', result);

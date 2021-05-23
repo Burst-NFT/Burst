@@ -7,13 +7,12 @@ export interface BurstAsset {
 
 export interface Burst {
   tokenId: string;
-  assets: BurstAsset[]
+  assets: BurstAsset[];
 }
 
 export interface BurstsState {
   [tokenId: string]: Burst;
 }
-
 
 export interface BurstContextState {
   bursts: BurstsState;
@@ -21,9 +20,8 @@ export interface BurstContextState {
   balance: number;
 }
 
-const BurstContext = React.createContext<BurstContextState>({
+export const BurstContext = React.createContext<BurstContextState>({
   bursts: {},
-  balance: 0
+  balance: 0,
 });
 BurstContext.displayName = 'Burst';
-export default BurstContext;

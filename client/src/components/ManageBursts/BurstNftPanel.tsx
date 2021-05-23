@@ -22,7 +22,7 @@ import { useBurstAssetPrices } from '../queries';
 import useNumberFormatter from '../useNumberFormatter';
 import TokenName from '../TokenName';
 import Title from './Title';
-import useWallet from '../Wallet/useWallet';
+import { useWallet } from '../Wallet';
 import { createBurstContract, BurstCreationData } from '../Burst/utils';
 import SendBurstDialog from './SendBurstDialog';
 import DestoryBurstDialog from './DestroyBurstDialog';
@@ -45,7 +45,7 @@ function BurstNftPanel({ data, setAlert }: BurstNftPanelProps) {
   const { isLoading, data: burstAssets } = useBurstAssetPrices({ burstAssets: assets });
   const { numberFormatter } = useNumberFormatter();
   const totalValue = React.useMemo(
-    () =>    
+    () =>
       !!burstAssets?.allIds.length
         ? numberFormatter?.format(burstAssets.allIds.reduce((sum, id) => sum + burstAssets.byId[id].totalValue, 0))
         : '$0.00',

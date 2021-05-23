@@ -21,7 +21,7 @@ import { MaxUint256 } from '@ethersproject/constants';
 import produce from 'immer';
 
 import CardHeader from '../CardHeader';
-import useWallet from '../Wallet/useWallet';
+import { useWallet } from '../Wallet';
 import { abi as ERC20ABI } from '../../contracts/IERC20.json';
 import ErrorAlert from '../ErrorAlert';
 import { createBurstContract, getBurstAddress } from '../Burst/utils';
@@ -57,7 +57,7 @@ export interface BasketState {
   allIds: string[];
 }
 
-const initialBasketState:BasketState = { byId: {}, allIds: [] };
+const initialBasketState: BasketState = { byId: {}, allIds: [] };
 
 const TableContainer = styled(MuiTableContainer)`
   margin-top: 16px;
@@ -83,7 +83,7 @@ function CreateBurst() {
   const [successDialogData, setSuccessDialogData] = React.useState({ ...initialDialogData });
 
   const handleAddClick = React.useCallback(() => {
-    if(!tokens) return;
+    if (!tokens) return;
     const token = tokens.byId[selectedAddress];
     // attempt to create a contract, will error if invalid
     const contract = new web3.eth.Contract(ERC20ABI, selectedAddress);
@@ -120,7 +120,7 @@ function CreateBurst() {
     setAmount(parseFloat(e.target.value));
   };
 
-  const handleSelectTokenOnChange: SelectProps["onChange"] = (e) => {
+  const handleSelectTokenOnChange: SelectProps['onChange'] = (e) => {
     const address = e.target.value as string;
     setSelectedAddress(address);
     setAmount(0);

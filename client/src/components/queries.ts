@@ -1,4 +1,4 @@
-import useWallet from './Wallet/useWallet';
+import { useWallet } from './Wallet';
 import { useQuery } from 'react-query';
 import fetchAccountTokens from '../api/fetchAccountTokens';
 import fetchTokenPrices from '../api/fetchTokenPrices';
