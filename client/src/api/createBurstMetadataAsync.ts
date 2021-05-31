@@ -1,5 +1,6 @@
 import axios from 'axios';
 import produce from 'immer';
+import { ApiBurstMetadataAsset } from '../components/Burst';
 
 const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
 const config = {
@@ -17,12 +18,10 @@ export interface PinataContent {
   description: string;
   image: string;
   name: string;
-  attributes: BurstMetadataAttribute[];
+  attributes: PinataAttribute[];
 }
 
-export interface PinataContentAttributes {
-  assets: BurstMetadataAttribute[];
-}
+export interface PinataAttribute extends ApiBurstMetadataAsset {}
 
 export interface PinataPostBody {
   pinataMetadata: PinataMetadata;
@@ -57,14 +56,7 @@ const imageUrls = [
 
 const getRandomImageUrl = () => imageUrls[Math.floor(Math.random() * imageUrls.length)];
 
-export interface BurstMetadataAttribute {
-  token_address: string;
-  token_name: string;
-  token_symbol: string;
-  token_amount: number;
-}
-
-const createBurstMetadataAsync = async (attributes: BurstMetadataAttribute[] = []) => {
+export const createBurstMetadataAsync = async (attributes: PinataAttribute[] = []) => {
   const postBody = produce(initialBody, (draft) => {
     draft.pinataContent.attributes = attributes;
     const image = getRandomImageUrl();
@@ -80,5 +72,3 @@ const createBurstMetadataAsync = async (attributes: BurstMetadataAttribute[] = [
   const response = await axios.post(url, postBody, config);
   return response.data.IpfsHash;
 };
-
-export default createBurstMetadataAsync;

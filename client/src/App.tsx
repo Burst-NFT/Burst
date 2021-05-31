@@ -11,11 +11,18 @@ import Footer from './Footer';
 
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import CreateBurst from './components/CreateBurst';
+import { CreateBurstCard } from './components/CreateBurst';
 import ManageBursts from './components/ManageBursts';
 import { WalletProvider } from './components/Wallet';
+import { BurstProvider } from './components/Burst';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const LogoImg = styled.img`
   max-height: 64px;
@@ -55,31 +62,33 @@ function App() {
       {/* @ts-ignore we can trust that appId and serverUrl won't be undefined */}
       <MoralisProvider appId={process.env.REACT_APP_MORALIS_APP_ID} serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}>
         <WalletProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Router>
-              <Header />
-              <Content>
-                <Grid container>
-                  <Switch>
-                    {/* @ts-ignore weird error with exact */}
-                    <Route exact path='/manage'>
-                      <Grid container item xs={12} justify='center'>
-                        <ManageBursts />
-                      </Grid>
-                    </Route>
-                    {/* @ts-ignore weird error with exact */}
-                    <Route exact path='/'>
-                      <Grid container item xs={12} justify='center'>
-                        <CreateBurst />
-                      </Grid>
-                    </Route>
-                  </Switch>
-                </Grid>
-              </Content>
-              <Footer />
-            </Router>
-          </ThemeProvider>
+          <BurstProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Router>
+                <Header />
+                <Content>
+                  <Grid container>
+                    <Switch>
+                      {/* @ts-ignore weird error with exact */}
+                      <Route exact path='/manage'>
+                        <Grid container item xs={12} justify='center'>
+                          <ManageBursts />
+                        </Grid>
+                      </Route>
+                      {/* @ts-ignore weird error with exact */}
+                      <Route exact path='/'>
+                        <Grid container item xs={12} justify='center'>
+                          <CreateBurstCard />
+                        </Grid>
+                      </Route>
+                    </Switch>
+                  </Grid>
+                </Content>
+                <Footer />
+              </Router>
+            </ThemeProvider>
+          </BurstProvider>
         </WalletProvider>
       </MoralisProvider>
       {/* <ReactQueryDevtools /> */}

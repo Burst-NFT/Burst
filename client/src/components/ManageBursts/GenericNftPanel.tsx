@@ -9,17 +9,20 @@ import Title from './Title';
 import { NftData, TokenBalance } from '../../api/fetchAccountTokens';
 
 interface GenericNftPanel {
-  data: TokenBalance;
+  name?: string;
+  logoUrl?: string;
+  address: string;
 }
 
-function GenericNftPanel({ data }: GenericNftPanel) {
+function GenericNftPanel({ name, logoUrl, address }: GenericNftPanel) {
+  if (!address) return null;
   return (
     <Accordion>
       <AccordionSummary>
-        <Avatar alt={data.contract_name} src={data.logo_url} />
+        <Avatar alt={name} src={logoUrl} />
         <Title>
-          <Typography>data.contract_name</Typography>
-          <Typography color='textSecondary'>{data.contract_address}</Typography>
+          <Typography>{name}</Typography>
+          <Typography color='textSecondary'>{address}</Typography>
         </Title>
       </AccordionSummary>
     </Accordion>

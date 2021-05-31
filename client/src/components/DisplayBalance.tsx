@@ -38,7 +38,7 @@ function DisplayBalance() {
   const id = open ? 'burst-details-popover' : undefined;
   const balance = React.useMemo(() => {
     const burstAddress = getBurstAddress({ chainId });
-    return (!isLoading && burstAddress && tokens?.byId[burstAddress]?.balance) || 0;
+    return (!isLoading && burstAddress && tokens?.byId.get(burstAddress)?.balance) || 0;
   }, [chainId, isLoading, tokens]);
   return (
     <Wrapper>

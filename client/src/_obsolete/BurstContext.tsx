@@ -1,27 +1,19 @@
 import React from 'react';
+import { Burst } from './burst';
 
-export interface BurstAsset {
-  address: string;
-  balance: number;
+export interface BurstById {
+  [burstId: string]: Burst;
 }
-
-export interface Burst {
-  tokenId: string;
-  assets: BurstAsset[];
-}
-
-export interface BurstsState {
-  [tokenId: string]: Burst;
-}
-
 export interface BurstContextState {
-  bursts: BurstsState;
+  byId: BurstById;
+  allIds: string[];
   // Total number of unique bursts
   balance: number;
 }
 
 export const BurstContext = React.createContext<BurstContextState>({
-  bursts: {},
+  byId: {} as BurstById,
+  allIds: [],
   balance: 0,
 });
 BurstContext.displayName = 'Burst';

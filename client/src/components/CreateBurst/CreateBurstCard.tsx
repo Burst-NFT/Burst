@@ -23,15 +23,22 @@ import produce from 'immer';
 import CardHeader from '../CardHeader';
 import { useWallet } from '../Wallet';
 import { abi as ERC20ABI } from '../../contracts/IERC20.json';
-import ErrorAlert from '../ErrorAlert';
 import { createBurstContract, getBurstAddress } from '../Burst/utils';
 import useNumberFormatter from '../useNumberFormatter';
-import TokenName from '../TokenName';
-import createBurstMetadataAsync from '../../api/createBurstMetadataAsync';
-import CreateSuccessDialog from './CreateSuccessDialog';
-import { useAccountTokens } from '../queries';
-import AvailableBalance from './AvailableBalance';
+import { TokenName } from '../TokenName';
+import { createBurstMetadataAsync, getErc20InfoAsync } from '../../api';
+import { CreateSuccessDialog } from './CreateSuccessDialog';
+import { useAccountTokens } from '../../queries';
+import { AvailableBalance } from './AvailableBalance';
 import { SelectInputProps } from '@material-ui/core/Select/SelectInput';
+import { TokenComboBox } from './TokenComboBox';
+import Alert from '../Alert';
+import { AccountToken } from '../../queries/useAccountTokens';
+import { mapAccountTokenToBasketItem, mapErc20InfoToAccountToken } from './utils';
+import { BasketState } from './types';
+import { PinataAttribute } from '../../api/createBurstMetadataAsync';
+import { parseUnits } from '@ethersproject/units';
+import { BigNumberish } from '@ethersproject/bignumber';
 
 const StyledAddCard = styled(MuiCard)`
   min-width: 450px;
@@ -52,11 +59,6 @@ const Fields = styled.div`
   flex-direction: row;
 `;
 
-export interface BasketState {
-  byId: any;
-  allIds: string[];
-}
-
 const initialBasketState: BasketState = { byId: {}, allIds: [] };
 
 const TableContainer = styled(MuiTableContainer)`
@@ -68,45 +70,52 @@ const initialDialogData = {
   result: undefined,
 };
 
-function CreateBurst() {
+export function CreateBurstCard() {
   // Setup
   const { web3, account, network, chainId } = useWallet();
-  const { isLoading, error, data: tokens } = useAccountTokens();
+  const { isLoading, error: useAccountTokensError, data: tokens } = useAccountTokens();
   const { numberFormatter } = useNumberFormatter();
   const burstAddress = React.useMemo(() => getBurstAddress({ chainId }), [chainId]);
 
   // Internal state
   const [basket, setBasket] = React.useState<BasketState>(initialBasketState);
   const [selectedAddress, setSelectedAddress] = React.useState('');
-  const [amount, setAmount] = React.useState<number>(0);
+  const [amount, setAmount] = React.useState<string>('');
   const [successDialogOpen, setSuccessDialogOpen] = React.useState(false);
   const [successDialogData, setSuccessDialogData] = React.useState({ ...initialDialogData });
+  const [validationErrorMsg, setValidationErrorMsg] = React.useState('');
+  const [showAccountTokensError, setShowAccountTokensError] = React.useState(true);
 
-  const handleAddClick = React.useCallback(() => {
+  const handleAddClick = React.useCallback(async () => {
+    if (!web3.utils.isAddress(selectedAddress)) {
+      setValidationErrorMsg(`Token address '${selectedAddress}' is invalid`);
+      return;
+    }
+
     if (!tokens) return;
-    const token = tokens.byId[selectedAddress];
+
     // attempt to create a contract, will error if invalid
     const contract = new web3.eth.Contract(ERC20ABI, selectedAddress);
-    // map covalent response to friendly field names
-    const { logo_url: logo, contract_name: name, contract_ticker_symbol: symbol, quote_rate, contract_decimals: decimals } = token;
+
+    // Get token from list of tokens associated with account, or if not found then attempt to retrieve the token data
+    let token = {} as AccountToken;
+
+    try {
+      token = tokens.byId.get(selectedAddress) || mapErc20InfoToAccountToken(await getErc20InfoAsync({ contract, account }));
+    } catch (err) {
+      setValidationErrorMsg(`Unable to read '${selectedAddress}'.  Please try again.`);
+      return;
+    }
+
     setBasket(
       produce((draft) => {
-        draft.byId[selectedAddress] = {
-          logo,
-          name,
-          symbol,
-          amount,
-          decimals,
-          address: selectedAddress,
-          total: quote_rate * amount,
-          contract,
-        };
+        draft.byId[selectedAddress] = mapAccountTokenToBasketItem({ contract, token, inputAmount: amount });
         draft.allIds = Object.keys(draft.byId);
       })
     );
     // reset
     setSelectedAddress('');
-    setAmount(0);
+    setAmount('');
   }, [tokens, amount, selectedAddress, web3, numberFormatter]);
 
   const handleRemoveFromBasketFn = (id: string) => () => {
@@ -117,50 +126,81 @@ function CreateBurst() {
   };
 
   const handleOnChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(parseFloat(e.target.value));
+    setAmount(e.target.value);
   };
 
-  const handleSelectTokenOnChange: SelectProps['onChange'] = (e) => {
-    const address = e.target.value as string;
-    setSelectedAddress(address);
-    setAmount(0);
+  const handleTokenComboBoxOnChange = (e: React.ChangeEvent<{}>, newValue: AccountToken | string | null | undefined, reason: string) => {
+    if (reason === 'select-option') {
+      setSelectedAddress((newValue as AccountToken).address);
+    } else if (reason === 'create-option') {
+      setSelectedAddress(newValue as string);
+    } else {
+      setSelectedAddress('');
+    }
+    setValidationErrorMsg('');
+    setAmount('');
+  };
+
+  const handleTokenComboBoxInputOnChange = (e: React.ChangeEvent<{}>, newInputValue: string) => {
+    setSelectedAddress(newInputValue);
+    setValidationErrorMsg('');
   };
 
   const handleCreateBurstAsync = async () => {
+    // web3.currentProvider.enable();
     const { chainId } = network;
     const contract = createBurstContract({ web3, chainId });
 
-    // approve transactions, 1 by 1, Promise all seems to make metamask hang a bit, especially for long running transactions
+    // approve transactions, Promise.all seems to make metamask hang a bit, especially for long running transactions
+    // TODO: Batch request
     for (let i = 0; i < basket.allIds.length; i++) {
       const id = basket.allIds[i];
       await basket.byId[id].contract.methods.approve(burstAddress, MaxUint256).send({ from: account });
     }
 
     // create required fields to create burst
-    const amounts = basket.allIds.map((id) => Math.floor(basket.byId[id].amount * 10 ** basket.byId[id].decimals).toFixed());
+    // const amounts = basket.allIds.map((id) => Math.floor(basket.byId[id].amount * 10 ** basket.byId[id].decimals).toFixed());
 
     // console.log(basket.byId[id].amount * (10**(basket.byId[id].decimals)).toFixed());
     // return (new BN(basket.byId[id].amount * (10**(basket.byId[id].decimals))).toString());
     //   return ;
     //   // return basket.byId[id].amount;
     // });
-    const metadataAssets = basket.allIds.map((id) => ({
-      token_address: id,
-      token_name: basket.byId[id].name,
-      token_symbol: basket.byId[id].symbol,
-      token_amount: basket.byId[id].amount * 10 ** basket.byId[id].decimals,
-    }));
+    // const metadataAssets = basket.allIds.map((id) => ({
+    //   token_address: id,
+    //   token_name: basket.byId[id].name,
+    //   token_symbol: basket.byId[id].symbol,
+    //   token_amount: basket.byId[id].amount * 10 ** basket.byId[id].decimals,
+    // }));
+
+    const amounts: BigNumberish[] = [];
+    const metadataAssets: PinataAttribute[] = [];
+
+    for (let i = 0; i < basket.allIds.length; i++) {
+      const id = basket.allIds[i];
+      const amount = parseUnits(`${basket.byId[id].amount}`, basket.byId[id].decimals);
+
+      metadataAssets.push({
+        token_address: id,
+        token_name: basket.byId[id].name,
+        token_symbol: basket.byId[id].symbol,
+        token_amount: amount.toString(),
+      });
+
+      amounts.push(amount);
+    }
+
     const ipfsHash = await createBurstMetadataAsync(metadataAssets);
 
     // create burst
-    const result = await contract.methods.createBurstWithMultiErc20(basket.allIds, amounts, ipfsHash).send({ from: account });
+    const result = await contract.methods.createBurst(basket.allIds, amounts, ipfsHash).send({ from: account });
 
     setSuccessDialogData({ basket: { ...basket }, result });
     setSuccessDialogOpen(true);
 
     // reset everything
     setSelectedAddress('');
-    setAmount(0);
+    setAmount('');
     setBasket({ ...initialBasketState });
   };
 
@@ -169,18 +209,23 @@ function CreateBurst() {
     setSuccessDialogData({ ...initialDialogData });
   };
 
-  if (isLoading)
-    return (
-      <StyledAddCard>
-        <CardHeader title='Create' />
-        <CardContent>Loading...</CardContent>
-      </StyledAddCard>
-    );
+  const onErrorAlertDestory = React.useCallback(() => {
+    setValidationErrorMsg('');
+  }, [setValidationErrorMsg]);
 
-  if (error) return <ErrorAlert text='An error occured. Please reload the page and try again.' />;
+  const onErrorAccountTokensAlertDestory = React.useCallback(() => {
+    setShowAccountTokensError(false);
+  }, [setShowAccountTokensError]);
 
   return (
     <>
+      <Alert
+        severity='error'
+        open={!!(showAccountTokensError && useAccountTokensError)}
+        text='An error occured. Please reload the page and try again.'
+        destroyAlert={onErrorAccountTokensAlertDestory}
+      />
+      <Alert severity='error' open={!!validationErrorMsg} text={validationErrorMsg} destroyAlert={onErrorAlertDestory} />
       <CreateSuccessDialog data={successDialogData} open={successDialogOpen} handleClose={handleCloseSuccessDialog} />
       <StyledAddCard>
         <CardHeader title='Create' />
@@ -189,25 +234,7 @@ function CreateBurst() {
             <Fields style={{ marginBottom: '16px', flexDirection: 'column' }}>
               <AvailableBalance tokenAddress={selectedAddress} />
               <FormControl variant='outlined' style={{ width: '100%' }}>
-                <InputLabel htmlFor='select-token'>Token</InputLabel>
-                <Select
-                  value={selectedAddress}
-                  onChange={handleSelectTokenOnChange}
-                  label='Token'
-                  inputProps={{
-                    name: 'token',
-                    id: 'select-token',
-                  }}
-                >
-                  <MenuItem value=''>
-                    <em>None</em>
-                  </MenuItem>
-                  {tokens?.cryptoIds.map((id) => (
-                    <MenuItem key={id} value={id}>
-                      <TokenName symbol={tokens.byId[id].contract_ticker_symbol} logo={tokens.byId[id].logo_url} />
-                    </MenuItem>
-                  ))}
-                </Select>
+                <TokenComboBox value={selectedAddress} onChange={handleTokenComboBoxOnChange} onInputChange={handleTokenComboBoxInputOnChange} />
               </FormControl>
             </Fields>
             <Fields>
@@ -217,6 +244,7 @@ function CreateBurst() {
                 id='add-amount-input'
                 label='Amount'
                 type='number'
+                placeholder='0.0'
                 onChange={handleOnChangeAmount}
                 value={amount}
                 disabled={!amount && !selectedAddress}
@@ -278,5 +306,3 @@ function CreateBurst() {
     </>
   );
 }
-
-export default CreateBurst;

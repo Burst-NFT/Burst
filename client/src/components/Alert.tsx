@@ -6,10 +6,10 @@ export interface AlertProps {
   text: string;
   severity: Color | undefined;
   open?: boolean;
-  destroyAlert: () => void;
+  destroyAlert?: () => void;
 }
 
-function Alert({ text, severity, open, destroyAlert }: AlertProps) {
+function Alert({ text, severity, open, destroyAlert = () => {} }: AlertProps) {
   const handleClose = (event: React.SyntheticEvent, reason: string) => {
     if (reason === 'clickaway') {
       return;

@@ -20,7 +20,7 @@ import Divider from '@material-ui/core/Divider';
 
 import { useBurstAssetPrices } from '../queries';
 import useNumberFormatter from '../useNumberFormatter';
-import TokenName from '../TokenName';
+import { TokenName } from '../TokenName';
 import Title from './Title';
 import { useWallet } from '../Wallet';
 import { createBurstContract, BurstCreationData } from '../Burst/utils';
@@ -28,9 +28,11 @@ import SendBurstDialog from './SendBurstDialog';
 import DestoryBurstDialog from './DestroyBurstDialog';
 import { AlertState } from './';
 import { NftData } from '../../api/fetchAccountTokens';
+import { BurstAsset } from '../Burst/burst-asset';
+import { Burst } from '../Burst/burst';
 
 export interface BurstNftPanelProps {
-  data: NftData;
+  burst: Burst;
   setAlert: React.Dispatch<AlertState | React.SetStateAction<AlertState>>;
 }
 
@@ -38,11 +40,11 @@ const TableCell = styled(MuiTableCell)`
   color: rgba(0, 0, 0, 0.54);
 `;
 
-function BurstNftPanel({ data, setAlert }: BurstNftPanelProps) {
+function BurstNftPanel({ burst, setAlert }: BurstNftPanelProps) {
   const { web3, chainId, account } = useWallet();
   // filter attributes to only include valid tokens
   const assets = React.useMemo(() => data.external_data?.attributes?.filter((attr) => !!attr.token_address && !!attr.token_symbol) || [], [data]);
-  const { isLoading, data: burstAssets } = useBurstAssetPrices({ burstAssets: assets });
+  const { isLoading, data: spotPrices } = useBurstAssetPrices({ burstAssets: assets });
   const { numberFormatter } = useNumberFormatter();
   const totalValue = React.useMemo(
     () =>

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import produce from 'immer';
 
-import { BurstTokenAttribute } from '../components/Burst/burst-token-attribute';
+import { ApiBurstMetadataAsset } from '../components/Burst/api-burst-metadata-asset';
 import { convertToFloat } from '../utils/convertToFloat';
+import { CovalentApiPagination } from './covalent-api-pagination';
 
 export interface TokenPrice {
   name: string;
@@ -30,7 +31,7 @@ const normalizeData = ({
   burstAssets,
   tokenPricesByName = {},
 }: {
-  burstAssets: BurstTokenAttribute[];
+  burstAssets: ApiBurstMetadataAsset[];
   tokenPricesByName: { [tokenName: string]: SpotPriceToken };
 }): TokenPrices => {
   // using immer for clarity with immutability
@@ -112,17 +113,10 @@ interface SpotPriceToken {
   rank: number;
 }
 
-interface Pagination {
-  has_more: boolean;
-  page_number: number;
-  page_size: number;
-  total_count: number;
-}
-
 interface Data {
   updated_at: Date;
   items: SpotPriceToken[];
-  pagination: Pagination;
+  pagination: CovalentApiPagination;
 }
 
 interface SpotPricesResponse {
@@ -132,7 +126,7 @@ interface SpotPricesResponse {
   error_code: any;
 }
 
-const fetchTokenPrices = async ({ burstAssets = [] }: { burstAssets?: BurstTokenAttribute[] }): Promise<TokenPrices> => {
+export const fetchTokenPricesAsync = async ({ burstAssets = [] }: { burstAssets?: ApiBurstMetadataAsset[] }): Promise<TokenPrices> => {
   if (burstAssets?.length) {
     // concat symbols with comma to call spot price api
     const symbols = burstAssets.map((t) => t.token_symbol).join();
@@ -153,5 +147,3 @@ const fetchTokenPrices = async ({ burstAssets = [] }: { burstAssets?: BurstToken
     return { ...initialObj };
   }
 };
-
-export default fetchTokenPrices;

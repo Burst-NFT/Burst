@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import Zoom from '@material-ui/core/Zoom';
 import { useWallet } from '../Wallet';
 import useNumberFormatter from '../useNumberFormatter';
-import TokenName from '../TokenName';
+import { TokenName } from '../TokenName';
 
 const Dialog = styled(MuiDialog)``;
 
@@ -42,7 +42,7 @@ export interface CreateSuccessDialogProps {
   data: any;
 }
 
-function CreateSuccessDialog({ open, handleClose, data: { basket, result } }: CreateSuccessDialogProps) {
+export function CreateSuccessDialog({ open, handleClose, data: { basket, result } }: CreateSuccessDialogProps) {
   const { network } = useWallet();
   const { numberFormatter } = useNumberFormatter();
   // console.log('result', result);
@@ -106,5 +106,3 @@ function CreateSuccessDialog({ open, handleClose, data: { basket, result } }: Cr
     </Dialog>
   );
 }
-
-export default CreateSuccessDialog;
