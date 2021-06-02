@@ -1,4 +1,4 @@
-import { ApiBurstMetadataAsset } from '.';
+import { ApiBurstMetadataAsset } from '..';
 
 export interface ApiBurstMetadata {
   description: string;

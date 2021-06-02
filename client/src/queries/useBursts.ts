@@ -40,13 +40,27 @@ function mapBurstsToResult(data: BurstContractInfoAndMetadata[] | undefined): Us
   if (data?.length) {
     for (let i = 0; i < data.length; i++) {
       const burst = data[i];
+
+      // build the normalized assets object
+      const assetsArr = !!burst.metadata?.assets?.length
+        ? mapMetadataAssetsToBurstAssets(burst.metadata.assets)
+        : mapContractAssetsToBurstAssets(burst.assets);
+
+      const assets = {
+        byId: {} as { [address: string]: BurstAsset },
+        allIds: [] as string[],
+      };
+      for (let i = 0; i < assetsArr.length; i++) {
+        const a = assetsArr[i];
+        assets.byId[a.address] = a;
+        assets.allIds.push(a.address);
+      }
+
       result.byId[burst.tokenId] = {
         id: burst.tokenId,
         tokenUri: burst.tokenUri,
         logoUrl: burst.metadata?.image,
-        assets: !!burst.metadata?.assets?.length
-          ? mapMetadataAssetsToBurstAssets(burst.metadata.assets)
-          : mapContractAssetsToBurstAssets(burst.assets),
+        assets,
       };
     }
   }

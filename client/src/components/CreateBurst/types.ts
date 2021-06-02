@@ -1,12 +1,13 @@
-import { BigNumberish } from '@ethersproject/bignumber';
 export interface BasketItem {
-  logo?: string;
+  logoUrl?: string;
   name: string;
   symbol: string;
   amount: number;
   decimals: number;
   address: string;
-  total: number;
+  /**
+   * Instantiated erc20 contract
+   */
   contract: any;
 }
 

@@ -1,3 +1,3 @@
 export { useAccountTokens } from './useAccountTokens';
-export { useBurstAssetPrices } from './useBurstAssetPrices';
+export { useBursts } from './useBursts';
 export { useQuotes } from './useQuotes';

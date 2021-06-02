@@ -2,23 +2,23 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { TokenName } from '../TokenName';
-import { useAccountTokens } from '../queries';
-import { TokenBalance } from '../../api/fetchAccountTokens';
+import { useAccountTokens } from '../../queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { AccountToken } from '../../queries/useAccountTokens';
 
 interface TokenComboBoxProps {
   value: string | undefined;
-  onChange: (e: React.ChangeEvent<{}>, newValue: TokenBalance | string | null | undefined, reason: string) => void;
+  onChange: (e: React.ChangeEvent<{}>, newValue: AccountToken | string | null | undefined, reason: string) => void;
   onInputChange: (e: React.ChangeEvent<{}>, newInputValue: string) => void;
 }
 
 export function TokenComboBox({ value, onChange: handleChange, onInputChange: handleInputChange }: TokenComboBoxProps) {
   const { isLoading, error, data: tokens } = useAccountTokens();
-  const [options, setOptions] = React.useState<TokenBalance[]>([]);
+  const [options, setOptions] = React.useState<AccountToken[]>([]);
   React.useEffect(() => {
     if (!tokens) return undefined;
     const tokensArr = tokens.cryptoIds.map((id) => tokens.byId.get(id));
-    setOptions(tokensArr as TokenBalance[]);
+    setOptions(tokensArr as AccountToken[]);
   }, [tokens]);
   return (
     <Autocomplete

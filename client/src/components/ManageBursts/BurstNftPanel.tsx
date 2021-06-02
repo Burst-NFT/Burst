@@ -18,18 +18,18 @@ import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 
-import { useBurstAssetPrices } from '../queries';
+import { useQuotes } from '../../queries';
 import useNumberFormatter from '../useNumberFormatter';
 import { TokenName } from '../TokenName';
 import Title from './Title';
 import { useWallet } from '../Wallet';
-import { createBurstContract, BurstCreationData } from '../Burst/utils';
+import { createBurstContract } from '../Burst/utils';
 import SendBurstDialog from './SendBurstDialog';
 import DestoryBurstDialog from './DestroyBurstDialog';
 import { AlertState } from './';
-import { NftData } from '../../api/fetchAccountTokens';
-import { BurstAsset } from '../Burst/burst-asset';
-import { Burst } from '../Burst/burst';
+import { Burst } from '../Burst';
+import { formatUnits } from '@ethersproject/units';
+import { getBurstAssetsTotalValue } from './utils';
 
 export interface BurstNftPanelProps {
   burst: Burst;
@@ -42,16 +42,21 @@ const TableCell = styled(MuiTableCell)`
 
 function BurstNftPanel({ burst, setAlert }: BurstNftPanelProps) {
   const { web3, chainId, account } = useWallet();
+  const { isLoading, data: priceQuotes } = useQuotes({ addresses: burst.assets.allIds });
+
   // filter attributes to only include valid tokens
-  const assets = React.useMemo(() => data.external_data?.attributes?.filter((attr) => !!attr.token_address && !!attr.token_symbol) || [], [data]);
-  const { isLoading, data: spotPrices } = useBurstAssetPrices({ burstAssets: assets });
+  // const assets = React.useMemo(() => data.external_data?.attributes?.filter((attr) => !!attr.token_address && !!attr.token_symbol) || [], [data]);
+  // const { isLoading, data: spotPrices } = useBurstAssetPrices({ burstAssets: assets });
   const { numberFormatter } = useNumberFormatter();
-  const totalValue = React.useMemo(
+  /**
+   *
+   */
+  const totalBurstAssetValue: string = React.useMemo(
     () =>
-      !!burstAssets?.allIds.length
-        ? numberFormatter?.format(burstAssets.allIds.reduce((sum, id) => sum + burstAssets.byId[id].totalValue, 0))
+      !!priceQuotes?.allIds.length
+        ? numberFormatter.format(getBurstAssetsTotalValue({ priceQuotesById: priceQuotes.byId, burstAssets: burst.assets }))
         : '$0.00',
-    [numberFormatter, burstAssets]
+    [numberFormatter, priceQuotes, burst]
   );
 
   const [sendDialogOpen, setSendDialogOpen] = React.useState(false);
@@ -61,9 +66,9 @@ function BurstNftPanel({ burst, setAlert }: BurstNftPanelProps) {
   // handlers
   const handleOnClickSendAsync = async () => {
     const burstContract = createBurstContract({ web3, chainId });
-    const response = await burstContract.methods.transferFrom(account, sendDialogAddressValue, data.token_id).send({ from: account });
+    const response = await burstContract.methods.transferFrom(account, sendDialogAddressValue, burst.id).send({ from: account });
     // console.log('handleOnClickSendAsync', response);
-    setAlert({ msg: `1 BURST (#${data.token_id}) successfully sent to '${sendDialogAddressValue}'` });
+    setAlert({ msg: `1 BURST (#${burst.id}) successfully sent to '${sendDialogAddressValue}'` });
     handleCloseSendDialog();
   };
   const handleCloseSendDialog = () => {
@@ -77,9 +82,9 @@ function BurstNftPanel({ burst, setAlert }: BurstNftPanelProps) {
 
   const handleOnClickDestroyAsync = async () => {
     const burstContract = createBurstContract({ web3, chainId });
-    const response = await burstContract.methods.destroyBurstWithMultiERC20(data.token_id).send({ from: account });
+    const response = await burstContract.methods.destroyBurstWithMultiERC20(burst.id).send({ from: account });
     // console.log('handleOnClickDestroyAsync', response);
-    setAlert({ msg: `1 BURST (#${data.token_id}) successfully destroyed` });
+    setAlert({ msg: `1 BURST (#${burst.id}) successfully destroyed` });
   };
 
   const sendDialogProps = {
@@ -102,16 +107,16 @@ function BurstNftPanel({ burst, setAlert }: BurstNftPanelProps) {
               vertical: 'bottom',
               horizontal: 'right',
             }}
-            badgeContent={assets.length}
+            badgeContent={burst.assets.byId.size}
             color='secondary'
           >
-            <Avatar alt='B' src={data.external_data?.image || ''} />
+            <Avatar alt='B' src={burst.logoUrl || ''} />
           </Badge>
           <Title>
             <Typography>Burst NFT</Typography>
             {!isLoading && (
               <Typography color='textSecondary' variant='body2'>
-                Est value: {totalValue}
+                Est value: {totalBurstAssetValue}
               </Typography>
             )}
           </Title>
@@ -132,22 +137,27 @@ function BurstNftPanel({ burst, setAlert }: BurstNftPanelProps) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {burstAssets?.allIds.map((id) => (
-                    <TableRow key={id}>
-                      <TableCell align='left'>
-                        <TokenName symbol={burstAssets.byId[id].symbol} logo={burstAssets.byId[id].logo} />
-                      </TableCell>
-                      <TableCell align='right'>{burstAssets.byId[id].amount}</TableCell>
-                      <TableCell align='right'>{numberFormatter?.format(burstAssets.byId[id].totalValue)}</TableCell>
-                    </TableRow>
-                  ))}
+                  {burst.assets?.allIds.map((id) => {
+                    const { symbol, address, logoUrl, decimals, balance } = burst.assets.byId[id];
+                    const amount = parseFloat(formatUnits(balance, decimals));
+                    const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
+                    return (
+                      <TableRow key={id}>
+                        <TableCell align='left'>
+                          <TokenName symbol={symbol} address={address} logo={logoUrl} />
+                        </TableCell>
+                        <TableCell align='right'>{amount}</TableCell>
+                        <TableCell align='right'>{totalValue ? numberFormatter.format(totalValue) : '-'}</TableCell>
+                      </TableRow>
+                    );
+                  })}
                   <TableRow>
                     <TableCell rowSpan={3} style={{ borderBottom: 'none' }} />
                     <TableCell align='right'>
                       <strong>Total</strong>
                     </TableCell>
                     <TableCell align='right'>
-                      <strong>{totalValue}</strong>
+                      <strong>{totalBurstAssetValue}</strong>
                     </TableCell>
                   </TableRow>
                 </TableBody>

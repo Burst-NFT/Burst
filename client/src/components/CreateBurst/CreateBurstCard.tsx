@@ -27,8 +27,8 @@ import { createBurstContract, getBurstAddress } from '../Burst/utils';
 import useNumberFormatter from '../useNumberFormatter';
 import { TokenName } from '../TokenName';
 import { createBurstMetadataAsync, getErc20InfoAsync } from '../../api';
-import { CreateSuccessDialog } from './CreateSuccessDialog';
-import { useAccountTokens } from '../../queries';
+import { CreateSuccessDialog, SuccessDialogData } from './CreateSuccessDialog';
+import { useAccountTokens, useQuotes } from '../../queries';
 import { AvailableBalance } from './AvailableBalance';
 import { SelectInputProps } from '@material-ui/core/Select/SelectInput';
 import { TokenComboBox } from './TokenComboBox';
@@ -73,16 +73,18 @@ const initialDialogData = {
 export function CreateBurstCard() {
   // Setup
   const { web3, account, network, chainId } = useWallet();
-  const { isLoading, error: useAccountTokensError, data: tokens } = useAccountTokens();
+  const { isLoading, error: useAccountTokensError, data: accountTokens } = useAccountTokens();
+
   const { numberFormatter } = useNumberFormatter();
   const burstAddress = React.useMemo(() => getBurstAddress({ chainId }), [chainId]);
 
   // Internal state
   const [basket, setBasket] = React.useState<BasketState>(initialBasketState);
+  const { data: priceQuotes } = useQuotes({ addresses: basket.allIds });
   const [selectedAddress, setSelectedAddress] = React.useState('');
   const [amount, setAmount] = React.useState<string>('');
   const [successDialogOpen, setSuccessDialogOpen] = React.useState(false);
-  const [successDialogData, setSuccessDialogData] = React.useState({ ...initialDialogData });
+  const [successDialogData, setSuccessDialogData] = React.useState<SuccessDialogData>({ ...initialDialogData });
   const [validationErrorMsg, setValidationErrorMsg] = React.useState('');
   const [showAccountTokensError, setShowAccountTokensError] = React.useState(true);
 
@@ -92,7 +94,7 @@ export function CreateBurstCard() {
       return;
     }
 
-    if (!tokens) return;
+    if (!accountTokens) return;
 
     // attempt to create a contract, will error if invalid
     const contract = new web3.eth.Contract(ERC20ABI, selectedAddress);
@@ -101,7 +103,7 @@ export function CreateBurstCard() {
     let token = {} as AccountToken;
 
     try {
-      token = tokens.byId.get(selectedAddress) || mapErc20InfoToAccountToken(await getErc20InfoAsync({ contract, account }));
+      token = accountTokens.byId.get(selectedAddress) || mapErc20InfoToAccountToken(await getErc20InfoAsync({ contract, account }));
     } catch (err) {
       setValidationErrorMsg(`Unable to read '${selectedAddress}'.  Please try again.`);
       return;
@@ -116,7 +118,7 @@ export function CreateBurstCard() {
     // reset
     setSelectedAddress('');
     setAmount('');
-  }, [tokens, amount, selectedAddress, web3, numberFormatter]);
+  }, [accountTokens, amount, selectedAddress, web3, numberFormatter]);
 
   const handleRemoveFromBasketFn = (id: string) => () => {
     setBasket((prevState) => {
@@ -267,27 +269,35 @@ export function CreateBurstCard() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {basket.allIds.map((id) => (
-                      <TableRow key={id}>
-                        <TableCell align='left'>
-                          <TokenName symbol={basket.byId[id].symbol} logo={basket.byId[id].logo} />
-                        </TableCell>
-                        <TableCell align='right'>{basket.byId[id].amount}</TableCell>
-                        <TableCell align='right'>{numberFormatter?.format(basket.byId[id].total)}</TableCell>
-                        <TableCell align='right'>
-                          <IconButton color='secondary' aria-label='remove token' onClick={handleRemoveFromBasketFn(id)}>
-                            <RemoveCircleOutlineIcon />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {basket.allIds.map((id) => {
+                      const { symbol, address, logoUrl, amount } = basket.byId[id];
+                      const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
+                      return (
+                        <TableRow key={id}>
+                          <TableCell align='left'>
+                            <TokenName symbol={symbol} address={address} logo={logoUrl} />
+                          </TableCell>
+                          <TableCell align='right'>{amount}</TableCell>
+                          <TableCell align='right'>{numberFormatter.format(totalValue)}</TableCell>
+                          <TableCell align='right'>
+                            <IconButton color='secondary' aria-label='remove token' onClick={handleRemoveFromBasketFn(id)}>
+                              <RemoveCircleOutlineIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
                     <TableRow>
                       <TableCell rowSpan={3} />
                       <TableCell align='right'>
                         <strong>Total</strong>
                       </TableCell>
                       <TableCell align='right'>
-                        <strong>{numberFormatter?.format(basket.allIds.reduce((sum, id) => sum + basket.byId[id].total, 0))}</strong>
+                        <strong>
+                          {numberFormatter.format(
+                            basket.allIds.reduce((sum, addr) => sum + basket.byId[addr].amount * (priceQuotes?.byId[addr]?.quote || 0), 0)
+                          )}
+                        </strong>
                       </TableCell>
                       <TableCell />
                     </TableRow>

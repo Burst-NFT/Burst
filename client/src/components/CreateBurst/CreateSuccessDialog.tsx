@@ -17,6 +17,9 @@ import Zoom from '@material-ui/core/Zoom';
 import { useWallet } from '../Wallet';
 import useNumberFormatter from '../useNumberFormatter';
 import { TokenName } from '../TokenName';
+import { BasketState } from './types';
+import { formatUnits } from '@ethersproject/units';
+import { useQuotes, UseQuotesResult } from '../../queries/useQuotes';
 
 const Dialog = styled(MuiDialog)``;
 
@@ -36,16 +39,38 @@ const OkButton = styled(Button)`
   }
 `;
 
+export interface SuccessDialogData {
+  basket: BasketState;
+  /**
+   * web3/ethers create result
+   */
+  result?: any;
+}
+
 export interface CreateSuccessDialogProps {
   open: boolean;
   handleClose: () => void;
-  data: any;
+  data: SuccessDialogData;
 }
 
-export function CreateSuccessDialog({ open, handleClose, data: { basket, result } }: CreateSuccessDialogProps) {
+export function CreateSuccessDialog({ open, handleClose, data: { basket } }: CreateSuccessDialogProps) {
   const { network } = useWallet();
   const { numberFormatter } = useNumberFormatter();
-  // console.log('result', result);
+  const { data: priceQuotes } = useQuotes({ addresses: basket.allIds });
+
+  const totalBurstAssetValue: string = React.useMemo(
+    () =>
+      !!priceQuotes?.allIds.length
+        ? numberFormatter.format(
+            basket.allIds.reduce<number>((sum: number, addr: string) => {
+              const quote = priceQuotes.byId[addr]?.quote || 0;
+              sum += quote * basket.byId[addr].amount;
+              return sum;
+            }, 0)
+          )
+        : '$0.00',
+    [numberFormatter, priceQuotes, basket]
+  );
 
   return (
     <Dialog
@@ -76,22 +101,26 @@ export function CreateSuccessDialog({ open, handleClose, data: { basket, result 
               </TableRow>
             </TableHead>
             <TableBody>
-              {basket.allIds.map((id: string) => (
-                <TableRow key={id}>
-                  <TableCell align='left'>
-                    <TokenName symbol={basket.byId[id].symbol} logo={basket.byId[id].logo} />
-                  </TableCell>
-                  <TableCell align='right'>{basket.byId[id].amount}</TableCell>
-                  <TableCell align='right'>{numberFormatter?.format(basket.byId[id].total)}</TableCell>
-                </TableRow>
-              ))}
+              {basket.allIds.map((id: string) => {
+                const { symbol, address, logoUrl, amount } = basket.byId[id];
+                const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
+                return (
+                  <TableRow key={id}>
+                    <TableCell align='left'>
+                      <TokenName symbol={symbol} logo={logoUrl} address={address} />
+                    </TableCell>
+                    <TableCell align='right'>{amount}</TableCell>
+                    <TableCell align='right'>{totalValue ? numberFormatter.format(totalValue) : '-'}</TableCell>
+                  </TableRow>
+                );
+              })}
               <TableRow>
                 <TableCell rowSpan={3} />
                 <TableCell align='right'>
                   <strong>Total</strong>
                 </TableCell>
                 <TableCell align='right'>
-                  <strong>{numberFormatter?.format(basket.allIds.reduce((sum: number, id: string) => sum + basket.byId[id].total, 0))}</strong>
+                  <strong>{totalBurstAssetValue}</strong>
                 </TableCell>
               </TableRow>
             </TableBody>

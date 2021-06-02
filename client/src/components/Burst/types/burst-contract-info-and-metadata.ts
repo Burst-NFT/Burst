@@ -1,4 +1,4 @@
-import { ApiBurstMetadata, BurstContractAsset } from '.';
+import { ApiBurstMetadata, BurstContractAsset } from '..';
 
 export interface BurstContractInfoAndMetadata {
   /**

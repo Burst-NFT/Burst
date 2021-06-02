@@ -14,16 +14,18 @@ const StyledTokenName = styled.div`
 
 export interface TokenNameProps {
   logo?: string;
-  symbol: string;
+  symbol?: string;
+  address: string;
 }
 
-export const TokenName = React.memo(function TokenName({ logo = '', symbol }: TokenNameProps) {
+export const TokenName = React.memo(function TokenName({ logo = '', symbol, address }: TokenNameProps) {
+  const name: string = symbol || `${address.slice(0, 6)}...`;
   return (
     <StyledTokenName>
       <Avatar alt={symbol} src={logo}>
         <HelpOutlineIcon />
       </Avatar>
-      <span>{symbol}</span>
+      <span>{name}</span>
     </StyledTokenName>
   );
 });

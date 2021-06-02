@@ -4,7 +4,6 @@ import Chip from '@material-ui/core/Chip';
 import { formatUnits } from '@ethersproject/units';
 
 import { useAccountTokens } from '../../queries';
-import { convertToFloat } from '../../utils/convertToFloat';
 
 const StyledAvailableBalance = styled.div`
   padding-bottom: 16px;
@@ -23,9 +22,9 @@ export const AvailableBalance = React.memo(function AvailableBalance({ tokenAddr
   const { data: tokens } = useAccountTokens();
 
   const token = tokens?.byId.get(tokenAddress);
-  const balance = React.useMemo(() => {
+  const balance: string = React.useMemo(() => {
     const _balance = token?.balance;
-    return convertToFloat({ value: _balance, decimals: token?.decimals });
+    return _balance ? formatUnits(_balance, token?.decimals) : '0';
   }, [token]);
   return (
     <StyledAvailableBalance>

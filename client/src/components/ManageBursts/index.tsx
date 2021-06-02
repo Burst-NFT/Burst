@@ -8,7 +8,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-import { useAccountTokens } from '../queries';
 import { useWallet } from '../Wallet';
 import { getBurstAddress } from '../Burst/utils';
 import BurstNftPanel from './BurstNftPanel';
@@ -16,7 +15,7 @@ import GenericNftPanel from './GenericNftPanel';
 import Alert from '../Alert';
 import { Typography } from '@material-ui/core';
 import { Color } from '@material-ui/lab/Alert';
-import { useBursts } from '../Burst';
+import { useBursts } from '../../queries';
 
 export interface AlertState {
   msg: string;
@@ -42,7 +41,7 @@ const Wrapper = styled.div`
 function ManageBurstsCard() {
   const { chainId } = useWallet();
   // const { isLoading, error, data: tokens } = useAccountTokens();
-  const { byId: burstById, allIds: burstAllIds } = useBursts();
+  const { data: bursts } = useBursts();
   const [showOnlyBursts, setShowOnlyBursts] = React.useState(true);
   const burstAddress = React.useMemo(() => getBurstAddress({ chainId }) || '', [chainId]);
   const [alert, setAlert] = React.useState<AlertState>({ msg: '', type: '' });
@@ -65,9 +64,9 @@ function ManageBurstsCard() {
           }
         </Toolbar> */}
       </Card>
-      {!!burstAllIds?.length &&
-        burstAllIds.map((burstId) => {
-          <BurstNftPanel burst={burstById[burstId]} key={burstId} setAlert={setAlert} />;
+      {!!bursts?.allIds?.length &&
+        bursts.allIds.map((burstId) => {
+          <BurstNftPanel burst={bursts.byId[burstId]} key={burstId} setAlert={setAlert} />;
         })}
       {/* {isLoading ? (
         <Card>

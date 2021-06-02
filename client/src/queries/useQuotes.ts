@@ -1,6 +1,6 @@
 import { useWallet } from '../components/Wallet';
 import { CovalentApiHistoricalPriceItem, fetchPricesByAddressAsync } from '../api/fetchPricesByAddressAsync';
-import { useQuery } from 'react-query';
+import { useQuery, UseQueryOptions } from 'react-query';
 
 export interface ContractPrice {
   decimals: number;
@@ -11,12 +11,12 @@ export interface ContractPrice {
   quote?: number;
 }
 
-interface ContractById {
+export interface ContractPriceById {
   [address: string]: ContractPrice;
 }
 
-interface UseQuotesResult {
-  byId: ContractById;
+export interface UseQuotesResult {
+  byId: ContractPriceById;
   allIds: string[];
 }
 
@@ -41,10 +41,12 @@ function mapHistoricalPricesToResult(items: CovalentApiHistoricalPriceItem[] | u
   };
 }
 
-export function useQuotes({ addresses = [] }) {
+export function useQuotes({ addresses = [], options = undefined }: { addresses?: string[]; options?: UseQueryOptions<UseQuotesResult> }) {
   const { account, chainId } = useWallet();
   // prices are cached, probably should change this or at least make it very greedy
-  return useQuery<UseQuotesResult>(['quotes', chainId, account, addresses.join(',')], () =>
-    fetchPricesByAddressAsync({ chainId, addresses }).then(({ data = [] }) => mapHistoricalPricesToResult(data ? data : undefined))
+  return useQuery<UseQuotesResult>(
+    ['quotes', chainId, account, addresses.join(',')],
+    () => fetchPricesByAddressAsync({ chainId, addresses }).then(({ data = [] }) => mapHistoricalPricesToResult(data ? data : undefined)),
+    options
   );
 }
