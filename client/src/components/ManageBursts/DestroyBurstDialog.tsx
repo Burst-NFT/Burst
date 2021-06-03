@@ -47,4 +47,4 @@ function DestroyBurstDialog({ open = false, handleClose, handleOnClickDestroy }:
   );
 }
 
-export default DestroyBurstDialog;
+export { DestroyBurstDialog };

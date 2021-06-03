@@ -17,7 +17,7 @@ export function TokenComboBox({ value, onChange: handleChange, onInputChange: ha
   const [options, setOptions] = React.useState<AccountToken[]>([]);
   React.useEffect(() => {
     if (!tokens) return undefined;
-    const tokensArr = tokens.cryptoIds.map((id) => tokens.byId.get(id));
+    const tokensArr = tokens.cryptoIds.map((id) => tokens.byId[id]);
     setOptions(tokensArr as AccountToken[]);
   }, [tokens]);
   return (
@@ -29,10 +29,10 @@ export function TokenComboBox({ value, onChange: handleChange, onInputChange: ha
       loading={isLoading}
       options={options}
       // @ts-ignore option can't be undefined
-      getOptionLabel={(option) => (typeof option === 'string' ? option : option?.contract_ticker_symbol)}
+      getOptionLabel={(option) => (typeof option === 'string' ? option : option?.symbol)}
       // style={{ width: 300 }}
       // @ts-ignore option can't be undefined
-      renderOption={(option) => option && <TokenName symbol={option.contract_ticker_symbol} logo={option.logo_url} />}
+      renderOption={(option) => option && <TokenName symbol={option.symbol} address={option.address} logo={option.logoUrl} />}
       renderInput={(params) => (
         <TextField
           {...params}

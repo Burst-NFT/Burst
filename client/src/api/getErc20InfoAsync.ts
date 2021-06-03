@@ -1,4 +1,5 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
+import { getDecimalsOrDefaultAsync } from '../utils/getDecimalsOrDefaultAsync';
 
 export interface Erc20Info {
   address: string;
@@ -11,12 +12,12 @@ export interface Erc20Info {
 export async function getErc20InfoAsync({ contract, account }: { contract: any; account: string }): Promise<Erc20Info> {
   let name = '';
   let symbol = '';
-  let _decimals = '';
+  let decimals = 18;
   let _balance = '0';
-  [name, symbol, _decimals, _balance] = await Promise.all([
+  [name, symbol, decimals, _balance] = await Promise.all([
     contract.methods.name().call(),
     contract.methods.symbol().call(),
-    contract.methods.decimals().call(),
+    getDecimalsOrDefaultAsync({ contract }),
     contract.methods.balanceOf(account).call(),
   ]);
 
@@ -24,7 +25,7 @@ export async function getErc20InfoAsync({ contract, account }: { contract: any; 
     address: contract.options.address,
     name,
     symbol,
-    decimals: parseInt(_decimals),
+    decimals,
     balance: BigNumber.from(_balance),
   };
 }

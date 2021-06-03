@@ -10,17 +10,13 @@ import Switch from '@material-ui/core/Switch';
 
 import { useWallet } from '../Wallet';
 import { getBurstAddress } from '../Burst/utils';
-import BurstNftPanel from './BurstNftPanel';
-import GenericNftPanel from './GenericNftPanel';
+import { BurstNftPanel } from './BurstNftPanel';
+import { GenericNftPanel } from './GenericNftPanel';
 import Alert from '../Alert';
 import { Typography } from '@material-ui/core';
 import { Color } from '@material-ui/lab/Alert';
 import { useBursts } from '../../queries';
-
-export interface AlertState {
-  msg: string;
-  type?: string;
-}
+import { AlertState } from '.';
 
 const Card = styled(MuiCard)`
   /* max-width: 650px; */
@@ -40,16 +36,8 @@ const Wrapper = styled.div`
 
 function ManageBurstsCard() {
   const { chainId } = useWallet();
-  // const { isLoading, error, data: tokens } = useAccountTokens();
   const { data: bursts } = useBursts();
-  const [showOnlyBursts, setShowOnlyBursts] = React.useState(true);
-  const burstAddress = React.useMemo(() => getBurstAddress({ chainId }) || '', [chainId]);
   const [alert, setAlert] = React.useState<AlertState>({ msg: '', type: '' });
-
-  // console.log(tokens);
-  const handleChangeShowBursts = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShowOnlyBursts(e.target.checked);
-  };
 
   return (
     <Wrapper>
@@ -64,28 +52,10 @@ function ManageBurstsCard() {
           }
         </Toolbar> */}
       </Card>
-      {!!bursts?.allIds?.length &&
-        bursts.allIds.map((burstId) => {
-          <BurstNftPanel burst={bursts.byId[burstId]} key={burstId} setAlert={setAlert} />;
-        })}
-      {/* {isLoading ? (
-        <Card>
-          <CardContent>Loading...</CardContent>
-        </Card>
-      ) : (
-        !!tokens && (
-          <>
-            {tokens.byId.get(burstAddress)?.nft_data?.map((data) => (
-              <BurstNftPanel data={data} key={data.token_id} setAlert={setAlert} />
-            ))}
-            {!showOnlyBursts &&
-              tokens.nftIds.filter((id) => id !== burstAddress).map((id) => <GenericNftPanel data={tokens.byId.get(id)} key={id} />)}
-          </>
-        )
-      )} */}
+      {!!bursts?.allIds?.length && bursts.allIds.map((burstId) => <BurstNftPanel burst={bursts.byId[burstId]} key={burstId} setAlert={setAlert} />)}
       <Alert text={alert.msg} open={!!alert.msg} severity={alert.type as Color} destroyAlert={() => setAlert({ msg: '', type: '' })} />
     </Wrapper>
   );
 }
 
-export default ManageBurstsCard;
+export { ManageBurstsCard };

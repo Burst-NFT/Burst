@@ -22,7 +22,7 @@ import produce from 'immer';
 
 import CardHeader from '../CardHeader';
 import { useWallet } from '../Wallet';
-import { abi as ERC20ABI } from '../../contracts/IERC20.json';
+import { abi as ERC20ABI } from '../../contracts/ERC20.json';
 import { createBurstContract, getBurstAddress } from '../Burst/utils';
 import useNumberFormatter from '../useNumberFormatter';
 import { TokenName } from '../TokenName';
@@ -86,15 +86,13 @@ export function CreateBurstCard() {
   const [successDialogOpen, setSuccessDialogOpen] = React.useState(false);
   const [successDialogData, setSuccessDialogData] = React.useState<SuccessDialogData>({ ...initialDialogData });
   const [validationErrorMsg, setValidationErrorMsg] = React.useState('');
-  const [showAccountTokensError, setShowAccountTokensError] = React.useState(true);
+  // const [showAccountTokensError, setShowAccountTokensError] = React.useState(true);
 
   const handleAddClick = React.useCallback(async () => {
     if (!web3.utils.isAddress(selectedAddress)) {
       setValidationErrorMsg(`Token address '${selectedAddress}' is invalid`);
       return;
     }
-
-    if (!accountTokens) return;
 
     // attempt to create a contract, will error if invalid
     const contract = new web3.eth.Contract(ERC20ABI, selectedAddress);
@@ -103,7 +101,7 @@ export function CreateBurstCard() {
     let token = {} as AccountToken;
 
     try {
-      token = accountTokens.byId.get(selectedAddress) || mapErc20InfoToAccountToken(await getErc20InfoAsync({ contract, account }));
+      token = accountTokens?.byId[selectedAddress] || mapErc20InfoToAccountToken(await getErc20InfoAsync({ contract, account }));
     } catch (err) {
       setValidationErrorMsg(`Unable to read '${selectedAddress}'.  Please try again.`);
       return;
@@ -160,21 +158,6 @@ export function CreateBurstCard() {
       await basket.byId[id].contract.methods.approve(burstAddress, MaxUint256).send({ from: account });
     }
 
-    // create required fields to create burst
-    // const amounts = basket.allIds.map((id) => Math.floor(basket.byId[id].amount * 10 ** basket.byId[id].decimals).toFixed());
-
-    // console.log(basket.byId[id].amount * (10**(basket.byId[id].decimals)).toFixed());
-    // return (new BN(basket.byId[id].amount * (10**(basket.byId[id].decimals))).toString());
-    //   return ;
-    //   // return basket.byId[id].amount;
-    // });
-    // const metadataAssets = basket.allIds.map((id) => ({
-    //   token_address: id,
-    //   token_name: basket.byId[id].name,
-    //   token_symbol: basket.byId[id].symbol,
-    //   token_amount: basket.byId[id].amount * 10 ** basket.byId[id].decimals,
-    // }));
-
     const amounts: BigNumberish[] = [];
     const metadataAssets: PinataAttribute[] = [];
 
@@ -215,18 +198,18 @@ export function CreateBurstCard() {
     setValidationErrorMsg('');
   }, [setValidationErrorMsg]);
 
-  const onErrorAccountTokensAlertDestory = React.useCallback(() => {
-    setShowAccountTokensError(false);
-  }, [setShowAccountTokensError]);
+  // const onErrorAccountTokensAlertDestory = React.useCallback(() => {
+  //   setShowAccountTokensError(false);
+  // }, [setShowAccountTokensError]);
 
   return (
     <>
-      <Alert
+      {/* <Alert
         severity='error'
         open={!!(showAccountTokensError && useAccountTokensError)}
         text='An error occured. Please reload the page and try again.'
         destroyAlert={onErrorAccountTokensAlertDestory}
-      />
+      /> */}
       <Alert severity='error' open={!!validationErrorMsg} text={validationErrorMsg} destroyAlert={onErrorAlertDestory} />
       <CreateSuccessDialog data={successDialogData} open={successDialogOpen} handleClose={handleCloseSuccessDialog} />
       <StyledAddCard>
@@ -234,9 +217,13 @@ export function CreateBurstCard() {
         <Form>
           <CardContent>
             <Fields style={{ marginBottom: '16px', flexDirection: 'column' }}>
-              <AvailableBalance tokenAddress={selectedAddress} />
+              <AvailableBalance address={selectedAddress} />
               <FormControl variant='outlined' style={{ width: '100%' }}>
-                <TokenComboBox value={selectedAddress} onChange={handleTokenComboBoxOnChange} onInputChange={handleTokenComboBoxInputOnChange} />
+                <TokenComboBox
+                  value={accountTokens?.byId[selectedAddress]?.symbol || selectedAddress}
+                  onChange={handleTokenComboBoxOnChange}
+                  onInputChange={handleTokenComboBoxInputOnChange}
+                />
               </FormControl>
             </Fields>
             <Fields>

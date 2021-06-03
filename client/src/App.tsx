@@ -4,17 +4,16 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import blue from '@material-ui/core/colors/blue';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { MoralisProvider } from 'react-moralis';
 import Header from './Header';
 import Footer from './Footer';
 
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { CreateBurstCard } from './components/CreateBurst';
-import ManageBursts from './components/ManageBursts';
+import { ManageBurstsCard } from './components/ManageBursts';
 import { WalletProvider } from './components/Wallet';
-import { BurstProvider } from './components/Burst';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,33 +61,31 @@ function App() {
       {/* @ts-ignore we can trust that appId and serverUrl won't be undefined */}
       <MoralisProvider appId={process.env.REACT_APP_MORALIS_APP_ID} serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}>
         <WalletProvider>
-          <BurstProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <Router>
-                <Header />
-                <Content>
-                  <Grid container>
-                    <Switch>
-                      {/* @ts-ignore weird error with exact */}
-                      <Route exact path='/manage'>
-                        <Grid container item xs={12} justify='center'>
-                          <ManageBursts />
-                        </Grid>
-                      </Route>
-                      {/* @ts-ignore weird error with exact */}
-                      <Route exact path='/'>
-                        <Grid container item xs={12} justify='center'>
-                          <CreateBurstCard />
-                        </Grid>
-                      </Route>
-                    </Switch>
-                  </Grid>
-                </Content>
-                <Footer />
-              </Router>
-            </ThemeProvider>
-          </BurstProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Router>
+              <Header />
+              <Content>
+                <Grid container>
+                  <Switch>
+                    {/* @ts-ignore weird error with exact */}
+                    <Route exact path='/manage'>
+                      <Grid container item xs={12} justify='center'>
+                        <ManageBurstsCard />
+                      </Grid>
+                    </Route>
+                    {/* @ts-ignore weird error with exact */}
+                    <Route exact path='/'>
+                      <Grid container item xs={12} justify='center'>
+                        <CreateBurstCard />
+                      </Grid>
+                    </Route>
+                  </Switch>
+                </Grid>
+              </Content>
+              <Footer />
+            </Router>
+          </ThemeProvider>
         </WalletProvider>
       </MoralisProvider>
       {/* <ReactQueryDevtools /> */}

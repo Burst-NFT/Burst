@@ -1,20 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
-
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import Title from './Title';
-import { NftData, TokenBalance } from '../../api/fetchAccountTokens';
+import { Title } from './Title';
 
-interface GenericNftPanel {
+interface GenericNftPanelProps {
   name?: string;
   logoUrl?: string;
   address: string;
 }
 
-function GenericNftPanel({ name, logoUrl, address }: GenericNftPanel) {
+function GenericNftPanelComponent({ name, logoUrl, address }: GenericNftPanelProps) {
   if (!address) return null;
   return (
     <Accordion>
@@ -29,4 +26,4 @@ function GenericNftPanel({ name, logoUrl, address }: GenericNftPanel) {
   );
 }
 
-export default React.memo(GenericNftPanel);
+export const GenericNftPanel = React.memo(GenericNftPanelComponent);

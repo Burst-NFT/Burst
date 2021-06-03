@@ -11,7 +11,6 @@ export function mapErc20InfoToAccountToken(erc20Info: Erc20Info): AccountToken {
     symbol: erc20Info.symbol,
     decimals: erc20Info.decimals,
     balance: erc20Info.balance,
-    quote: 0,
   };
 }
 
@@ -26,13 +25,12 @@ export function mapAccountTokenToBasketItem({
 }): BasketItem {
   const amount = parseFloat(inputAmount);
   return {
-    logo: token.logoUrl,
+    logoUrl: token.logoUrl,
     name: token.name || token.address,
     symbol: token.symbol || `${token.address.slice(0, 8)}...`,
     amount,
     decimals: token.decimals,
     address: token.address,
-    total: amount * token.quote,
     contract,
   };
 }

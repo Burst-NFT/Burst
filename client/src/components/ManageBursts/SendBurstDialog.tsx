@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { useWallet } from '../Wallet';
 
 export interface SendBurstDialogProps {
   open: boolean;
@@ -32,7 +33,8 @@ const DialogActions = styled(MuiDialogActions)`
 //   }
 // `;
 
-function SendBurstDialog({ open = false, handleClose, handleOnClickSend, sendDialogAddressValue, setSendDialogAddressValue } : SendBurstDialogProps)  {
+function SendBurstDialog({ open = false, handleClose, handleOnClickSend, sendDialogAddressValue, setSendDialogAddressValue }: SendBurstDialogProps) {
+  const { web3 } = useWallet();
   return (
     <Dialog onClose={handleClose} aria-labelledby='simple-dialog-title' open={open}>
       <DialogTitle id='simple-dialog-title'>Send</DialogTitle>
@@ -54,7 +56,7 @@ function SendBurstDialog({ open = false, handleClose, handleOnClickSend, sendDia
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleOnClickSend} color='primary' disabled={!(sendDialogAddressValue?.length && sendDialogAddressValue.length >= 40)}>
+        <Button onClick={handleOnClickSend} color='primary' disabled={!web3.utils.isAddress(sendDialogAddressValue)}>
           Send
         </Button>
       </DialogActions>
@@ -62,4 +64,4 @@ function SendBurstDialog({ open = false, handleClose, handleOnClickSend, sendDia
   );
 }
 
-export default SendBurstDialog;
+export { SendBurstDialog };

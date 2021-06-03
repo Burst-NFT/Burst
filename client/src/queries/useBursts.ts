@@ -3,18 +3,9 @@ import { useQuery } from 'react-query';
 import { getBurstsAsync } from '../api';
 import { ApiBurstMetadataAsset, Burst, BurstAsset, BurstContractAsset, BurstContractInfoAndMetadata } from '../components/Burst';
 import { useWallet } from '../components/Wallet';
+import { NormalizedData } from '../types';
 
-interface BurstById {
-  [tokenId: string]: Burst;
-}
-
-interface UseBurstResult {
-  byId: BurstById;
-  /**
-   * Internal token ids
-   */
-  allIds: string[];
-}
+interface UseBurstResult extends NormalizedData<Burst> {}
 
 function mapMetadataAssetsToBurstAssets(assets: ApiBurstMetadataAsset[] = []): BurstAsset[] {
   return assets.map((value) => ({
@@ -42,13 +33,14 @@ function mapBurstsToResult(data: BurstContractInfoAndMetadata[] | undefined): Us
       const burst = data[i];
 
       // build the normalized assets object
+      // if there wasn't any external metadata fetched then use the contract methods to grab basic info
       const assetsArr = !!burst.metadata?.assets?.length
         ? mapMetadataAssetsToBurstAssets(burst.metadata.assets)
         : mapContractAssetsToBurstAssets(burst.assets);
 
-      const assets = {
-        byId: {} as { [address: string]: BurstAsset },
-        allIds: [] as string[],
+      const assets: NormalizedData<BurstAsset> = {
+        byId: {},
+        allIds: [],
       };
       for (let i = 0; i < assetsArr.length; i++) {
         const a = assetsArr[i];
@@ -56,12 +48,16 @@ function mapBurstsToResult(data: BurstContractInfoAndMetadata[] | undefined): Us
         assets.allIds.push(a.address);
       }
 
+      // populate byId
       result.byId[burst.tokenId] = {
         id: burst.tokenId,
         tokenUri: burst.tokenUri,
         logoUrl: burst.metadata?.image,
         assets,
       };
+
+      // populate allIDs
+      result.allIds.push(burst.tokenId);
     }
   }
 

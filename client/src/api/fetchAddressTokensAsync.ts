@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { CovalentApiTokenBalance } from '.';
-import { CovalentApiResponse } from './covalent-api-response';
+import { CovalentApiTokenBalance, CovalentApiResponse } from '.';
 
 interface CovalentApiAddressTokenBalances {
   address: string;

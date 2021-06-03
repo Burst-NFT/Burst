@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Chip from '@material-ui/core/Chip';
+import { abi as ERC20ABI } from '../../contracts/ERC20.json';
+import { useWallet } from '../Wallet';
 import { formatUnits } from '@ethersproject/units';
-
-import { useAccountTokens } from '../../queries';
+import { getDecimalsOrDefaultAsync } from '../../utils/getDecimalsOrDefaultAsync';
 
 const StyledAvailableBalance = styled.div`
   padding-bottom: 16px;
@@ -15,20 +16,31 @@ const StyledAvailableBalance = styled.div`
 `;
 
 export interface AvailableBalanceProps {
-  tokenAddress: string;
+  address: string;
 }
 
-export const AvailableBalance = React.memo(function AvailableBalance({ tokenAddress }: AvailableBalanceProps) {
-  const { data: tokens } = useAccountTokens();
+function AvailableBalanceComponent({ address }: AvailableBalanceProps) {
+  const { web3, account } = useWallet();
+  const [balanceAmount, setBalanceAmount] = React.useState(0);
 
-  const token = tokens?.byId.get(tokenAddress);
-  const balance: string = React.useMemo(() => {
-    const _balance = token?.balance;
-    return _balance ? formatUnits(_balance, token?.decimals) : '0';
-  }, [token]);
+  React.useEffect(() => {
+    (async () => {
+      if (address && web3.utils.isAddress(address)) {
+        const contract = new web3.eth.Contract(ERC20ABI, address);
+        const decimals = await getDecimalsOrDefaultAsync({ contract });
+        const _balance: string = await contract.methods.balanceOf(account).call();
+        const balanceAmount = parseFloat(formatUnits(_balance, decimals));
+        setBalanceAmount(balanceAmount);
+      } else {
+        setBalanceAmount(0);
+      }
+    })();
+  }, [address, account]);
   return (
     <StyledAvailableBalance>
-      <Chip color='primary' label={`Available balance: ${balance}`} />
+      <Chip color='primary' label={`Available balance: ${balanceAmount}`} />
     </StyledAvailableBalance>
   );
-});
+}
+
+export const AvailableBalance = React.memo(AvailableBalanceComponent);

@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
+import { Link as RouterLink } from 'react-router-dom';
 import { useWallet } from './Wallet';
-import { getBurstAddress } from './Burst/utils';
+import { createBurstContract, getBurstAddress } from './Burst/utils';
 import MuiButton from '@material-ui/core/Button';
-import { useAccountTokens } from '../queries';
-
+import { abi as BurstNFTABI } from '../contracts/BurstNFT.json';
 // function
 
 const BalanceButton = styled(MuiButton)`
@@ -24,16 +22,30 @@ const Wrapper = styled.div`
 `;
 
 function DisplayBalance() {
-  const { chainId } = useWallet();
-  const { isLoading, data: accountTokens } = useAccountTokens();
-  const balance = React.useMemo(() => {
-    const burstAddress = getBurstAddress({ chainId });
-    return (!isLoading && burstAddress && accountTokens?.byId.get(burstAddress)?.balance) || 0;
-  }, [chainId, isLoading, accountTokens]);
+  const { web3, account, chainId } = useWallet();
+  const [balanceAmount, setBalanceAmount] = React.useState<number | undefined>(undefined);
+
+  React.useEffect(() => {
+    (async () => {
+      if (account && web3.utils.isAddress(account)) {
+        // TODO: TURN THIS INTO A REACT QUERY SO WE CAN REFRESH ELSEWHERE IN THE APP
+        const contract = createBurstContract({ web3, chainId });
+        if (contract) {
+          const _balance: string = await contract.methods.balanceOf(account).call();
+          const balanceAmount = parseFloat(_balance);
+          setBalanceAmount(balanceAmount);
+          return;
+        }
+      }
+
+      setBalanceAmount(0);
+    })();
+  }, [account, chainId]);
   return (
     <Wrapper>
-      <BalanceButton size='small' variant='outlined' color='secondary'>
-        BURST: {isLoading ? '...' : balance}
+      {/* @ts-ignore component={RouterLink} is fine for now */}
+      <BalanceButton size='small' variant='outlined' color='secondary' component={RouterLink} to='/manage'>
+        BURST: {balanceAmount === undefined ? '...' : balanceAmount}
       </BalanceButton>
     </Wrapper>
   );

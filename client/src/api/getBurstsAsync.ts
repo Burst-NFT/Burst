@@ -13,7 +13,7 @@ export const getBurstsAsync = async ({
   chainId?: number;
   web3: any;
 }): Promise<BurstContractInfoAndMetadata[]> => {
-  if (account && chainId && tokensByChainId[chainId]) {
+  if (account && chainId && tokensByChainId[chainId]?.length) {
     const contract = createBurstContract({ web3, chainId });
     const _balance = await contract.methods.balanceOf(account).call();
     const tasks: Promise<BurstContractInfoAndMetadata>[] = [];
