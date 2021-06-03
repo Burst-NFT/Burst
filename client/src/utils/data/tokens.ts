@@ -1,4 +1,4 @@
-import { abi as ERC20ABI } from '../../contracts/IERC20.json';
+import { abi as ERC20ABI } from '../../contracts/ERC20.json';
 import BurstNFT from '../../contracts/BurstNFT.json';
 import { networkByKey } from './networks';
 

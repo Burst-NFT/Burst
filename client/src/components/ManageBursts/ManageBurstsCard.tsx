@@ -8,20 +8,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-import { useAccountTokens } from '../queries';
 import { useWallet } from '../Wallet';
-import ErrorAlert from '../ErrorAlert';
 import { getBurstAddress } from '../Burst/utils';
-import BurstNftPanel from './BurstNftPanel';
-import GenericNftPanel from './GenericNftPanel';
+import { BurstNftPanel } from './BurstNftPanel';
+import { GenericNftPanel } from './GenericNftPanel';
 import Alert from '../Alert';
 import { Typography } from '@material-ui/core';
 import { Color } from '@material-ui/lab/Alert';
-
-export interface AlertState {
-  msg: string;
-  type?: string;
-}
+import { useBursts } from '../../queries';
+import { AlertState } from '.';
 
 const Card = styled(MuiCard)`
   /* max-width: 650px; */
@@ -41,55 +36,26 @@ const Wrapper = styled.div`
 
 function ManageBurstsCard() {
   const { chainId } = useWallet();
-  const { isLoading, error, data: tokens } = useAccountTokens();
-  const [showOnlyBursts, setShowOnlyBursts] = React.useState(true);
-  const burstAddress = React.useMemo(() => getBurstAddress({ chainId }) || '', [chainId]);
+  const { data: bursts } = useBursts();
   const [alert, setAlert] = React.useState<AlertState>({ msg: '', type: '' });
-
-  // console.log(tokens);
-  const handleChangeShowBursts = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShowOnlyBursts(e.target.checked);
-  };
-
-  if (isLoading)
-    return (
-      <Card>
-        <CardContent>Loading...</CardContent>
-      </Card>
-    );
-
-  if (error) return <ErrorAlert text='An error occured. Please reload the page and try again.' />;
 
   return (
     <Wrapper>
       <Card>
         <CardHeader title='Manage' />
-        <Toolbar>
+        {/* <Toolbar>
           {
             <FormControlLabel
               control={<Switch checked={showOnlyBursts} onChange={handleChangeShowBursts} name='showBursts' color='primary' />}
               label={<Typography variant='body2'>Show only BURSTs</Typography>}
             />
           }
-        </Toolbar>
+        </Toolbar> */}
       </Card>
-      {isLoading ? (
-        <Card>
-          <CardContent>Loading...</CardContent>
-        </Card>
-      ) : (
-        !!tokens && (
-          <>
-            {tokens.byId[burstAddress]?.nft_data?.map((data) => (
-              <BurstNftPanel data={data} key={data.token_id} setAlert={setAlert} />
-            ))}
-            {!showOnlyBursts && tokens.nftIds.filter((id) => id !== burstAddress).map((id) => <GenericNftPanel data={tokens.byId[id]} key={id} />)}
-          </>
-        )
-      )}
+      {!!bursts?.allIds?.length && bursts.allIds.map((burstId) => <BurstNftPanel burst={bursts.byId[burstId]} key={burstId} setAlert={setAlert} />)}
       <Alert text={alert.msg} open={!!alert.msg} severity={alert.type as Color} destroyAlert={() => setAlert({ msg: '', type: '' })} />
     </Wrapper>
   );
 }
 
-export default ManageBurstsCard;
+export { ManageBurstsCard };

@@ -22,12 +22,11 @@ export function WalletProvider({ children }: WalletProviderProps) {
   // equivalent to component will mount
   if (web3Ref.current == null && (window as any).ethereum) {
     (window as any).web3 = new Web3((window as any).ethereum);
-
-    // ethereumRef.current = (window as any).ethereum;
     web3Ref.current = (window as any).web3;
   }
 
   // callbacks
+  // chain
   const chainChangedCallback = React.useCallback(
     (chainId: string) => {
       console.log('chainChanged', chainId);
@@ -36,6 +35,20 @@ export function WalletProvider({ children }: WalletProviderProps) {
     },
     [setChainId]
   );
+  const connectCallback = React.useCallback(
+    ({ chainId }) => {
+      // will occur AFTER disconnect issue is resolved
+      // console.log('connect', something);
+      setChainId(parseInt(chainId));
+    },
+    [setChainId]
+  );
+  const disconnectCallback = React.useCallback(() => {
+    // will occur when if it becomes unable to submit RPC requests to any chain.
+    setChainId(CHAIN_ID_INITIAL_VALUE);
+  }, [setChainId]);
+
+  // account
   const accountsChangedCallback = React.useCallback(
     async (accounts) => {
       console.log('accountsChanged', accounts);
@@ -46,20 +59,6 @@ export function WalletProvider({ children }: WalletProviderProps) {
     },
     [setAccount]
   );
-
-  const connectCallback = React.useCallback(
-    ({ chainId }) => {
-      // will occur AFTER disconnect issue is resolved
-      // console.log('connect', something);
-      setChainId(parseInt(chainId));
-    },
-    [setChainId]
-  );
-
-  const disconnectCallback = React.useCallback(() => {
-    // will occur when if it becomes unable to submit RPC requests to any chain.
-    setChainId(CHAIN_ID_INITIAL_VALUE);
-  }, [setChainId]);
 
   React.useEffect(() => {
     const web3 = web3Ref.current;

@@ -4,18 +4,24 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import blue from '@material-ui/core/colors/blue';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { MoralisProvider } from 'react-moralis';
 import Header from './Header';
 import Footer from './Footer';
 
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import CreateBurst from './components/CreateBurst';
-import ManageBursts from './components/ManageBursts';
+import { CreateBurstCard } from './components/CreateBurst';
+import { ManageBurstsCard } from './components/ManageBursts';
 import { WalletProvider } from './components/Wallet';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const LogoImg = styled.img`
   max-height: 64px;
@@ -65,13 +71,13 @@ function App() {
                     {/* @ts-ignore weird error with exact */}
                     <Route exact path='/manage'>
                       <Grid container item xs={12} justify='center'>
-                        <ManageBursts />
+                        <ManageBurstsCard />
                       </Grid>
                     </Route>
                     {/* @ts-ignore weird error with exact */}
                     <Route exact path='/'>
                       <Grid container item xs={12} justify='center'>
-                        <CreateBurst />
+                        <CreateBurstCard />
                       </Grid>
                     </Route>
                   </Switch>

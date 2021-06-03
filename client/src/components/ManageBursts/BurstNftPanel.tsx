@@ -18,19 +18,22 @@ import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 
-import { useBurstAssetPrices } from '../queries';
+import { useQuotes } from '../../queries';
 import useNumberFormatter from '../useNumberFormatter';
-import TokenName from '../TokenName';
-import Title from './Title';
+import { TokenName } from '../TokenName';
+import { Title } from './Title';
 import { useWallet } from '../Wallet';
-import { createBurstContract, BurstCreationData } from '../Burst/utils';
-import SendBurstDialog from './SendBurstDialog';
-import DestoryBurstDialog from './DestroyBurstDialog';
-import { AlertState } from './';
-import { NftData } from '../../api/fetchAccountTokens';
+import { createBurstContract } from '../Burst/utils';
+import { SendBurstDialog } from './SendBurstDialog';
+import { DestroyBurstDialog } from './DestroyBurstDialog';
+import { AlertState } from '.';
+import { Burst } from '../Burst';
+import { formatUnits } from '@ethersproject/units';
+import { getBurstAssetsTotalValue } from './utils';
+import { useQueryClient } from 'react-query';
 
 export interface BurstNftPanelProps {
-  data: NftData;
+  burst: Burst;
   setAlert: React.Dispatch<AlertState | React.SetStateAction<AlertState>>;
 }
 
@@ -38,18 +41,21 @@ const TableCell = styled(MuiTableCell)`
   color: rgba(0, 0, 0, 0.54);
 `;
 
-function BurstNftPanel({ data, setAlert }: BurstNftPanelProps) {
-  const { web3, chainId, account } = useWallet();
-  // filter attributes to only include valid tokens
-  const assets = React.useMemo(() => data.external_data?.attributes?.filter((attr) => !!attr.token_address && !!attr.token_symbol) || [], [data]);
-  const { isLoading, data: burstAssets } = useBurstAssetPrices({ burstAssets: assets });
+function BurstNftPanelComponent({ burst, setAlert }: BurstNftPanelProps) {
   const { numberFormatter } = useNumberFormatter();
-  const totalValue = React.useMemo(
+  const { web3, chainId, account } = useWallet();
+  // don't retry fetching quotes if it fails on the first go
+  const { isLoading, data: priceQuotes } = useQuotes({ addresses: burst.assets.allIds, options: { retry: false } });
+  const queryClient = useQueryClient();
+  /**
+   *
+   */
+  const totalBurstAssetValue: string = React.useMemo(
     () =>
-      !!burstAssets?.allIds.length
-        ? numberFormatter?.format(burstAssets.allIds.reduce((sum, id) => sum + burstAssets.byId[id].totalValue, 0))
+      !!priceQuotes?.allIds.length
+        ? numberFormatter.format(getBurstAssetsTotalValue({ priceQuotesById: priceQuotes.byId, burstAssets: burst.assets }))
         : '$0.00',
-    [numberFormatter, burstAssets]
+    [numberFormatter, priceQuotes, burst]
   );
 
   const [sendDialogOpen, setSendDialogOpen] = React.useState(false);
@@ -59,9 +65,10 @@ function BurstNftPanel({ data, setAlert }: BurstNftPanelProps) {
   // handlers
   const handleOnClickSendAsync = async () => {
     const burstContract = createBurstContract({ web3, chainId });
-    const response = await burstContract.methods.transferFrom(account, sendDialogAddressValue, data.token_id).send({ from: account });
+    const response = await burstContract.methods.transferFrom(account, sendDialogAddressValue, burst.id).send({ from: account });
     // console.log('handleOnClickSendAsync', response);
-    setAlert({ msg: `1 BURST (#${data.token_id}) successfully sent to '${sendDialogAddressValue}'` });
+    setAlert({ msg: `1 BURST (#${burst.id}) successfully sent to '${sendDialogAddressValue}'` });
+    await queryClient.refetchQueries(['bursts']);
     handleCloseSendDialog();
   };
   const handleCloseSendDialog = () => {
@@ -75,9 +82,10 @@ function BurstNftPanel({ data, setAlert }: BurstNftPanelProps) {
 
   const handleOnClickDestroyAsync = async () => {
     const burstContract = createBurstContract({ web3, chainId });
-    const response = await burstContract.methods.destroyBurstWithMultiERC20(data.token_id).send({ from: account });
+    const response = await burstContract.methods.destroyBurst(burst.id).send({ from: account });
     // console.log('handleOnClickDestroyAsync', response);
-    setAlert({ msg: `1 BURST (#${data.token_id}) successfully destroyed` });
+    setAlert({ msg: `1 BURST (#${burst.id}) successfully destroyed` });
+    await queryClient.refetchQueries(['bursts']);
   };
 
   const sendDialogProps = {
@@ -91,7 +99,7 @@ function BurstNftPanel({ data, setAlert }: BurstNftPanelProps) {
   return (
     <>
       <SendBurstDialog {...sendDialogProps} />
-      <DestoryBurstDialog open={destroyDialogOpen} handleClose={handleCloseDestroyDialog} handleOnClickDestroy={handleOnClickDestroyAsync} />
+      <DestroyBurstDialog open={destroyDialogOpen} handleClose={handleCloseDestroyDialog} handleOnClickDestroy={handleOnClickDestroyAsync} />
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-label='Expand' aria-controls='additional-content'>
           <Badge
@@ -100,16 +108,16 @@ function BurstNftPanel({ data, setAlert }: BurstNftPanelProps) {
               vertical: 'bottom',
               horizontal: 'right',
             }}
-            badgeContent={assets.length}
+            badgeContent={burst.assets.byId.size}
             color='secondary'
           >
-            <Avatar alt='B' src={data.external_data?.image || ''} />
+            <Avatar alt='B' src={burst.logoUrl || ''} />
           </Badge>
           <Title>
             <Typography>Burst NFT</Typography>
             {!isLoading && (
               <Typography color='textSecondary' variant='body2'>
-                Est value: {totalValue}
+                Est value: {totalBurstAssetValue}
               </Typography>
             )}
           </Title>
@@ -117,40 +125,41 @@ function BurstNftPanel({ data, setAlert }: BurstNftPanelProps) {
         <Divider />
         <AccordionDetails>
           <TableContainer>
-            {isLoading ? (
-              <Typography>Loading...</Typography>
-            ) : (
-              <Table size='small'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Token</TableCell>
-                    <TableCell align='right'>Amount</TableCell>
-                    <TableCell align='right'>Est. Value ($)</TableCell>
-                    <TableCell align='right'></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {burstAssets?.allIds.map((id) => (
+            <Table size='small'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Token</TableCell>
+                  <TableCell align='right'>Amount</TableCell>
+                  <TableCell align='right'>Est. Value ($)</TableCell>
+                  <TableCell align='right'></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {burst.assets?.allIds.map((id) => {
+                  const { symbol, address, logoUrl, decimals, balance } = burst.assets.byId[id];
+                  const amount = parseFloat(formatUnits(balance, decimals));
+                  const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
+                  return (
                     <TableRow key={id}>
                       <TableCell align='left'>
-                        <TokenName symbol={burstAssets.byId[id].symbol} logo={burstAssets.byId[id].logo} />
+                        <TokenName symbol={symbol} address={address} logo={logoUrl} />
                       </TableCell>
-                      <TableCell align='right'>{burstAssets.byId[id].amount}</TableCell>
-                      <TableCell align='right'>{numberFormatter?.format(burstAssets.byId[id].totalValue)}</TableCell>
+                      <TableCell align='right'>{amount}</TableCell>
+                      <TableCell align='right'>{totalValue ? numberFormatter.format(totalValue) : '-'}</TableCell>
                     </TableRow>
-                  ))}
-                  <TableRow>
-                    <TableCell rowSpan={3} style={{ borderBottom: 'none' }} />
-                    <TableCell align='right'>
-                      <strong>Total</strong>
-                    </TableCell>
-                    <TableCell align='right'>
-                      <strong>{totalValue}</strong>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            )}
+                  );
+                })}
+                <TableRow>
+                  <TableCell rowSpan={3} style={{ borderBottom: 'none' }} />
+                  <TableCell align='right'>
+                    <strong>Total</strong>
+                  </TableCell>
+                  <TableCell align='right'>
+                    <strong>{totalBurstAssetValue}</strong>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </TableContainer>
         </AccordionDetails>
         <Divider />
@@ -167,4 +176,4 @@ function BurstNftPanel({ data, setAlert }: BurstNftPanelProps) {
   );
 }
 
-export default React.memo(BurstNftPanel);
+export const BurstNftPanel = React.memo(BurstNftPanelComponent);

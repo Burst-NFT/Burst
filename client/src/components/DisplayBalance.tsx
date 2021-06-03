@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
+import { Link as RouterLink } from 'react-router-dom';
 import { useWallet } from './Wallet';
-import { getBurstAddress } from './Burst/utils';
+import { createBurstContract, getBurstAddress } from './Burst/utils';
 import MuiButton from '@material-ui/core/Button';
-import { useAccountTokens } from './queries';
-
+import { abi as BurstNFTABI } from '../contracts/BurstNFT.json';
 // function
 
 const BalanceButton = styled(MuiButton)`
@@ -24,45 +22,31 @@ const Wrapper = styled.div`
 `;
 
 function DisplayBalance() {
-  const { chainId } = useWallet();
-  const { isLoading, data: tokens } = useAccountTokens();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
-  const handleClick = (event: React.SyntheticEvent) => {
-    setAnchorEl(event.currentTarget as HTMLDivElement);
-  };
+  const { web3, account, chainId } = useWallet();
+  const [balanceAmount, setBalanceAmount] = React.useState<number | undefined>(undefined);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const open = Boolean(anchorEl);
-  const id = open ? 'burst-details-popover' : undefined;
-  const balance = React.useMemo(() => {
-    const burstAddress = getBurstAddress({ chainId });
-    return (!isLoading && burstAddress && tokens?.byId[burstAddress]?.balance) || 0;
-  }, [chainId, isLoading, tokens]);
+  React.useEffect(() => {
+    (async () => {
+      if (account && web3.utils.isAddress(account)) {
+        // TODO: TURN THIS INTO A REACT QUERY SO WE CAN REFRESH ELSEWHERE IN THE APP
+        const contract = createBurstContract({ web3, chainId });
+        if (contract) {
+          const _balance: string = await contract.methods.balanceOf(account).call();
+          const balanceAmount = parseFloat(_balance);
+          setBalanceAmount(balanceAmount);
+          return;
+        }
+      }
+
+      setBalanceAmount(0);
+    })();
+  }, [account, chainId]);
   return (
     <Wrapper>
-      <BalanceButton aria-describedby={id} size='small' variant='outlined' color='secondary' onClick={handleClick}>
-        BURST: {isLoading ? '...' : balance}
+      {/* @ts-ignore component={RouterLink} is fine for now */}
+      <BalanceButton size='small' variant='outlined' color='secondary' component={RouterLink} to='/manage'>
+        BURST: {balanceAmount === undefined ? '...' : balanceAmount}
       </BalanceButton>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-        <Typography style={{ paddingLeft: '4px', paddingRight: '4px' }} color='textSecondary' variant='caption'>
-          {isLoading ? 'Loading...' : `You have a balance of ${balance} BURST`}
-        </Typography>
-      </Popover>
     </Wrapper>
   );
 }

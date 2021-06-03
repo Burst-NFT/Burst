@@ -7,4 +7,4 @@ const Title = styled.div`
   padding-left: 16px;
 `;
 
-export default Title;
+export { Title };

@@ -1,12 +1,13 @@
 import React from 'react';
 
 export interface NumberFormatter {
-  numberFormatter: Intl.NumberFormat | null;
+  numberFormatter: Intl.NumberFormat;
 }
 
 // TODO: Expand to be customizable
 function useNumberFormatter(): NumberFormatter {
-  const IntlFormatterRef = React.useRef<Intl.NumberFormat | null>(null);
+  // @ts-ignore We check for null and set .current to NumberFormatter immediately after executing the useRef hook, so IntlForammterRef will never truly be null
+  const IntlFormatterRef: React.MutableRefObject<Intl.NumberFormat> = React.useRef<Intl.NumberFormat>(null);
 
   if (IntlFormatterRef.current == null) {
     IntlFormatterRef.current = new Intl.NumberFormat('en-US', {
