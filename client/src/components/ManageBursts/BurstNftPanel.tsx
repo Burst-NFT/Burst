@@ -23,7 +23,6 @@ import useNumberFormatter from '../useNumberFormatter';
 import { TokenName } from '../TokenName';
 import { Title } from './Title';
 import { useWallet } from '../Wallet';
-import { createBurstContract } from '../Burst/utils';
 import { SendBurstDialog } from './SendBurstDialog';
 import { DestroyBurstDialog } from './DestroyBurstDialog';
 import { AlertState } from '.';
@@ -31,6 +30,8 @@ import { Burst } from '../Burst';
 import { formatUnits } from '@ethersproject/units';
 import { getBurstAssetsTotalValue } from './utils';
 import { useQueryClient } from 'react-query';
+import { createBurstContract, createMarketplaceContract } from '../../utils';
+import { SellBurstDialog } from './SellBurstDialog';
 
 export interface BurstNftPanelProps {
   burst: Burst;
@@ -61,6 +62,7 @@ function BurstNftPanelComponent({ burst, setAlert }: BurstNftPanelProps) {
   const [sendDialogOpen, setSendDialogOpen] = React.useState(false);
   const [sendDialogAddressValue, setSendDialogAddressValue] = React.useState('');
   const [destroyDialogOpen, setDestroyDialogOpen] = React.useState(false);
+  const [sellDialogOpen, setSellDialogOpen] = React.useState(false);
 
   // handlers
   const handleOnClickSendAsync = async () => {
@@ -88,6 +90,9 @@ function BurstNftPanelComponent({ burst, setAlert }: BurstNftPanelProps) {
     await queryClient.refetchQueries(['bursts']);
   };
 
+  const handleClickSell = () => setSellDialogOpen(true);
+  const handleCloseSellBurstDialog = () => setSellDialogOpen(false);
+
   const sendDialogProps = {
     sendDialogAddressValue,
     setSendDialogAddressValue,
@@ -100,6 +105,7 @@ function BurstNftPanelComponent({ burst, setAlert }: BurstNftPanelProps) {
     <>
       <SendBurstDialog {...sendDialogProps} />
       <DestroyBurstDialog open={destroyDialogOpen} handleClose={handleCloseDestroyDialog} handleOnClickDestroy={handleOnClickDestroyAsync} />
+      <SellBurstDialog open={sellDialogOpen} onClose={handleCloseSellBurstDialog} burst={burst} />
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-label='Expand' aria-controls='additional-content'>
           <Badge
@@ -164,6 +170,10 @@ function BurstNftPanelComponent({ burst, setAlert }: BurstNftPanelProps) {
         </AccordionDetails>
         <Divider />
         <AccordionActions>
+          <Button size='small' color='default' onClick={handleClickSell}>
+            Sell
+          </Button>
+          <span style={{ width: '100%' }} />
           <Button size='small' color='default' onClick={() => setDestroyDialogOpen(true)}>
             Destory
           </Button>

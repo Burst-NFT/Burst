@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ApiBurstMetadata, BurstContractInfoAndMetadata } from '../components/Burst';
-import { createBurstContract } from '../components/Burst/utils';
-import { tokensByChainId } from '../utils/data/tokens';
+import { createBurstContract } from '../utils';
+import { tokensByChainId } from '../data/tokens';
 import { isWellFormedUrl } from '../utils/isWellFormedUrl';
 
 export const getBurstsAsync = async ({

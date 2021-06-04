@@ -3,6 +3,7 @@ export { fetchAddressTokensAsync as fetchAccountTokensAsync } from './fetchAddre
 export { createBurstMetadataAsync } from './createBurstMetadataAsync';
 export { getBurstsAsync } from './getBurstsAsync';
 export { getErc20InfoAsync } from './getErc20InfoAsync';
+export { fetchSpotPricesByTickersAsync } from './fetchSpotPricesByTickersAsync';
 
 // types
 export * from './types';

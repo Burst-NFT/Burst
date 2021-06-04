@@ -1,13 +1,15 @@
 import { formatUnits } from '@ethersproject/units';
 import { BurstAsset } from '../Burst';
-import { ContractPriceById } from '../../queries/useQuotes';
+import { ContractPrice } from '../../queries/useQuotes';
 import { NormalizedData } from '../../types';
 
 export const getBurstAssetsTotalValue = ({
   priceQuotesById = {},
   burstAssets = { byId: {}, allIds: [] },
 }: {
-  priceQuotesById: ContractPriceById;
+  priceQuotesById: {
+    [key: string]: ContractPrice;
+  };
   burstAssets: NormalizedData<BurstAsset>;
 }): number => {
   return burstAssets.allIds.reduce<number>((sum: number, addr: string) => {

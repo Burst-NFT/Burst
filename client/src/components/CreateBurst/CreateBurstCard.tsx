@@ -23,7 +23,6 @@ import produce from 'immer';
 import CardHeader from '../CardHeader';
 import { useWallet } from '../Wallet';
 import { abi as ERC20ABI } from '../../contracts/ERC20.json';
-import { createBurstContract, getBurstAddress } from '../Burst/utils';
 import useNumberFormatter from '../useNumberFormatter';
 import { TokenName } from '../TokenName';
 import { createBurstMetadataAsync, getErc20InfoAsync } from '../../api';
@@ -39,6 +38,7 @@ import { BasketState } from './types';
 import { PinataAttribute } from '../../api/createBurstMetadataAsync';
 import { parseUnits } from '@ethersproject/units';
 import { BigNumberish } from '@ethersproject/bignumber';
+import { createBurstContract, getBurstAddress } from '../../utils';
 
 const StyledAddCard = styled(MuiCard)`
   min-width: 450px;
