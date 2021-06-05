@@ -1,48 +1,69 @@
-import { abi as ERC20ABI } from '../../contracts/ERC20.json';
-import BurstNFT from '../../contracts/BurstNFT.json';
+import { abi as ERC20ABI } from '../contracts/ERC20.json';
+import { BurstNft, BurstMarketplace } from './tokenInfo';
 import { networkByKey } from './networks';
+
+const basicBurstNftData = {
+  name: BurstNft.name,
+  symbol: BurstNft.symbol,
+  decimals: BurstNft.decimals,
+  abi: BurstNft.contractJson.abi,
+};
+
+const basicBurstMarketplaceData = {
+  name: BurstMarketplace.name,
+  symbol: BurstMarketplace.symbol,
+  decimals: BurstMarketplace.decimals,
+  abi: BurstMarketplace.contractJson.abi,
+};
 
 export interface Token {
   address: string;
   name: string;
-  symbol: string;
+  symbol?: string;
   decimals: number;
   abi: any;
   networkId: number;
   chainId: number;
 }
 
+export interface ContractNetwork {
+  events: any;
+  links: any;
+  address: string;
+  transactionHash: string;
+}
+
+export interface ContractNetworks {
+  [networkId: string]: ContractNetwork;
+}
+
 const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.avalancheFujiCChain.chainId]: [
     {
+      ...basicBurstNftData,
       address: '0x85CFE8b56f6E76F6c694279e3eFd0Efd4Da84863',
-      name: 'Burst NFT',
-      symbol: 'BURST',
-      decimals: 18,
-      abi: BurstNFT.abi,
       networkId: networkByKey.avalancheFujiCChain.networkId,
       chainId: networkByKey.avalancheFujiCChain.chainId,
     },
   ],
   [networkByKey.ganache.chainId]: [
     {
-      // @ts-ignore TS unable to figure out that I'm returning a string
-      address: BurstNFT.networks[Object.keys(BurstNFT.networks)[0]].address,
-      name: 'Burst NFT',
-      symbol: 'BURST',
-      decimals: 18,
-      abi: BurstNFT.abi,
+      ...basicBurstNftData,
+      address: (BurstNft.contractJson.networks as ContractNetworks)[`${networkByKey.ganache.networkId}`].address,
+      networkId: networkByKey.ganache.networkId,
+      chainId: networkByKey.ganache.chainId,
+    },
+    {
+      ...basicBurstMarketplaceData,
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.ganache.networkId}`].address,
       networkId: networkByKey.ganache.networkId,
       chainId: networkByKey.ganache.chainId,
     },
   ],
   [networkByKey.maticMumbaiTestnet.chainId]: [
     {
+      ...basicBurstNftData,
       address: '0xF6cad50Aea13C607C53a063EE059B5f6f5d6F86D',
-      name: 'Burst NFT',
-      symbol: 'BURST',
-      decimals: 18,
-      abi: BurstNFT.abi,
       networkId: networkByKey.maticMumbaiTestnet.networkId,
       chainId: networkByKey.maticMumbaiTestnet.chainId,
     },
@@ -88,26 +109,6 @@ const tokensByChainId: { [id: number]: Token[] } = {
     },
   ],
 };
-
-// Add test/local BURST tokens
-// const tokensByChainId = Object.keys(BurstNFT.networks).reduce((acc, networkId) => {
-//   // look up chainId
-
-//   // if the networkId doesn't exist yet, create the field on the object
-//   if (!acc[networkId]) acc[networkId] = [];
-
-//   // add the burst nft info under the network
-//   acc[networkId].push({
-//     address: BurstNFT.networks[networkId].address,
-//     name: 'Burst NFT',
-//     symbol: 'BURST',
-//     decimals: 18,
-//     abi: BurstNFT.abi,
-//     networkId,
-//     chainId: networkById[networkId]?.chainId || networkId, // if a new network, then assume that the chainId as networkId is the same for now
-//   });
-//   return acc;
-// }, predfinedTokensByNetworkId);
 
 // TODO: Change to a single reduce function for better performance
 // Builds an object to access the token by address

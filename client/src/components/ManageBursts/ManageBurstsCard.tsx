@@ -9,7 +9,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
 import { useWallet } from '../Wallet';
-import { getBurstAddress } from '../Burst/utils';
 import { BurstNftPanel } from './BurstNftPanel';
 import { GenericNftPanel } from './GenericNftPanel';
 import Alert from '../Alert';

@@ -22,16 +22,7 @@ const Dialog = styled(MuiDialog)``;
 
 const DialogActions = styled(MuiDialogActions)`
   padding-top: 16px;
-  /* justify-content: center; */
 `;
-
-// used https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=4CAF50 to generate color
-// const OkButton = styled(Button)`
-//   background-color: #4caf50;
-//   &:hover {
-//     background-color: #087f23;
-//   }
-// `;
 
 function SendBurstDialog({ open = false, handleClose, handleOnClickSend, sendDialogAddressValue, setSendDialogAddressValue }: SendBurstDialogProps) {
   const { web3 } = useWallet();

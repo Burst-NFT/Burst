@@ -23,7 +23,6 @@ import produce from 'immer';
 import CardHeader from '../CardHeader';
 import { useWallet } from '../Wallet';
 import { abi as ERC20ABI } from '../../contracts/ERC20.json';
-import { createBurstContract, getBurstAddress } from '../Burst/utils';
 import useNumberFormatter from '../useNumberFormatter';
 import { TokenName } from '../TokenName';
 import { createBurstMetadataAsync, getErc20InfoAsync } from '../../api';
@@ -39,6 +38,8 @@ import { BasketState } from './types';
 import { PinataAttribute } from '../../api/createBurstMetadataAsync';
 import { parseUnits } from '@ethersproject/units';
 import { BigNumberish } from '@ethersproject/bignumber';
+import { createBurstContract, getBurstAddress } from '../../utils';
+import { useQueryClient } from 'react-query';
 
 const StyledAddCard = styled(MuiCard)`
   min-width: 450px;
@@ -71,6 +72,7 @@ const initialDialogData = {
 };
 
 export function CreateBurstCard() {
+  const queryClient = useQueryClient();
   // Setup
   const { web3, account, network, chainId } = useWallet();
   const { isLoading, error: useAccountTokensError, data: accountTokens } = useAccountTokens();
@@ -184,6 +186,7 @@ export function CreateBurstCard() {
     setSuccessDialogOpen(true);
 
     // reset everything
+    await queryClient.refetchQueries(['bursts']);
     setSelectedAddress('');
     setAmount('');
     setBasket({ ...initialBasketState });

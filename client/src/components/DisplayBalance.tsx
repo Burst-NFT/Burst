@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 import { useWallet } from './Wallet';
-import { createBurstContract, getBurstAddress } from './Burst/utils';
 import MuiButton from '@material-ui/core/Button';
-import { abi as BurstNFTABI } from '../contracts/BurstNFT.json';
+import { createBurstContract } from '../utils';
 // function
 
 const BalanceButton = styled(MuiButton)`

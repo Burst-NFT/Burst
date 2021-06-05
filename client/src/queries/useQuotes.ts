@@ -1,6 +1,7 @@
 import { useWallet } from '../components/Wallet';
 import { CovalentApiHistoricalPriceItem, fetchPricesByAddressAsync } from '../api/fetchPricesByAddressAsync';
 import { useQuery, UseQueryOptions } from 'react-query';
+import { NormalizedData } from '../types';
 
 export interface ContractPrice {
   decimals: number;
@@ -11,21 +12,20 @@ export interface ContractPrice {
   quote?: number;
 }
 
-export interface ContractPriceById {
-  [address: string]: ContractPrice;
-}
-
-export interface UseQuotesResult {
-  byId: ContractPriceById;
-  allIds: string[];
+export interface UseQuotesResult extends NormalizedData<ContractPrice> {
+  idBySymbol: { [symbol: string]: string };
 }
 
 function mapHistoricalPricesToResult(items: CovalentApiHistoricalPriceItem[] | undefined = []): UseQuotesResult {
-  const byId = {} as { [address: string]: ContractPrice };
+  const result: UseQuotesResult = {
+    byId: {},
+    allIds: [],
+    idBySymbol: {},
+  };
 
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
-    byId[item.contract_address] = {
+    result.byId[item.contract_address] = {
       decimals: item.contract_decimals,
       name: item.contract_name,
       symbol: item.contract_ticker_symbol,
@@ -33,12 +33,11 @@ function mapHistoricalPricesToResult(items: CovalentApiHistoricalPriceItem[] | u
       logoUrl: item.logo_url,
       quote: item.prices[0]?.price,
     };
+    result.allIds.push(item.contract_address);
+    result.idBySymbol[item.contract_ticker_symbol] = item.contract_address;
   }
 
-  return {
-    byId,
-    allIds: Object.keys(byId),
-  };
+  return result;
 }
 
 export function useQuotes({ addresses = [], options = undefined }: { addresses?: string[]; options?: UseQueryOptions<UseQuotesResult> }) {

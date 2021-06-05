@@ -1,6 +1,6 @@
 import React from 'react';
 import { WalletContext } from './WalletContext';
-import { networkByChainId } from '../../utils/data/networks';
+import { networkByChainId } from '../../data/networks';
 import { UseWalletResult } from './use-wallet-result';
 
 export function useWallet(): UseWalletResult {
