@@ -56,7 +56,8 @@ function SellBurstDialog({ open = false, onClose: handleClose, burst }: SellBurs
   const [sellPrice, setSellPrice] = React.useState<number>(0);
   const handleClickConfirmAsync = async () => {
     const contract = createMarketplaceContract({ web3, chainId });
-    const result = await contract.methods.createMarketplaceOrder(burst.id, account, sellPrice);
+    const result = await contract.methods.createMarketplaceOrder(parseInt(burst.id), account, sellPrice).call();
+    console.log(result);
     await queryClient.refetchQueries(['bursts']);
     handleClose();
   };
@@ -71,13 +72,13 @@ function SellBurstDialog({ open = false, onClose: handleClose, burst }: SellBurs
       <DialogTitle>Sell Your Burst</DialogTitle>
       <DialogContent>
         <DialogContentText></DialogContentText>
-        <TableContainer>
+        <TableContainer style={{ margin: '16px' }}>
           <Table size='small'>
             <TableHead>
               <TableRow>
                 <TableCell>Token</TableCell>
                 <TableCell align='right'>Amount</TableCell>
-                <TableCell align='right'>Est. Value ($)</TableCell>
+                <TableCell align='right'>Est. Value</TableCell>
                 <TableCell align='right'></TableCell>
               </TableRow>
             </TableHead>
@@ -110,7 +111,7 @@ function SellBurstDialog({ open = false, onClose: handleClose, burst }: SellBurs
             </TableBody>
           </Table>
         </TableContainer>
-        <Divider />
+
         <TextField
           variant='outlined'
           id='add-sell-price-input'
