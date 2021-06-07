@@ -17,6 +17,11 @@ module.exports = {
       port: 7545,
       network_id: '5777',
     },
+    ganache: {
+      host: '127.0.0.1',
+      port: 7545,
+      network_id: '5777',
+    },
     kovan_infura: {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, 'https://kovan.infura.io/v3/' + process.env.KOVANKEY, AccountIndex),
       network_id: 42,

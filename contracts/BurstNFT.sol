@@ -23,12 +23,12 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
 
     event BurstCreated(
     address indexed _creator,
-    bytes32 indexed _tokenId
+    uint256 indexed _tokenId
     );
 
     event BurstDestroyed(
     address indexed _owner,
-    bytes32 indexed _tokenId
+    uint256 indexed _tokenId
     );
 
     /* Address that can create specific changes in the protocol (e.g., change creatorFee or trigger emergencyBurst) */
@@ -87,19 +87,20 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         payable
     {
         require(_tokenContracts.length == _amounts.length, "Length of tokenContracts and amounts arrays are not equal");
+        uint256 currentTokenId = _tokenIds.current();
         // Used to account Eth/native token deposit
         if (msg.value > 0) {
-            nftIndexToNftInfoMapping[_tokenIds.current()].isPayable = true;
-            nftIndexToNftInfoMapping[_tokenIds.current()].payableAmount = msg.value;
+            nftIndexToNftInfoMapping[currentTokenId].isPayable = true;
+            nftIndexToNftInfoMapping[currentTokenId].payableAmount = msg.value;
         }      
         for (uint i=0; i<_tokenContracts.length; i++) {
             depositErc20(_tokenContracts[i], _amounts[i]);
         }
-        nftIndexToNftInfoMapping[_tokenIds.current()].assetAddresses = _tokenContracts;
-        nftIndexToNftInfoMapping[_tokenIds.current()].assetAmounts = _amounts;
-        nftIndexToNftInfoMapping[_tokenIds.current()].creator = payable(_msgSender());
-        nftIndexToNftInfoMapping[_tokenIds.current()].exists = true;
-        mintBurst(_tokenURI);
+        nftIndexToNftInfoMapping[currentTokenId].assetAddresses = _tokenContracts;
+        nftIndexToNftInfoMapping[currentTokenId].assetAmounts = _amounts;
+        nftIndexToNftInfoMapping[currentTokenId].creator = payable(_msgSender());
+        nftIndexToNftInfoMapping[currentTokenId].exists = true;
+        mintBurst(_tokenURI, currentTokenId);
     }
       
     /**
@@ -115,7 +116,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         require(_isApprovedOrOwner(_msgSender(), _tokenId), "ERC721Burnable: caller is not owner nor approved");
         // Used to account Eth/native token withdraw
         if (nftIndexToNftInfoMapping[_tokenId].isPayable) {
-            uint256 ethAmount = nftIndexToNftInfoMapping[_tokenIds.current()].payableAmount;
+            uint256 ethAmount = nftIndexToNftInfoMapping[_tokenId].payableAmount;
             uint256 creatorEthFeeAmount = ethAmount.mul(creatorFee).div(100);
             (bool success, ) = nftIndexToNftInfoMapping[_tokenId].creator.call{value: creatorEthFeeAmount}("");
             require(success, "Transfer failed.");
@@ -125,8 +126,8 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         for (uint256 i=0; i<nftIndexToNftInfoMapping[_tokenId].assetAddresses.length; i++) {
             releaseErc20(_tokenId, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
         }
+        emit BurstDestroyed(ownerOf(_tokenId), _tokenId);
         burn(_tokenId);
-        emit BurstDestroyed(ownerOf(_tokenId), bytes32(_tokenId));
         nftIndexToNftInfoMapping[_tokenId].exists = false;
     }
 
@@ -175,16 +176,15 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
      * @dev Internal function to mint Burst NFT
      *
      * */
-    function mintBurst(string memory _tokenURI) 
+    function mintBurst(string memory _tokenURI, uint256 _currentTokenId) 
         internal
         returns (uint256)
     {
-        uint256 newItemId = _tokenIds.current();
-        _safeMint(_msgSender(), newItemId);
-        _setTokenURI(newItemId, _tokenURI);
-        emit BurstCreated(_msgSender(), bytes32(newItemId));
+        _safeMint(_msgSender(), _currentTokenId);
+        _setTokenURI(_currentTokenId, _tokenURI);
+        emit BurstCreated(_msgSender(), _currentTokenId);
         _tokenIds.increment();
-        return newItemId;
+        return _currentTokenId;
     }
     
     /**

@@ -113,7 +113,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
         tokenIdToActiveMarketplaceOrders[_tokenId].burstTokenId = _tokenId;
         tokenIdToActiveMarketplaceOrders[_tokenId].price = _price;
         tokenIdToActiveMarketplaceOrders[_tokenId].active = true;
-        nft.approve(address(this), _tokenId);
+        // nft.approve(address(this), _tokenId);
         emit MarketplaceOrderCreated(nft.ownerOf(_tokenId),
         bytes32(_tokenId),
         _paymentToken,

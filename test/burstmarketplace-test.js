@@ -1,4 +1,5 @@
 const BurstNFT = artifacts.require('BurstNFT');
+const BurstMarketplace = artifacts.require('BurstMarketplace');
 const TestToken1 = artifacts.require('TestToken1');
 const TestToken2 = artifacts.require('TestToken2');
 const TestToken3 = artifacts.require('TestToken3');
@@ -9,9 +10,10 @@ const expect = chai.expect;
 
 contract('BurstNFT', (accounts) => {
 
-  it('should create a BurstNFT, transfer a BurstNFT and destory BurstNFT correctly', async () => {
+  it('should create a BurstNFT, create an order on a marketplace', async () => {
     //deploy BurstNFT contract
     const BurstNFTInstance = await BurstNFT.deployed();
+    const BurstMarketplaceInstance = await BurstMarketplace.deployed();
 
     //deploy test erc20 contracts
     const TestToken1Instance = await TestToken1.deployed();
