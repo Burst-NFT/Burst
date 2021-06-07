@@ -22,13 +22,13 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     Counters.Counter private _tokenIds;
 
     event BurstCreated(
-    address indexed _creator,
-    uint256 indexed _tokenId
+    address indexed creator,
+    uint256 indexed tokenId
     );
 
     event BurstDestroyed(
-    address indexed _owner,
-    uint256 indexed _tokenId
+    address indexed owner,
+    uint256 indexed tokenId
     );
 
     /* Address that can create specific changes in the protocol (e.g., change creatorFee or trigger emergencyBurst) */

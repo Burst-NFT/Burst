@@ -18,24 +18,24 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
     using SafeMath for uint256;
 
     event MarketplaceOrderCreated(
-    address indexed _maker,
-    bytes32 indexed _tokenId,
-    address indexed _paymentToken,
+    address indexed maker,
+    bytes32 indexed tokenId,
+    address indexed paymentToken,
     uint256 price
     );
 
     event MarketplaceOrderFilled(
-    address indexed _maker,
-    address indexed _taker,
-    bytes32 indexed _tokenId,
-    address _paymentToken,
+    address indexed maker,
+    address indexed taker,
+    bytes32 indexed tokenId,
+    address paymentToken,
     uint256 price
     );
 
     event MarketplaceOrderCanceled(
-    address indexed _maker,
-    bytes32 indexed _tokenId,
-    address indexed _paymentToken,
+    address indexed maker,
+    bytes32 indexed tokenId,
+    address indexed paymentToken,
     uint256 price
     );
 
