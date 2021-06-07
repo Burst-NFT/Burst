@@ -39,7 +39,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
     uint256 price
     );
 
-    address internal EthAddress = 0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee;
+    address internal EthAddress = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
 
     /* Address that can create specific changes in the protocol (e.g., change protocolFee or protocolFeeRecipient) */
     address public governance;
