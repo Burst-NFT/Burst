@@ -131,7 +131,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
         require(nft.ownerOf(_tokenId) == tokenIdToActiveMarketplaceOrders[_tokenId].maker, "Burst NFT current owner is not order maker");
         uint256 marketplacePrice = tokenIdToActiveMarketplaceOrders[_tokenId].price;
         uint256 protocolFeeAmount = marketplacePrice.mul(protocolFee).div(100);
-        if (tokenIdToActiveMarketplaceOrders[_tokenId].paymentToken == address(0)) {
+        if (tokenIdToActiveMarketplaceOrders[_tokenId].paymentToken == address("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")) {
             require(msg.value >= marketplacePrice, "Not enough ETH");
             (bool success, ) = protocolFeeRecipient.call{value:protocolFeeAmount}("");
             require(success, "Transfer failed.");
@@ -145,8 +145,8 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
             erc.approve(address(this), marketplacePrice);
             erc.transferFrom(msg.sender, protocolFeeRecipient, protocolFeeAmount);
             erc.transferFrom(msg.sender, nft.ownerOf(_tokenId), marketplacePrice.sub(protocolFeeAmount));
-            nft.safeTransferFrom(nft.ownerOf(_tokenId), msg.sender, _tokenId);
         }
+        nft.safeTransferFrom(nft.ownerOf(_tokenId), msg.sender, _tokenId);
         tokenIdToActiveMarketplaceOrders[_tokenId].active = false;
         emit MarketplaceOrderFilled(
             nft.ownerOf(_tokenId),
