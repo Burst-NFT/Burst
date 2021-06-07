@@ -39,6 +39,8 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
     uint256 price
     );
 
+    address internal EthAddress = 0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee;
+
     /* Address that can create specific changes in the protocol (e.g., change protocolFee or protocolFeeRecipient) */
     address public governance;
 
@@ -131,7 +133,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
         require(nft.ownerOf(_tokenId) == tokenIdToActiveMarketplaceOrders[_tokenId].maker, "Burst NFT current owner is not order maker");
         uint256 marketplacePrice = tokenIdToActiveMarketplaceOrders[_tokenId].price;
         uint256 protocolFeeAmount = marketplacePrice.mul(protocolFee).div(100);
-        if (tokenIdToActiveMarketplaceOrders[_tokenId].paymentToken == address("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")) {
+        if (tokenIdToActiveMarketplaceOrders[_tokenId].paymentToken == EthAddress) {
             require(msg.value >= marketplacePrice, "Not enough ETH");
             (bool success, ) = protocolFeeRecipient.call{value:protocolFeeAmount}("");
             require(success, "Transfer failed.");
