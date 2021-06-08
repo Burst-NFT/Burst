@@ -7,11 +7,17 @@ import { createBurstContract } from '../utils';
 // function
 
 const BalanceButton = styled(MuiButton)`
-  color: white;
+  && {
+    border: 2px solid black;
+    color: black;
+    background: white;
+  }
+
+  /* color: white;
   border-color: white;
   &:hover {
     border-color: white;
-  }
+  } */
 `;
 const NamePart = styled.div``;
 const BalancePart = styled.div``;

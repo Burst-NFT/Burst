@@ -11,8 +11,9 @@ import Footer from './Footer';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { CreateBurstCard } from './components/CreateBurst';
-import { ManageBurstsCard } from './components/ManageBursts';
+import { Page as CreateBurstPage } from './components/CreateBurst';
+import { Page as ManageBurstsPage } from './components/ManageBursts';
+import { Page as MarketplacePage } from './components/Marketplace';
 import { WalletProvider } from './components/Wallet';
 
 const queryClient = new QueryClient({
@@ -23,12 +24,15 @@ const queryClient = new QueryClient({
   },
 });
 
-const LogoImg = styled.img`
-  max-height: 64px;
+const SContent = styled.div`
+  margin-top: 32px;
+  min-height: 100vh;
 `;
 
-const Content = styled.div`
-  min-height: 100vh;
+const SContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 `;
 
 const theme = createMuiTheme({
@@ -37,7 +41,7 @@ const theme = createMuiTheme({
       '@global': {
         body: {
           // background: 'rgb(2,0,36)',
-          background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(124,67,189,1) 35%, rgba(0,212,255,1) 100%)',
+          // background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(124,67,189,1) 35%, rgba(0,212,255,1) 100%)',
           // minHeight: '100vh',
           // minHeight: '-webkit-fill-available',
         },
@@ -64,26 +68,23 @@ function App() {
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Router>
-              <Header />
-              <Content>
-                <Grid container>
+              <SContainer>
+                <Header />
+                <SContent>
                   <Switch>
-                    {/* @ts-ignore weird error with exact */}
-                    <Route exact path='/manage'>
-                      <Grid container item xs={12} justify='center'>
-                        <ManageBurstsCard />
-                      </Grid>
+                    <Route exact path='/marketplace'>
+                      <MarketplacePage />
                     </Route>
-                    {/* @ts-ignore weird error with exact */}
+                    <Route exact path='/manage'>
+                      <ManageBurstsPage />
+                    </Route>
                     <Route exact path='/'>
-                      <Grid container item xs={12} justify='center'>
-                        <CreateBurstCard />
-                      </Grid>
+                      <CreateBurstPage />
                     </Route>
                   </Switch>
-                </Grid>
-              </Content>
-              <Footer />
+                </SContent>
+                <Footer />
+              </SContainer>
             </Router>
           </ThemeProvider>
         </WalletProvider>

@@ -32,6 +32,7 @@ import { getBurstAssetsTotalValue } from './utils';
 import { useQueryClient } from 'react-query';
 import { createBurstContract, createMarketplaceContract } from '../../utils';
 import { SellBurstDialog } from './SellBurstDialog';
+import { SPanel } from './styles';
 
 export interface BurstNftPanelProps {
   burst: Burst;
@@ -40,6 +41,24 @@ export interface BurstNftPanelProps {
 
 const TableCell = styled(MuiTableCell)`
   color: rgba(0, 0, 0, 0.54);
+`;
+
+const SPanelActions = styled.div`
+  display: flex;
+  border-top: 1px solid;
+  > button {
+    width: 100%;
+    border-radius: 0;
+    font-weight: 700;
+    &:not(:last-child) {
+      border-right: solid 1px;
+    }
+  }
+`;
+
+const SPanelActionsContainer = styled.div`
+  display: flex;
+  /* position: absolute; */
 `;
 
 function BurstNftPanelComponent({ burst, setAlert }: BurstNftPanelProps) {
@@ -106,82 +125,69 @@ function BurstNftPanelComponent({ burst, setAlert }: BurstNftPanelProps) {
       <SendBurstDialog {...sendDialogProps} />
       <DestroyBurstDialog open={destroyDialogOpen} handleClose={handleCloseDestroyDialog} handleOnClickDestroy={handleOnClickDestroyAsync} />
       <SellBurstDialog open={sellDialogOpen} onClose={handleCloseSellBurstDialog} burst={burst} />
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-label='Expand' aria-controls='additional-content'>
+      <SPanel>
+        <Title>
           <Badge
             overlap='circle'
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'right',
             }}
-            badgeContent={burst.assets.byId.size}
+            badgeContent={burst.assets.allIds.length}
             color='secondary'
+            // style={{ backgroundColor: 'black' }}
           >
             <Avatar alt='B' src={burst.logoUrl || ''} />
           </Badge>
-          <Title>
-            <Typography>Burst NFT</Typography>
-            {!isLoading && (
-              <Typography color='textSecondary' variant='body2'>
-                Est value: {totalBurstAssetValue}
-              </Typography>
-            )}
-          </Title>
-        </AccordionSummary>
+
+          {!isLoading && (
+            <Typography color='textSecondary' variant='body2'>
+              {totalBurstAssetValue}
+            </Typography>
+          )}
+        </Title>
         <Divider />
-        <AccordionDetails>
-          <TableContainer>
-            <Table size='small'>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Token</TableCell>
-                  <TableCell align='right'>Amount</TableCell>
-                  <TableCell align='right'>Est. Value ($)</TableCell>
-                  <TableCell align='right'></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {burst.assets?.allIds.map((id) => {
-                  const { symbol, address, logoUrl, decimals, balance } = burst.assets.byId[id];
-                  const amount = parseFloat(formatUnits(balance, decimals));
-                  const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
-                  return (
-                    <TableRow key={id}>
-                      <TableCell align='left'>
-                        <TokenName symbol={symbol} address={address} logo={logoUrl} />
-                      </TableCell>
-                      <TableCell align='right'>{amount}</TableCell>
-                      <TableCell align='right'>{totalValue ? numberFormatter.format(totalValue) : '-'}</TableCell>
-                    </TableRow>
-                  );
-                })}
-                <TableRow>
-                  <TableCell rowSpan={3} style={{ borderBottom: 'none' }} />
-                  <TableCell align='right'>
-                    <strong>Total</strong>
-                  </TableCell>
-                  <TableCell align='right'>
-                    <strong>{totalBurstAssetValue}</strong>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </AccordionDetails>
-        <Divider />
-        <AccordionActions>
-          <Button size='small' color='default' onClick={handleClickSell}>
-            Sell
-          </Button>
-          <span style={{ width: '100%' }} />
-          <Button size='small' color='default' onClick={() => setDestroyDialogOpen(true)}>
-            Destory
-          </Button>
-          <Button size='small' color='primary' onClick={() => setSendDialogOpen(true)}>
-            Send
-          </Button>
-        </AccordionActions>
-      </Accordion>
+        <TableContainer>
+          <Table size='small'>
+            {/* <TableHead>
+              <TableRow>
+                <TableCell>Token</TableCell>
+                <TableCell align='right'>Amount</TableCell>
+                <TableCell align='right'>Est. Value ($)</TableCell>
+              </TableRow>
+            </TableHead> */}
+            <TableBody>
+              {burst.assets?.allIds.map((id) => {
+                const { symbol, address, logoUrl, decimals, balance } = burst.assets.byId[id];
+                const amount = parseFloat(formatUnits(balance, decimals));
+                const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
+                return (
+                  <TableRow key={id}>
+                    <TableCell align='left'>
+                      <TokenName symbol={symbol} address={address} logo={logoUrl} />
+                    </TableCell>
+                    <TableCell align='right'>{amount}</TableCell>
+                    <TableCell align='right'>{totalValue ? numberFormatter.format(totalValue) : '-'}</TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <SPanelActionsContainer>
+          <SPanelActions>
+            <Button size='small' color='default' onClick={handleClickSell}>
+              Sell
+            </Button>
+            <Button size='small' color='default' onClick={() => setDestroyDialogOpen(true)}>
+              Destory
+            </Button>
+            <Button size='small' color='primary' onClick={() => setSendDialogOpen(true)}>
+              Send
+            </Button>
+          </SPanelActions>
+        </SPanelActionsContainer>
+      </SPanel>
     </>
   );
 }
