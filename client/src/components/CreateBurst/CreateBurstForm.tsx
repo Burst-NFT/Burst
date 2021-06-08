@@ -41,20 +41,15 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { createBurstContract, getBurstAddress } from '../../utils';
 import { useQueryClient } from 'react-query';
 
-const StyledAddCard = styled(MuiCard)`
-  min-width: 450px;
-  /* max-width: 650px; */
-`;
-
-const CardActions = styled(MuiCardActions)`
+const SFormActions = styled.div`
+  margin-top: 32px;
+  display: flex;
   justify-content: center;
-  margin-bottom: 16px;
-  button {
-    border-radius: 30px;
-  }
 `;
 
-const Form = styled.form``;
+const Form = styled.form`
+  margin-top: 24px;
+`;
 const Fields = styled.div`
   display: flex;
   flex-direction: row;
@@ -71,7 +66,7 @@ const initialDialogData = {
   result: undefined,
 };
 
-export function CreateBurstCard() {
+export function CreateBurstForm() {
   const queryClient = useQueryClient();
   // Setup
   const { web3, account, network, chainId } = useWallet();
@@ -215,94 +210,90 @@ export function CreateBurstCard() {
       /> */}
       <Alert severity='error' open={!!validationErrorMsg} text={validationErrorMsg} destroyAlert={onErrorAlertDestory} />
       <CreateSuccessDialog data={successDialogData} open={successDialogOpen} handleClose={handleCloseSuccessDialog} />
-      <StyledAddCard>
-        <CardHeader title='Create' />
-        <Form>
-          <CardContent>
-            <Fields style={{ marginBottom: '16px', flexDirection: 'column' }}>
-              <AvailableBalance address={selectedAddress} />
-              <FormControl variant='outlined' style={{ width: '100%' }}>
-                <TokenComboBox
-                  value={accountTokens?.byId[selectedAddress]?.symbol || selectedAddress}
-                  onChange={handleTokenComboBoxOnChange}
-                  onInputChange={handleTokenComboBoxInputOnChange}
-                />
-              </FormControl>
-            </Fields>
-            <Fields>
-              <TextField
-                style={{ width: '100%', paddingRight: '16px' }}
-                variant='outlined'
-                id='add-amount-input'
-                label='Amount'
-                type='number'
-                placeholder='0.0'
-                onChange={handleOnChangeAmount}
-                value={amount}
-                disabled={!amount && !selectedAddress}
-              />
-              <Button variant='outlined' onClick={handleAddClick} style={{ maxHeight: '56px' }} disabled={!amount || !selectedAddress}>
-                Add
-              </Button>
-            </Fields>
 
-            {!!basket.allIds.length && (
-              <TableContainer>
-                <Table size='small' aria-label='a dense table'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Token</TableCell>
-                      <TableCell align='right'>Amount</TableCell>
-                      {/* <TableCell align="right">Allocation (%)</TableCell> */}
-                      <TableCell align='right'>Est. Value ($)</TableCell>
-                      <TableCell align='right'></TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {basket.allIds.map((id) => {
-                      const { symbol, address, logoUrl, amount } = basket.byId[id];
-                      const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
-                      return (
-                        <TableRow key={id}>
-                          <TableCell align='left'>
-                            <TokenName symbol={symbol} address={address} logo={logoUrl} />
-                          </TableCell>
-                          <TableCell align='right'>{amount}</TableCell>
-                          <TableCell align='right'>{numberFormatter.format(totalValue)}</TableCell>
-                          <TableCell align='right'>
-                            <IconButton color='secondary' aria-label='remove token' onClick={handleRemoveFromBasketFn(id)}>
-                              <RemoveCircleOutlineIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                    <TableRow>
-                      <TableCell rowSpan={3} />
-                      <TableCell align='right'>
-                        <strong>Total</strong>
+      <Form>
+        <Fields style={{ marginBottom: '16px', flexDirection: 'column' }}>
+          <AvailableBalance address={selectedAddress} />
+          <FormControl variant='outlined' style={{ width: '100%' }}>
+            <TokenComboBox
+              value={accountTokens?.byId[selectedAddress]?.symbol || selectedAddress}
+              onChange={handleTokenComboBoxOnChange}
+              onInputChange={handleTokenComboBoxInputOnChange}
+            />
+          </FormControl>
+        </Fields>
+        <Fields>
+          <TextField
+            style={{ width: '100%', paddingRight: '16px' }}
+            variant='outlined'
+            id='add-amount-input'
+            label='Amount'
+            type='number'
+            placeholder='0.0'
+            onChange={handleOnChangeAmount}
+            value={amount}
+            disabled={!amount && !selectedAddress}
+          />
+          <Button variant='outlined' onClick={handleAddClick} style={{ maxHeight: '56px' }} disabled={!amount || !selectedAddress}>
+            Add
+          </Button>
+        </Fields>
+
+        {!!basket.allIds.length && (
+          <TableContainer>
+            <Table size='small' aria-label='a dense table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Token</TableCell>
+                  <TableCell align='right'>Amount</TableCell>
+                  {/* <TableCell align="right">Allocation (%)</TableCell> */}
+                  <TableCell align='right'>Est. Value ($)</TableCell>
+                  <TableCell align='right'></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {basket.allIds.map((id) => {
+                  const { symbol, address, logoUrl, amount } = basket.byId[id];
+                  const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
+                  return (
+                    <TableRow key={id}>
+                      <TableCell align='left'>
+                        <TokenName symbol={symbol} address={address} logo={logoUrl} />
                       </TableCell>
+                      <TableCell align='right'>{amount}</TableCell>
+                      <TableCell align='right'>{numberFormatter.format(totalValue)}</TableCell>
                       <TableCell align='right'>
-                        <strong>
-                          {numberFormatter.format(
-                            basket.allIds.reduce((sum, addr) => sum + basket.byId[addr].amount * (priceQuotes?.byId[addr]?.quote || 0), 0)
-                          )}
-                        </strong>
+                        <IconButton color='secondary' aria-label='remove token' onClick={handleRemoveFromBasketFn(id)}>
+                          <RemoveCircleOutlineIcon />
+                        </IconButton>
                       </TableCell>
-                      <TableCell />
                     </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            )}
-          </CardContent>
-          <CardActions>
-            <Button color='primary' size='large' variant='contained' onClick={handleCreateBurstAsync} disabled={!basket.allIds.length}>
-              Create BURST
-            </Button>
-          </CardActions>
-        </Form>
-      </StyledAddCard>
+                  );
+                })}
+                <TableRow>
+                  <TableCell rowSpan={3} />
+                  <TableCell align='right'>
+                    <strong>Total</strong>
+                  </TableCell>
+                  <TableCell align='right'>
+                    <strong>
+                      {numberFormatter.format(
+                        basket.allIds.reduce((sum, addr) => sum + basket.byId[addr].amount * (priceQuotes?.byId[addr]?.quote || 0), 0)
+                      )}
+                    </strong>
+                  </TableCell>
+                  <TableCell />
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+        <SFormActions>
+          <Button color='primary' size='large' variant='contained' onClick={handleCreateBurstAsync} disabled={!basket.allIds.length}>
+            Create BURST
+          </Button>
+        </SFormActions>
+      </Form>
     </>
   );
 }

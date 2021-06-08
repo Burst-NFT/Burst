@@ -24,7 +24,7 @@ import useNumberFormatter from '../useNumberFormatter';
 import { getBurstAssetsTotalValue } from './utils';
 import { Ether } from '../../data/tokenInfo';
 import Divider from '@material-ui/core/Divider';
-import { createMarketplaceContract } from '../../utils';
+import { createBurstContract, createMarketplaceContract } from '../../utils';
 
 export interface SellBurstDialogProps {
   open: boolean;
@@ -55,8 +55,11 @@ function SellBurstDialog({ open = false, onClose: handleClose, burst }: SellBurs
 
   const [sellPrice, setSellPrice] = React.useState<number>(0);
   const handleClickConfirmAsync = async () => {
-    const contract = createMarketplaceContract({ web3, chainId });
-    const result = await contract.methods.createMarketplaceOrder(parseInt(burst.id), account, sellPrice).call();
+    const burstContract = createBurstContract({ web3, chainId });
+    const marketplaceContract = createMarketplaceContract({ web3, chainId });
+
+    await burstContract.methods.approve(marketplaceContract.options.address, parseInt(burst.id)).send({ from: account });
+    const result = await marketplaceContract.methods.createMarketplaceOrder(parseInt(burst.id), Ether.address, sellPrice).send({ from: account });
     console.log(result);
     await queryClient.refetchQueries(['bursts']);
     handleClose();
