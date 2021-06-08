@@ -40,6 +40,7 @@ import { parseUnits } from '@ethersproject/units';
 import { BigNumberish } from '@ethersproject/bignumber';
 import { createBurstContract, getBurstAddress } from '../../utils';
 import { useQueryClient } from 'react-query';
+import { useMoralis } from 'react-moralis';
 
 const SFormActions = styled.div`
   margin-top: 32px;
@@ -67,6 +68,7 @@ const initialDialogData = {
 };
 
 export function CreateBurstForm() {
+  const { Moralis } = useMoralis();
   const queryClient = useQueryClient();
   // Setup
   const { web3, account, network, chainId } = useWallet();
@@ -172,7 +174,7 @@ export function CreateBurstForm() {
       amounts.push(amount);
     }
 
-    const ipfsHash = await createBurstMetadataAsync(metadataAssets);
+    const ipfsHash = await createBurstMetadataAsync(Moralis, metadataAssets);
 
     // create burst
     const result = await contract.methods.createBurst(basket.allIds, amounts, ipfsHash).send({ from: account });

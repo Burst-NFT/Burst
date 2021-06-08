@@ -28,17 +28,12 @@ export interface PinataPostBody {
   pinataContent: PinataContent;
 }
 
-const initialBody: PinataPostBody = {
-  pinataMetadata: {
-    name: 'Burst NFT JSON',
-  },
-  pinataContent: {
+const initialBody = {
     description: 'An NFT that represents ERC20 assets',
     image: 'https://gateway.pinata.cloud/ipfs/QmTgep8UJZxkumYWmfNoUYaqej1Fh2pDezxsgfZBa3RqVm',
     name: 'Burst NFT',
     attributes: [],
-  },
-};
+  }
 
 const imageUrls = [
   'https://gateway.pinata.cloud/ipfs/Qmdm9KxTKuWxhckL9HMySVR6QNfLw6vdN3AvMn5ce97tzF',
@@ -56,19 +51,15 @@ const imageUrls = [
 
 const getRandomImageUrl = () => imageUrls[Math.floor(Math.random() * imageUrls.length)];
 
-export const createBurstMetadataAsync = async (attributes: PinataAttribute[] = []) => {
-  const postBody = produce(initialBody, (draft) => {
-    draft.pinataContent.attributes = attributes;
+export const createBurstMetadataAsync = async (Moralis: any, attributes: PinataAttribute[] = []) => {
+  const postBody = produce(initialBody, (draft: any) => {
+    draft.attributes = attributes;
     const image = getRandomImageUrl();
-    draft.pinataContent.image = image;
+    draft.image = image;
   });
-  /*
-  Example response:
-  {
-    "IpfsHash": "QmQ6xZB4uZ9GSsU53KP8NU5XmrCo4PNHohMrbrMZ1thTxu",
-    "PinSize": 267,
-    "Timestamp": "2021-04-18T14:20:54.393Z"}
-  */
-  const response = await axios.post(url, postBody, config);
-  return response.data.IpfsHash;
+  const burstJson = new Moralis.File("BurstNFT.json", {base64 : btoa(JSON.stringify(postBody))});
+  await burstJson.saveIPFS();
+  const response = burstJson.hash()
+  console.log(burstJson.ipfs(), burstJson.hash())
+  return response;
 };
