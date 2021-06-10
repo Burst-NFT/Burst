@@ -10,30 +10,30 @@ const config = {
   },
 };
 
-export interface PinataMetadata {
+interface PinataMetadata {
   name: string;
 }
 
-export interface PinataContent {
+interface PinataContent {
   description: string;
   image: string;
   name: string;
   attributes: PinataAttribute[];
 }
 
-export interface PinataAttribute extends ApiBurstMetadataAsset {}
+interface PinataAttribute extends ApiBurstMetadataAsset {}
 
-export interface PinataPostBody {
+interface PinataPostBody {
   pinataMetadata: PinataMetadata;
   pinataContent: PinataContent;
 }
 
 const initialBody = {
-    description: 'An NFT that represents ERC20 assets',
-    image: 'https://gateway.pinata.cloud/ipfs/QmTgep8UJZxkumYWmfNoUYaqej1Fh2pDezxsgfZBa3RqVm',
-    name: 'Burst NFT',
-    attributes: [],
-  }
+  description: 'An NFT that represents ERC20 assets',
+  image: 'https://gateway.pinata.cloud/ipfs/QmTgep8UJZxkumYWmfNoUYaqej1Fh2pDezxsgfZBa3RqVm',
+  name: 'Burst NFT',
+  attributes: [],
+};
 
 const imageUrls = [
   'https://gateway.pinata.cloud/ipfs/Qmdm9KxTKuWxhckL9HMySVR6QNfLw6vdN3AvMn5ce97tzF',
@@ -51,15 +51,15 @@ const imageUrls = [
 
 const getRandomImageUrl = () => imageUrls[Math.floor(Math.random() * imageUrls.length)];
 
-export const createBurstMetadataAsync = async (Moralis: any, attributes: PinataAttribute[] = []) => {
+export const createBurstMetadataAsync = async (Moralis: any, attributes: ApiBurstMetadataAsset[] = []) => {
   const postBody = produce(initialBody, (draft: any) => {
     draft.attributes = attributes;
     const image = getRandomImageUrl();
     draft.image = image;
   });
-  const burstJson = new Moralis.File("BurstNFT.json", {base64 : btoa(JSON.stringify(postBody))});
+  const burstJson = new Moralis.File('BurstNFT.json', { base64: btoa(JSON.stringify(postBody)) });
   await burstJson.saveIPFS();
-  const response = burstJson.hash()
-  console.log(burstJson.ipfs(), burstJson.hash())
+  const response = burstJson.hash();
+  console.log(burstJson.ipfs(), burstJson.hash());
   return response;
 };

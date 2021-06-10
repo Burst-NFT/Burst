@@ -35,12 +35,13 @@ import Alert from '../Alert';
 import { AccountToken } from '../../queries/useAccountTokens';
 import { mapAccountTokenToBasketItem, mapErc20InfoToAccountToken } from './utils';
 import { BasketState } from './types';
-import { PinataAttribute } from '../../api/createBurstMetadataAsync';
 import { parseUnits } from '@ethersproject/units';
 import { BigNumberish } from '@ethersproject/bignumber';
 import { createBurstContract, getBurstAddress } from '../../utils';
 import { useQueryClient } from 'react-query';
-import { useMoralis } from 'react-moralis';
+import { useMoralis, useNewMoralisObject } from 'react-moralis';
+import { BurstAssetRecord, mapApiBurstMetadataAsset, tables } from '../../data/moralis';
+import { ApiBurstMetadataAsset } from '../Burst';
 
 const SFormActions = styled.div`
   margin-top: 32px;
@@ -68,9 +69,11 @@ const initialDialogData = {
 };
 
 export function CreateBurstForm() {
-  const { Moralis } = useMoralis();
   const queryClient = useQueryClient();
   // Setup
+  const { Moralis } = useMoralis();
+  const { save } = useNewMoralisObject(tables.burstAsset);
+
   const { web3, account, network, chainId } = useWallet();
   const { isLoading, error: useAccountTokensError, data: accountTokens } = useAccountTokens();
 
@@ -157,27 +160,34 @@ export function CreateBurstForm() {
       await basket.byId[id].contract.methods.approve(burstAddress, MaxUint256).send({ from: account });
     }
 
-    const amounts: BigNumberish[] = [];
-    const metadataAssets: PinataAttribute[] = [];
+    const balances: BigNumberish[] = [];
+    const metadataAssets: ApiBurstMetadataAsset[] = [];
 
     for (let i = 0; i < basket.allIds.length; i++) {
       const id = basket.allIds[i];
-      const amount = parseUnits(`${basket.byId[id].amount}`, basket.byId[id].decimals);
+      const balance = parseUnits(`${basket.byId[id].amount}`, basket.byId[id].decimals);
 
       metadataAssets.push({
         token_address: id,
         token_name: basket.byId[id].name,
         token_symbol: basket.byId[id].symbol,
-        token_amount: amount.toString(),
+        token_balance: balance.toString(),
+        token_decimals: basket.byId[id].decimals,
+        token_logo_url: basket.byId[id].logoUrl,
       });
 
-      amounts.push(amount);
+      balances.push(balance);
     }
 
     const ipfsHash = await createBurstMetadataAsync(Moralis, metadataAssets);
 
     // create burst
-    const result = await contract.methods.createBurst(basket.allIds, amounts, ipfsHash).send({ from: account });
+    const result = await contract.methods.createBurst(basket.allIds, balances, ipfsHash).send({ from: account });
+
+    // TODO: replace with cloud function?
+    const burstTokenId = result.events.BurstCreated.returnValues.tokenId;
+    const saveTasks: Promise<BurstAssetRecord>[] = metadataAssets.map((t) => save(mapApiBurstMetadataAsset({ burstTokenId, tokenAsset: t })));
+    await Promise.all(saveTasks);
 
     setSuccessDialogData({ basket: { ...basket }, result });
     setSuccessDialogOpen(true);

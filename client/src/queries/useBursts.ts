@@ -10,9 +10,11 @@ interface UseBurstResult extends NormalizedData<Burst> {}
 function mapMetadataAssetsToBurstAssets(assets: ApiBurstMetadataAsset[] = []): BurstAsset[] {
   return assets.map((value) => ({
     address: value.token_address,
-    balance: value.token_amount,
+    balance: value.token_balance,
     name: value.token_name,
     symbol: value.token_symbol,
+    decimals: value.token_decimals,
+    logoUrl: value.token_logo_url,
   }));
 }
 
