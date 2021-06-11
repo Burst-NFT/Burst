@@ -40,7 +40,7 @@ import { BigNumberish } from '@ethersproject/bignumber';
 import { createBurstContract, getBurstAddress } from '../../utils';
 import { useQueryClient } from 'react-query';
 import { useMoralis, useNewMoralisObject } from 'react-moralis';
-import { BurstAssetRecord, mapApiBurstMetadataAsset, tables } from '../../data/moralis';
+import { MoralisBurstAssetRecord, mapApiBurstMetadataAsset, tables } from '../../data/moralis';
 import { ApiBurstMetadataAsset } from '../Burst';
 
 const SFormActions = styled.div`
@@ -186,7 +186,7 @@ export function CreateBurstForm() {
 
     // TODO: replace with cloud function?
     const burstTokenId = result.events.BurstCreated.returnValues.tokenId;
-    const saveTasks: Promise<BurstAssetRecord>[] = metadataAssets.map((t) => save(mapApiBurstMetadataAsset({ burstTokenId, tokenAsset: t })));
+    const saveTasks: Promise<MoralisBurstAssetRecord>[] = metadataAssets.map((t) => save(mapApiBurstMetadataAsset({ burstTokenId, tokenAsset: t })));
     await Promise.all(saveTasks);
 
     setSuccessDialogData({ basket: { ...basket }, result });

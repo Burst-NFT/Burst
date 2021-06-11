@@ -5,8 +5,9 @@ export const tables = {
   burstAsset: 'BurstAsset',
 };
 
-export interface BurstAssetRecord {
-  tokenId: string;
+export interface MoralisBurstAssetRecord {
+  isInMarketplace: boolean;
+  burstTokenId: string;
   address: string;
   balance: string;
   name: string;
@@ -21,14 +22,15 @@ export const mapApiBurstMetadataAsset = ({
 }: {
   burstTokenId: string;
   tokenAsset: ApiBurstMetadataAsset;
-}): BurstAssetRecord => {
+}): MoralisBurstAssetRecord => {
   return {
-    tokenId: burstTokenId,
+    burstTokenId,
     address: tokenAsset.token_address,
     balance: tokenAsset.token_balance,
     name: tokenAsset.token_name,
     symbol: tokenAsset.token_symbol,
     logoUrl: tokenAsset.token_logo_url,
     decimals: tokenAsset.token_decimals,
+    isInMarketplace: false,
   };
 };

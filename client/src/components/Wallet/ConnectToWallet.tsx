@@ -57,7 +57,7 @@ function ConnectToWallet() {
         {displayAccount}
       </SButton>
       <Menu
-        id='simple-menu'
+        id='profile-menu'
         getContentAnchorEl={null}
         anchorOrigin={{
           vertical: 'bottom',
