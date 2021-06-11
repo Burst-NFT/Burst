@@ -24,3 +24,20 @@ export const SHeading = styled.div`
   letter-spacing: -1px;
   font-style: italic;
 `;
+
+export const Colors = {
+  primary: {
+    main: '#212121',
+    light: '#484848',
+    dark: '#000000',
+  },
+  secondary: {
+    main: '#f7d9e7',
+    light: '#ffffff',
+    dark: '#c4a7b5',
+  },
+  error: '#f44336',
+  warning: '#ff9800',
+  info: '#2196f3',
+  success: '#4caf50',
+};

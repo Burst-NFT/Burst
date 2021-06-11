@@ -74,24 +74,12 @@ const SSearchForm = styled.form`
   flex-direction: column;
 `;
 
-const SSearchSelect = styled(Select)`
-  .MuiSelect-root {
-    padding-left: 8px;
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-  .MuiInput-underline:before {
-    display: none;
-  }
-  border-right: 1px solid rgba(0, 0, 0, 0.54);
-`;
 const SInputBase = styled(InputBase)`
   width: 100%;
   padding-left: 16px;
 `;
 
 const searchFilters = ['My favorites'];
-
 const searchCategoryOptions = {
   name: 'Name/Symbol',
   address: 'Address',

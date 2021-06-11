@@ -50,10 +50,26 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderWidth: '2px',
+      },
+    },
+    MuiButton: {
+      outlined: {
+        border: '2px solid #212121',
+        '&$disabled': {
+          borderWidth: '2px',
+        },
+      },
+    },
   },
   palette: {
     primary: {
-      main: '#4a148c',
+      main: '#212121',
+    },
+    secondary: {
+      main: '#F7D9E7',
     },
     // type: 'dark',
   },

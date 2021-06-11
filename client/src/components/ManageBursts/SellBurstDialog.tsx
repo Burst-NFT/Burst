@@ -131,7 +131,7 @@ function SellBurstDialog({ open = false, onClose: handleClose, burst }: SellBurs
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClickConfirmAsync} color='secondary' disabled={sellPrice <= 0}>
+        <Button onClick={handleClickConfirmAsync} variant='contained' color='primary' disableElevation disabled={sellPrice <= 0}>
           Confirm
         </Button>
       </DialogActions>

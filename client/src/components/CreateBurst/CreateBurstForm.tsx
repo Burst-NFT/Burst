@@ -42,6 +42,7 @@ import { useQueryClient } from 'react-query';
 import { useMoralis, useNewMoralisObject } from 'react-moralis';
 import { MoralisBurstAssetRecord, mapApiBurstMetadataAsset, tables } from '../../data/moralis';
 import { ApiBurstMetadataAsset } from '../Burst';
+import { Colors } from '../styles';
 
 const SFormActions = styled.div`
   margin-top: 32px;
@@ -49,12 +50,22 @@ const SFormActions = styled.div`
   justify-content: center;
 `;
 
-const Form = styled.form`
+const SForm = styled.form`
   margin-top: 24px;
 `;
-const Fields = styled.div`
+const SFields = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+const SAddButton = styled(Button)`
+  && {
+    font-weight: 600;
+  }
+`;
+
+const SRemoveIconButton = styled(IconButton)`
+  color: ${Colors.error};
 `;
 
 const initialBasketState: BasketState = { byId: {}, allIds: [] };
@@ -223,8 +234,8 @@ export function CreateBurstForm() {
       <Alert severity='error' open={!!validationErrorMsg} text={validationErrorMsg} destroyAlert={onErrorAlertDestory} />
       <CreateSuccessDialog data={successDialogData} open={successDialogOpen} handleClose={handleCloseSuccessDialog} />
 
-      <Form>
-        <Fields style={{ marginBottom: '16px', flexDirection: 'column' }}>
+      <SForm>
+        <SFields style={{ marginBottom: '16px', flexDirection: 'column' }}>
           <AvailableBalance address={selectedAddress} />
           <FormControl variant='outlined' style={{ width: '100%' }}>
             <TokenComboBox
@@ -233,8 +244,8 @@ export function CreateBurstForm() {
               onInputChange={handleTokenComboBoxInputOnChange}
             />
           </FormControl>
-        </Fields>
-        <Fields>
+        </SFields>
+        <SFields>
           <TextField
             style={{ width: '100%', paddingRight: '16px' }}
             variant='outlined'
@@ -246,10 +257,10 @@ export function CreateBurstForm() {
             value={amount}
             disabled={!amount && !selectedAddress}
           />
-          <Button variant='outlined' onClick={handleAddClick} style={{ maxHeight: '56px' }} disabled={!amount || !selectedAddress}>
+          <SAddButton variant='outlined' onClick={handleAddClick} disabled={!amount || !selectedAddress}>
             Add
-          </Button>
-        </Fields>
+          </SAddButton>
+        </SFields>
 
         {!!basket.allIds.length && (
           <TableContainer>
@@ -275,9 +286,9 @@ export function CreateBurstForm() {
                       <TableCell align='right'>{amount}</TableCell>
                       <TableCell align='right'>{numberFormatter.format(totalValue)}</TableCell>
                       <TableCell align='right'>
-                        <IconButton color='secondary' aria-label='remove token' onClick={handleRemoveFromBasketFn(id)}>
+                        <SRemoveIconButton color='primary' aria-label='remove token' onClick={handleRemoveFromBasketFn(id)}>
                           <RemoveCircleOutlineIcon />
-                        </IconButton>
+                        </SRemoveIconButton>
                       </TableCell>
                     </TableRow>
                   );
@@ -305,7 +316,7 @@ export function CreateBurstForm() {
             Create BURST
           </Button>
         </SFormActions>
-      </Form>
+      </SForm>
     </>
   );
 }
