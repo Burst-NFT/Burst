@@ -1,0 +1,23 @@
+Burst NFT Destroyed
+BurstDestroyed(address,uint256)
+{
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "BurstDestroyed",
+      "type": "event"
+    }
+0xbd6c33CF0CAAE57068Fdc2EE182baC5301Fd807C
+BurstDestroyedEvent

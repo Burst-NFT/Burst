@@ -1,0 +1,35 @@
+Burst Marketplace Order Canceled
+MarketplaceOrderCanceled(address,bytes32,address,uint256)
+{
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "maker",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "tokenId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "paymentToken",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "MarketplaceOrderCanceled",
+      "type": "event"
+    }
+0x67f3b5E652Fd7aF9aca06ccA99B46B282161d8A2
+MarketplaceOrderCanceledEvent
