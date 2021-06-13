@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity >=0.6.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
@@ -59,7 +59,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
         bool active;
     }
 
-    mapping (uint256 => marketplaceOrder) internal tokenIdToActiveMarketplaceOrders;
+    mapping (uint256 => marketplaceOrder) public tokenIdToActiveMarketplaceOrders;
 
     constructor (address _governance, uint256 _protocolFee, address _protocolFeeRecipient, address _burstNFTContract) {
         governance = _governance;
@@ -173,6 +173,11 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
             bytes32(_tokenId),
             tokenIdToActiveMarketplaceOrders[_tokenId].paymentToken,
             tokenIdToActiveMarketplaceOrders[_tokenId].price);
+    }
+
+    function marketplaceOrderStatus(uint256 _tokenId) external returns(bool){
+        bool orderStatus = tokenIdToActiveMarketplaceOrders[_tokenId].active;
+        return orderStatus;
     }
 
     /* To be used as contract development evolves */
