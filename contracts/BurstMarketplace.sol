@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 
 /**
  * @dev This contract does the following:
- * Allows a maker or taker to exchange a Burst NFT for a specific amount of ETH or erc20 token
+ * Allows a maker and taker to exchange a Burst NFT for a specific amount of ETH or erc20 token
  * */
 
  contract BurstMarketplace {
@@ -39,7 +39,8 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
     uint256 price
     );
 
-    address internal EthAddress = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+    /* Address to represent ETH and support erc20 tpe functionality */
+    address internal constant EthAddress = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
 
     /* Address that can create specific changes in the protocol (e.g., change protocolFee or protocolFeeRecipient) */
     address public governance;
@@ -51,12 +52,12 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
     address public protocolFeeRecipient;
 
     struct marketplaceOrder {
+        bool active;
         address maker;
         address taker;
         address paymentToken;
         uint256 burstTokenId;
         uint256 price;
-        bool active;
     }
 
     mapping (uint256 => marketplaceOrder) public tokenIdToActiveMarketplaceOrders;
@@ -135,9 +136,9 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
         uint256 protocolFeeAmount = marketplacePrice.mul(protocolFee).div(100);
         if (tokenIdToActiveMarketplaceOrders[_tokenId].paymentToken == EthAddress) {
             require(msg.value >= marketplacePrice, "Not enough ETH");
-            (bool success, ) = protocolFeeRecipient.call{value:protocolFeeAmount}("");
+            (bool success, ) = payable(protocolFeeRecipient).call{value:protocolFeeAmount}("");
             require(success, "Transfer failed.");
-            (bool greatSuccess, ) = nft.ownerOf(_tokenId).call{value:marketplacePrice.sub(protocolFeeAmount)}("");
+            (bool greatSuccess, ) = payable(nft.ownerOf(_tokenId)).call{value:marketplacePrice.sub(protocolFeeAmount)}("");
             require(greatSuccess, "Transfer failed.");
         } else {
             require(msg.value == 0);
@@ -166,7 +167,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
         IERC721 nft;
         nft = IERC721(burstNFTContract);
         require(tokenIdToActiveMarketplaceOrders[_tokenId].active, "Marketplace order does not exists");
-        require(msg.sender == nft.ownerOf(_tokenId), "Not tokenID owner, marketplace order not allowed");
+        require(msg.sender == nft.ownerOf(_tokenId) || msg.sender == burstNFTContract, "Not tokenID owner, marketplace order not allowed");
         tokenIdToActiveMarketplaceOrders[_tokenId].active = false;
         emit MarketplaceOrderCreated(
             nft.ownerOf(_tokenId),
@@ -175,14 +176,18 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
             tokenIdToActiveMarketplaceOrders[_tokenId].price);
     }
 
-    function marketplaceOrderStatus(uint256 _tokenId) external returns(bool){
+    /* ****************
+     * External Functions
+     * ****************
+     * */
+
+    /**
+     * @dev External function to view status of market order
+     *
+     * */
+    function marketplaceOrderStatus(uint256 _tokenId) external view returns (bool){
         bool orderStatus = tokenIdToActiveMarketplaceOrders[_tokenId].active;
         return orderStatus;
     }
-
-    /* To be used as contract development evolves */
-    // function hashSeriesNumber(uint256 _tokenId, uint256 _price) internal pure returns (bytes32) {
-    //     return keccak256(abi.encode(_tokenId, _price));
-    // }
 
  }

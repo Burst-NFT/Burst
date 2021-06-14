@@ -2,8 +2,7 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721Burnable.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
@@ -14,7 +13,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
  * destroys erc721 and transfers mapped erc20
  * */
 
-contract BurstNFT is IERC721Enumerable, ERC721Burnable {
+contract BurstNFT is ERC721 {
     
     using SafeMath for uint256;
 
@@ -37,6 +36,7 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     /* CreatorFee is the percentage of the erc20 that will go to the creator once the NFT is destroyed */ 
     uint256 public creatorFee;
 
+    /* BurstMarketplaceAddress is the the current address of the Burst Marketplace */
     address public burstMarketplaceAddress;
     
     /* Provides a struct to capture asset address and amount information, nft creator address, and bool of if nft exists or has been destroyed */
@@ -128,8 +128,12 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         for (uint256 i=0; i<nftIndexToNftInfoMapping[_tokenId].assetAddresses.length; i++) {
             releaseErc20(_tokenId, nftIndexToNftInfoMapping[_tokenId].assetAddresses[i], i);
         }
+        if (checkMarketOrderStatus(_tokenId)) {
+            (bool success,) = address(burstMarketplaceAddress).call(abi.encodeWithSignature("cancelMarketplaceOrder(uint256)", _tokenId));
+        require(success, "Error with canceling marketplace order");
+        }
         emit BurstDestroyed(ownerOf(_tokenId), _tokenId);
-        burn(_tokenId);
+        _burn(_tokenId);
         nftIndexToNftInfoMapping[_tokenId].exists = false;
     }
 
@@ -152,9 +156,52 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
         creatorFee = _creatorFee;
     }
 
+    /**
+     * @dev Public function to set the BurstMarketplace address for the protocol
+     *
+     * */
     function setBurstMarketplaceAddress(address _burstMarketplaceAddress) public {
         require(msg.sender == governance, "!governance");
         burstMarketplaceAddress = _burstMarketplaceAddress;
+    }
+
+    /**
+     * @dev Overridden from ERC721
+     * Includes function to cancel active market order in marketplace contract
+     */
+    function transferFrom(
+        address from, 
+        address to, 
+        uint256 tokenId
+        ) 
+        public 
+        override(ERC721) 
+        {
+        if (checkMarketOrderStatus(tokenId)) {
+            (bool success,) = address(burstMarketplaceAddress).call(abi.encodeWithSignature("cancelMarketplaceOrder(uint256)", tokenId));
+        require(success, "Error with canceling marketplace order");
+        }
+        super.transferFrom(from, to, tokenId);
+    }
+
+    /**
+     * @dev Overridden from ERC721
+     * Includes function to cancel active market order in marketplace contract
+     */
+    function safeTransferFrom(
+        address from, 
+        address to, 
+        uint256 tokenId, 
+        bytes memory _data
+        )
+        public
+        override(ERC721) 
+        {
+        if (checkMarketOrderStatus(tokenId)) {
+            (bool success,) = address(burstMarketplaceAddress).call(abi.encodeWithSignature("cancelMarketplaceOrder(uint256)", tokenId));
+        require(success, "Error with canceling marketplace order");
+        }
+        super.safeTransferFrom(from, to, tokenId, _data);
     }
 
     /* ******************
@@ -233,32 +280,18 @@ contract BurstNFT is IERC721Enumerable, ERC721Burnable {
     }
 
     /**
-     * @dev Overridden from ERC721.
+     * @dev Internal function to check if active market order exists in marketplace contract
      */
-    function transferFrom(address from, address to, uint256 tokenId) public override(ERC721, IERC721) {
-        if (checkMarketOrderStatus(tokenId)) {
-            (bool success,) = address(burstMarketplaceAddress).call(abi.encodeWithSignature("cancelMarketplaceOrder(uint256)", tokenId));
-        require(success, "Error with marketplace contract");
-        }
-        super.transferFrom(from, to, tokenId);
-    }
-
-    /**
-     * @dev Overridden from ERC721.
-     */
-    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory _data) public override(ERC721, IERC721) {
-        if (checkMarketOrderStatus(tokenId)) {
-            (bool success,) = address(burstMarketplaceAddress).call(abi.encodeWithSignature("cancelMarketplaceOrder(uint256)", tokenId));
-        require(success, "Error with marketplace contract");
-        }
-        super.safeTransferFrom(from, to, tokenId, _data);
-    }
-
-    function checkMarketOrderStatus(uint256 _tokenId) internal returns(bool) {
+    function checkMarketOrderStatus(
+        uint256 _tokenId
+        ) 
+        internal 
+        returns (bool) 
+        {
         (bool success, bytes memory result) = address(burstMarketplaceAddress).call(abi.encodeWithSignature("marketplaceOrderStatus(uint256)", _tokenId));
-        require(success, "Error with marketplace contract");
+        require(success, "Error with getting marketplace contract data");
 
-        bool marketplaceOrder = abi.decode(result, (bool));
+        (bool marketplaceOrder) = abi.decode(result, (bool));
 
         return marketplaceOrder;
     }
