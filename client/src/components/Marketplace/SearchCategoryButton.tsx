@@ -36,7 +36,10 @@ function SearchCategoryButtonComponent({ searchCategoryValue, setSearchCategoryV
   console.log('SearchCategoryButtonComponent');
   return (
     <>
-      <SButton variant='contained' disableElevation endIcon={<ExpandMoreIcon />} onClick={handleClickToggleMenu}>
+      <SButton variant='contained' disableElevation>
+        Search
+      </SButton>
+      {/* <SButton variant='contained' disableElevation endIcon={<ExpandMoreIcon />} onClick={handleClickToggleMenu}>
         {searchCategoryOptions[searchCategoryValue]}
       </SButton>
       <Menu
@@ -66,7 +69,7 @@ function SearchCategoryButtonComponent({ searchCategoryValue, setSearchCategoryV
             <SMenuItemText>{searchCategoryOptions[catKey]}</SMenuItemText>
           </MenuItem>
         ))}
-      </Menu>
+      </Menu> */}
     </>
   );
 }

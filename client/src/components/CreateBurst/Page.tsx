@@ -4,7 +4,7 @@ import { CreateBurstForm } from './CreateBurstForm';
 
 function PageComponent() {
   return (
-    <SLayout>
+    <SLayout maxWidth='800px'>
       <Grid container justify='center'>
         <Grid item xs={12}>
           <SHeading>CREATE A BURST</SHeading>

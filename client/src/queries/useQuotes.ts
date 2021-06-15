@@ -45,7 +45,7 @@ export function useQuotes({ addresses = [], options = undefined }: { addresses?:
   // prices are cached, probably should change this or at least make it very greedy
   return useQuery<UseQuotesResult>(
     ['quotes', chainId, account, addresses.join(',')],
-    () => fetchPricesByAddressAsync({ chainId, addresses }).then(({ data = [] }) => mapHistoricalPricesToResult(data ? data : undefined)),
+    () => fetchPricesByAddressAsync({ chainId, addresses }).then(({ data }) => mapHistoricalPricesToResult(data?.items || undefined)),
     options
   );
 }

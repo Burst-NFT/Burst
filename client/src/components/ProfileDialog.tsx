@@ -104,7 +104,7 @@ function ProfileDialogComponent({ open, onClose: handleClose }: ProfileDialogCom
           />
         </DialogContent>
         <SDialogActions>
-          <Button onClick={handleClickSaveAsync} color='primary'>
+          <Button onClick={handleClickSaveAsync} color='primary' variant='contained' disableElevation>
             Save
           </Button>
         </SDialogActions>

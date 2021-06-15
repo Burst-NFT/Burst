@@ -47,7 +47,13 @@ function SendBurstDialog({ open = false, handleClose, handleOnClickSend, sendDia
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleOnClickSend} color='primary' disabled={!web3.utils.isAddress(sendDialogAddressValue)}>
+        <Button
+          onClick={handleOnClickSend}
+          color='primary'
+          variant='contained'
+          disableElevation
+          disabled={!web3.utils.isAddress(sendDialogAddressValue)}
+        >
           Send
         </Button>
       </DialogActions>

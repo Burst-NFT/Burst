@@ -10,43 +10,22 @@ import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+import { Color } from '@material-ui/lab/Alert';
 import React from 'react';
-import { useMoralisQuery } from 'react-moralis';
+import { useMoralis, useMoralisQuery } from 'react-moralis';
 import styled from 'styled-components';
-import { tables } from '../../data/moralis';
+import { BurstMarketplaceOrder } from '.';
+import { MoralisBurstMarketplaceOrderRecord, MoralisParseObject, tables } from '../../data/moralis';
 import { useDebounce } from '../../utils/debounce';
-import { SLayout } from '../styles';
+import Alert from '../Alert';
+import { AlertState } from '../ManageBursts';
+import { SPanelsContainer } from '../ManageBursts/styles';
+import { Colors, SLayout } from '../styles';
+import { useWallet } from '../Wallet';
 import { MarketplaceCard } from './MarketplaceCard';
 import { SearchCategoryButton } from './SearchCategoryButton';
 
-export interface MoralisMarketplaceOrderCreatedEventObjectAttributes {
-  block_timestamp: any;
-  transaction_hash: string;
-  log_index: number;
-  block_hash: string;
-  block_number: number;
-  transaction_index: number;
-  createdAt: Date;
-  updatedAt: Date;
-
-  // custom event details
-  maker: string;
-  tokenId: string;
-  price: string;
-  paymentToken: string;
-  address: string;
-}
-
-export interface MoralisParseObject<T> {
-  className: string;
-  id: string; // objectId
-
-  attributes: T;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-const DEBOUNCE_DELAY = 500;
+const DEBOUNCE_DELAY = 300;
 
 const SSearchFormWrapper = styled.div`
   display: flex;
@@ -79,6 +58,12 @@ const SInputBase = styled(InputBase)`
   padding-left: 16px;
 `;
 
+const SInlineError = styled.div`
+  font-style: italic;
+  color: ${Colors.error};
+  font-size: 12px;
+`;
+
 const searchFilters = ['My favorites'];
 const searchCategoryOptions = {
   name: 'Name/Symbol',
@@ -89,24 +74,47 @@ const initialSearchFiltersState = searchFilters.reduce<{ [filterName: string]: b
   acc[cur] = false;
   return acc;
 }, {});
+
+// should useQuery here for performance
+// const fetchSearchResultsAsync = async ({ searchInput, Moralis }: { searchInput: string; Moralis: any }): Promise<boolean> => {
+//   const result = await Moralis.Cloud.run('burstIsInMarketplace', { burstTokenId });
+//   return Array.isArray(result) ? !!result.length : result;
+// };
+
 function PageComponent() {
-  const { data, error, isLoading } = useMoralisQuery<MoralisParseObject<MoralisMarketplaceOrderCreatedEventObjectAttributes>>(
-    tables.marketplaceOrderCreatedEvents,
-    (q) => q
-  );
+  const { web3 } = useWallet();
+  const { Moralis, isAuthenticated } = useMoralis();
+
+  const [alert, setAlert] = React.useState<AlertState>({ msg: '', type: '' });
   const [searchFiltersState, setSearchFiltersState] = React.useState(initialSearchFiltersState);
   const [searchCategoryValue, setSearchCategoryValue] = React.useState('name');
+  const [inlineError, setInlineError] = React.useState('');
 
   const [searchInput, setSearchInput] = React.useState('');
-  const [searchInputResult, setSearchInputResult] = React.useState('');
+  const [searchInputResult, setSearchInputResult] = React.useState<string | undefined>(undefined);
+
   const _setSearchInputResult = useDebounce(setSearchInputResult, DEBOUNCE_DELAY);
+
+  const [results, setResults] = React.useState<BurstMarketplaceOrder[]>([]);
+  const [filteredResults, setFilteredResults] = React.useState<BurstMarketplaceOrder[]>([]);
 
   const handleChangeSearch = React.useCallback(
     (e: any) => {
+      setInlineError('');
       setSearchInput(e.target.value);
       _setSearchInputResult(e.target.value);
     },
-    [setSearchInput, setSearchInputResult]
+    [setSearchInput, _setSearchInputResult, setInlineError]
+  );
+
+  const handleSetSearchCategoryValue = React.useCallback(
+    (value: string) => {
+      setInlineError('');
+      setSearchInput('');
+      _setSearchInputResult('');
+      setSearchCategoryValue(value);
+    },
+    [setInlineError, setSearchCategoryValue, setSearchInput, _setSearchInputResult]
   );
 
   const handleChangeSearchFilter = React.useCallback(
@@ -116,9 +124,46 @@ function PageComponent() {
     [setSearchFiltersState]
   );
 
+  const isValidSearch = React.useCallback(
+    (searchInput: string) => {
+      // check address
+      if (searchCategoryValue === 'address' && !web3.utils.isAddress(searchInput)) {
+        setInlineError(`Address is invalid`);
+        return false;
+      }
+
+      return true;
+    },
+    [searchCategoryValue]
+  );
+
+  const refetchResultsAsync = async () => {
+    const _results = await Moralis.Cloud.run('searchMarketplaceOrderOnAssetMetadata', { searchInput: searchInputResult });
+    // console.log('results', results);
+    setResults(_results);
+  };
+
+  // only filter results
   React.useEffect(() => {
-    console.log(searchInputResult);
-  }, [searchInputResult]);
+    if (!searchInputResult) return;
+    setFilteredResults(results.filter((x) => !!x.assetMetadata && x.assetMetadata.toLowerCase().includes(searchInputResult.toLowerCase())));
+  }, [searchInputResult, results]);
+
+  //
+
+  // initialize results
+  React.useEffect(() => {
+    if (!isAuthenticated || !Moralis) return;
+    (async () => {
+      if (!searchInputResult) {
+        const _results = await Moralis.Cloud.run('searchMarketplaceOrderOnAssetMetadata', { searchInput: '' });
+        console.log(_results);
+        setResults(_results);
+        setFilteredResults(_results);
+        return;
+      }
+    })();
+  }, [searchInputResult, isAuthenticated, Moralis]);
 
   const searchInputPlaceholder = searchCategoryValue === 'name' ? 'Search by asset name or symbol' : 'Search by address 0x000...';
   return (
@@ -131,7 +176,7 @@ function PageComponent() {
                 <SearchCategoryButton
                   searchCategoryOptions={searchCategoryOptions}
                   searchCategoryValue={searchCategoryValue}
-                  setSearchCategoryValue={setSearchCategoryValue}
+                  setSearchCategoryValue={handleSetSearchCategoryValue}
                 />
                 <SInputBase
                   value={searchInput}
@@ -143,6 +188,7 @@ function PageComponent() {
                   <SearchTwoToneIcon />
                 </IconButton>
               </SSearchFieldContainer>
+              {inlineError && <SInlineError>{inlineError}</SInlineError>}
               <SSearchFiltersContainer>
                 {searchFilters.map((name) => (
                   <FormControlLabel
@@ -154,15 +200,21 @@ function PageComponent() {
             </SSearchForm>
           </SSearchFormWrapper>
         </Grid>
-        <Grid item xs={12} justify='center'>
-          {!!data?.length &&
-            data.map((item: MoralisParseObject<MoralisMarketplaceOrderCreatedEventObjectAttributes>, idx) => (
-              <Grid item xs={3} key={item.id}>
-                <MarketplaceCard data={item} key={`${item.id}_${idx}`} />
-              </Grid>
-            ))}
+        <Grid item xs={12}>
+          <SPanelsContainer>
+            {!!filteredResults?.length &&
+              filteredResults.map((item: BurstMarketplaceOrder, idx) => (
+                <MarketplaceCard
+                  burstMarketplaceOrder={item}
+                  key={`${item.burstTokenId}_${idx}`}
+                  refetchResultsAsync={refetchResultsAsync}
+                  setAlert={setAlert}
+                />
+              ))}
+          </SPanelsContainer>
         </Grid>
       </Grid>
+      <Alert text={alert.msg} open={!!alert.msg} severity={alert.type as Color} destroyAlert={() => setAlert({ msg: '', type: '' })} />
     </SLayout>
   );
 }

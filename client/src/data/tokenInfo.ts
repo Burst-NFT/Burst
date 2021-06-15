@@ -1,5 +1,5 @@
 import BurstNFTJson from '../contracts/BurstNFT.json';
-import BurstMarketplaceJson from '../contracts/BurstMarketplace.json';
+import BurstMarketplaceJson from '../contracts/BurstMarketPlace.json';
 
 interface TokenInfo {
   name: string;

@@ -1,6 +1,7 @@
 import { useWallet } from '../components/Wallet';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { CovalentApiSpotPriceItem, fetchSpotPricesByTickersAsync } from '../api/fetchSpotPricesByTickersAsync';
+import { CovalentApiResponse } from '../api';
 
 export interface TickerQuote {
   decimals: number;
@@ -50,7 +51,7 @@ export function useQuoteByTickers({ symbols = [], options = undefined }: { symbo
   // prices are cached, probably should change this or at least make it very greedy
   return useQuery<UseQuoteByTickersResult>(
     ['quotes-by-tickers', chainId, account, symbols.join(',')],
-    () => fetchSpotPricesByTickersAsync({ chainId, symbols }).then(({ data = [] }) => mapSpotPricesToResult(data ? data : undefined)),
+    () => fetchSpotPricesByTickersAsync({ chainId, symbols }).then(({ data }) => mapSpotPricesToResult(data?.items || undefined)),
     options
   );
 }

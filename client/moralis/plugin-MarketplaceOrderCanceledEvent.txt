@@ -1,6 +1,6 @@
 Burst Marketplace Order Canceled
 MarketplaceOrderCanceled(address,bytes32,address,uint256)
-{
+    {
       "anonymous": false,
       "inputs": [
         {
@@ -31,5 +31,5 @@ MarketplaceOrderCanceled(address,bytes32,address,uint256)
       "name": "MarketplaceOrderCanceled",
       "type": "event"
     }
-0x67f3b5E652Fd7aF9aca06ccA99B46B282161d8A2
+0xA0Ac4dE0aa3B6985feC55B08A54Be14B1C9F6251
 MarketplaceOrderCanceledEvent

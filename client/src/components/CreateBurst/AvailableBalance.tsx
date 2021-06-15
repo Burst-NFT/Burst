@@ -25,7 +25,7 @@ function AvailableBalanceComponent({ address }: AvailableBalanceProps) {
 
   React.useEffect(() => {
     (async () => {
-      if (address && web3.utils.isAddress(address)) {
+      if (account && address && web3.utils.isAddress(address)) {
         const contract = new web3.eth.Contract(ERC20ABI, address);
         const decimals = await getDecimalsOrDefaultAsync({ contract });
         const _balance: string = await contract.methods.balanceOf(account).call();

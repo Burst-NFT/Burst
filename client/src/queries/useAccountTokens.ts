@@ -70,10 +70,7 @@ export function useAccountTokens() {
   const { account, chainId } = useWallet();
   return useQuery<UseAccountTokensResult>(
     ['tokenbalances', chainId, account],
-    () =>
-      fetchAddressTokensAsync({ address: account, chainId }).then(({ data }) =>
-        mapAddressTokenBalancesToResult(data?.items ? data.items : undefined)
-      ),
+    () => fetchAddressTokensAsync({ address: account, chainId }).then(({ data }) => mapAddressTokenBalancesToResult(data?.items || undefined)),
     {
       placeholderData: initialData,
     }

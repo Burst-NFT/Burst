@@ -5,7 +5,7 @@ import { AlertState } from '.';
 import { useBursts } from '../../queries';
 import Alert from '../Alert';
 import { SLayout, SHeading } from '../styles';
-import { BurstNftPanel } from './BurstNftPanel';
+import { MyBurstCard } from './MyBurstCard';
 import { SPanel, SPanelsContainer } from './styles';
 
 function PageComponent() {
@@ -20,7 +20,7 @@ function PageComponent() {
         <Grid item xs={12}>
           <SPanelsContainer>
             {!!bursts?.allIds?.length &&
-              bursts.allIds.map((burstId) => <BurstNftPanel burst={bursts.byId[burstId]} key={burstId} setAlert={setAlert} />)}
+              bursts.allIds.map((burstId) => <MyBurstCard burst={bursts.byId[burstId]} key={burstId} setAlert={setAlert} />)}
           </SPanelsContainer>
         </Grid>
       </Grid>

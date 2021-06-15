@@ -29,8 +29,8 @@ function ConnectToWallet() {
   const [profileDialogOpen, setProfileDialogOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const displayAccount = isAuthenticated && account ? `${account.slice(0, 10)}...` : '';
-  console.log('ConnectToWallet.account', account, displayAccount);
-  console.log('authenticate', isAuthenticated, user);
+  // console.log('ConnectToWallet.account', account, displayAccount);
+  // console.log('authenticate', isAuthenticated, user);
 
   const handleClickToggleMenu = (e: any) => {
     setAnchorEl(e.currentTarget);

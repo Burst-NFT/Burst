@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export interface DestroyBurstDialogComponentProps {
+export interface CancelMarketplaceOrderDialogComponentProps {
   open: boolean;
   onClickClose: () => void;
   onClickConfirm: () => void;
@@ -19,25 +19,25 @@ const DialogActions = styled(MuiDialogActions)`
   padding-top: 16px;
 `;
 
-function DestroyBurstDialogComponent({
+function CancelMarketplaceOrderDialogComponent({
   open = false,
   onClickClose: handleClose,
   onClickConfirm: handleClickConfirm,
-}: DestroyBurstDialogComponentProps) {
+}: CancelMarketplaceOrderDialogComponentProps) {
   return (
-    <Dialog onClose={handleClose} aria-labelledby='destroy-dialog-title' open={open}>
-      <DialogTitle id='destroy-dialog-title'>Destroy</DialogTitle>
+    <Dialog onClose={handleClose} aria-labelledby='cancel-order-dialog-title' open={open}>
+      <DialogTitle id='cancel-order-dialog-title'>Cancel Marketplace Order</DialogTitle>
       <DialogContent>
-        <DialogContentText>Destroy your BURST and claim its contents!</DialogContentText>
+        <DialogContentText>Are you sure you want to cancel your marketplace order?</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
         <Button onClick={handleClickConfirm} color='primary' variant='contained' disableElevation>
-          Destroy
+          Confirm
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
 
-export const DestroyBurstDialog = DestroyBurstDialogComponent;
+export const CancelMarketplaceOrderDialog = CancelMarketplaceOrderDialogComponent;

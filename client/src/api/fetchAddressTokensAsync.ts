@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CovalentApiTokenBalance, CovalentApiResponse } from '.';
+import { CovalentApiTokenBalance } from '.';
 
 interface CovalentApiAddressTokenBalances {
   address: string;
@@ -11,6 +11,13 @@ interface CovalentApiAddressTokenBalances {
   pagination: any;
 }
 
+interface CovalentApiAddressTokenBalancesResponse {
+  data?: CovalentApiAddressTokenBalances;
+  error: boolean;
+  error_message?: string | null;
+  error_code?: number | null;
+}
+
 // TODO change to typescript enum
 
 export const fetchAddressTokensAsync = async ({
@@ -19,9 +26,9 @@ export const fetchAddressTokensAsync = async ({
 }: {
   address?: string;
   chainId?: number;
-}): Promise<CovalentApiResponse<CovalentApiAddressTokenBalances>> => {
+}): Promise<CovalentApiAddressTokenBalancesResponse> => {
   if (chainId && address) {
-    const { data: response } = await axios.get<CovalentApiResponse<CovalentApiAddressTokenBalances>>(
+    const { data: response } = await axios.get<CovalentApiAddressTokenBalancesResponse>(
       `https://api.covalenthq.com/v1/${chainId}/address/${address}/balances_v2/?nft=true&no-nft-fetch=false&key=${process.env.REACT_APP_COVALENT_API_KEY}`
     );
 

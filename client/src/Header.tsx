@@ -11,6 +11,7 @@ import { NavLink } from 'react-router-dom';
 
 import ConnectToWallet from './components/Wallet/ConnectToWallet';
 import DisplayBalance from './components/DisplayBalance';
+import { Colors } from './components/styles';
 
 const SMainNav = styled.div`
   height: 111px;
@@ -47,11 +48,14 @@ const SNavLink = styled.span`
   font-weight: 100;
   font-size: 30px;
   text-decoration: none;
-  color: black;
-  letter-spacing: 0.07rem;
+  color: #e6aacb;
+  text-shadow: 2px 2px black;
+  letter-spacing: 0.1rem;
   &.active,
   &:hover {
-    text-decoration: underline;
+    /* color: ${Colors.primary.main};
+    text-shadow: none; */
+    /* text-decoration: underline; */
   }
 `;
 

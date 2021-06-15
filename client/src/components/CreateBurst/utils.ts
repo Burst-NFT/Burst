@@ -27,7 +27,7 @@ export function mapAccountTokenToBasketItem({
   return {
     logoUrl: token.logoUrl,
     name: token.name || token.address,
-    symbol: token.symbol || `${token.address.slice(0, 8)}...`,
+    symbol: token.symbol || `${token.address.slice(0, 6)}...`,
     amount,
     decimals: token.decimals,
     address: token.address,

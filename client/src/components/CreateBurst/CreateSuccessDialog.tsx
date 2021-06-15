@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import MuiTableCell from '@material-ui/core/TableCell';
+import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -28,14 +28,20 @@ const DialogActions = styled(MuiDialogActions)`
   justify-content: center;
 `;
 
-const TableCell = styled(MuiTableCell)`
-  color: rgba(0, 0, 0, 0.54);
+const STableCell = styled(TableCell)`
+  /* color: rgba(0, 0, 0, 0.54); */
 `;
 // used https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=4CAF50 to generate color
 const OkButton = styled(Button)`
-  background-color: #4caf50;
+  /* background-color: #4caf50;
   &:hover {
     background-color: #087f23;
+  } */
+`;
+
+const STableHead = styled(TableHead)`
+  ${STableCell} {
+    font-weight: bold;
   }
 `;
 
@@ -81,54 +87,54 @@ export function CreateSuccessDialog({ open, handleClose, data: { basket } }: Cre
       aria-labelledby='alert-dialog-create-burst-success'
       aria-describedby='alert-dialog-create-burst-success-description'
     >
-      <DialogTitle id='alert-dialog-create-burst-success-title' disableTypography>
-        <Typography variant='h4' align='center'>
+      <DialogTitle id='alert-dialog-create-burst-success-title'>
+        <Typography variant='h5' align='center'>
           Success!
         </Typography>
       </DialogTitle>
       <DialogContent>
         <DialogContentText color='textPrimary' id='alert-dialog-create-burst-success-description'>
-          1 BURST was successfully created on the '{network?.name}' network!
+          <i>BURST was successfully created on the '{network?.name}' network!</i>
         </DialogContentText>
         <TableContainer>
           <Table size='small'>
-            <TableHead>
+            <STableHead>
               <TableRow>
-                <TableCell>Token</TableCell>
-                <TableCell align='right'>Amount</TableCell>
-                <TableCell align='right'>Est. Value ($)</TableCell>
-                <TableCell align='right'></TableCell>
+                <STableCell>Token</STableCell>
+                <STableCell align='right'>Amount</STableCell>
+                <STableCell align='right'>Est. Value ($)</STableCell>
+                <STableCell align='right'></STableCell>
               </TableRow>
-            </TableHead>
+            </STableHead>
             <TableBody>
               {basket.allIds.map((id: string) => {
                 const { symbol, address, logoUrl, amount } = basket.byId[id];
                 const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
                 return (
                   <TableRow key={id}>
-                    <TableCell align='left'>
+                    <STableCell align='left'>
                       <TokenName symbol={symbol} logo={logoUrl} address={address} />
-                    </TableCell>
-                    <TableCell align='right'>{amount}</TableCell>
-                    <TableCell align='right'>{totalValue ? numberFormatter.format(totalValue) : '-'}</TableCell>
+                    </STableCell>
+                    <STableCell align='right'>{amount}</STableCell>
+                    <STableCell align='right'>{totalValue ? numberFormatter.format(totalValue) : '-'}</STableCell>
                   </TableRow>
                 );
               })}
               <TableRow>
-                <TableCell rowSpan={3} />
-                <TableCell align='right'>
+                <STableCell rowSpan={3} style={{ borderBottom: 'none' }} />
+                <STableCell align='right' style={{ borderBottom: 'none' }}>
                   <strong>Total</strong>
-                </TableCell>
-                <TableCell align='right'>
+                </STableCell>
+                <STableCell align='right' style={{ borderBottom: 'none' }}>
                   <strong>{totalBurstAssetValue}</strong>
-                </TableCell>
+                </STableCell>
               </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
       </DialogContent>
       <DialogActions>
-        <OkButton onClick={handleClose} variant='contained' size='large' color='primary' disableElevation>
+        <OkButton onClick={handleClose} variant='contained' color='primary' disableElevation>
           Okay
         </OkButton>
       </DialogActions>

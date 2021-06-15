@@ -1,7 +1,7 @@
 import { ApiBurstMetadataAsset } from '../components/Burst';
 
 export const tables = {
-  marketplaceOrderCreatedEvents: 'MarketplaceOrderCreatedEvents',
+  burstMarketplaceOrder: 'BurstMarketplaceOrder',
   burstAsset: 'BurstAsset',
 };
 
@@ -34,3 +34,38 @@ export const mapApiBurstMetadataAsset = ({
     isInMarketplace: false,
   };
 };
+
+export interface MoralisBurstMarketplaceOrderRecord {
+  maker: string;
+  tokenId: string;
+  price: string;
+  paymentToken: string;
+  address: string;
+}
+
+export interface MoralisMarketplaceOrderCreatedEventObjectAttributes {
+  block_timestamp: any;
+  transaction_hash: string;
+  log_index: number;
+  block_hash: string;
+  block_number: number;
+  transaction_index: number;
+  createdAt: Date;
+  updatedAt: Date;
+
+  // custom event details
+  maker: string;
+  tokenId: string;
+  price: string;
+  paymentToken: string;
+  address: string;
+}
+
+export interface MoralisParseObject<T> {
+  className: string;
+  id: string; // objectId
+
+  attributes: T;
+  createdAt: Date;
+  updatedAt: Date;
+}

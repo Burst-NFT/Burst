@@ -43,6 +43,7 @@ import { useMoralis, useNewMoralisObject } from 'react-moralis';
 import { MoralisBurstAssetRecord, mapApiBurstMetadataAsset, tables } from '../../data/moralis';
 import { ApiBurstMetadataAsset } from '../Burst';
 import { Colors } from '../styles';
+import { BurstAssetChart, BurstAssetChartDataItem } from '../BurstAssetChart';
 
 const SFormActions = styled.div`
   margin-top: 32px;
@@ -70,8 +71,14 @@ const SRemoveIconButton = styled(IconButton)`
 
 const initialBasketState: BasketState = { byId: {}, allIds: [] };
 
-const TableContainer = styled(MuiTableContainer)`
+const STableContainer = styled(MuiTableContainer)`
   margin-top: 16px;
+`;
+const SDisplayBreakdown = styled.div`
+  display: flex;
+  > div:not(:last-child) {
+    margin-right: 16px;
+  }
 `;
 
 const initialDialogData = {
@@ -99,7 +106,17 @@ export function CreateBurstForm() {
   const [successDialogOpen, setSuccessDialogOpen] = React.useState(false);
   const [successDialogData, setSuccessDialogData] = React.useState<SuccessDialogData>({ ...initialDialogData });
   const [validationErrorMsg, setValidationErrorMsg] = React.useState('');
-  // const [showAccountTokensError, setShowAccountTokensError] = React.useState(true);
+
+  const chartData: BurstAssetChartDataItem[] = React.useMemo(() => {
+    if (basket?.allIds.length) {
+      return basket.allIds.map((id) => ({
+        id: basket.byId[id].address,
+        label: basket.byId[id].symbol || `${basket.byId[id].address.slice(0, 6)}...`,
+        value: basket.byId[id].amount,
+      }));
+    }
+    return [];
+  }, [basket]);
 
   const handleAddClick = React.useCallback(async () => {
     if (!web3.utils.isAddress(selectedAddress)) {
@@ -263,53 +280,56 @@ export function CreateBurstForm() {
         </SFields>
 
         {!!basket.allIds.length && (
-          <TableContainer>
-            <Table size='small' aria-label='a dense table'>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Token</TableCell>
-                  <TableCell align='right'>Amount</TableCell>
-                  {/* <TableCell align="right">Allocation (%)</TableCell> */}
-                  <TableCell align='right'>Est. Value ($)</TableCell>
-                  <TableCell align='right'></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {basket.allIds.map((id) => {
-                  const { symbol, address, logoUrl, amount } = basket.byId[id];
-                  const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
-                  return (
-                    <TableRow key={id}>
-                      <TableCell align='left'>
-                        <TokenName symbol={symbol} address={address} logo={logoUrl} />
-                      </TableCell>
-                      <TableCell align='right'>{amount}</TableCell>
-                      <TableCell align='right'>{numberFormatter.format(totalValue)}</TableCell>
-                      <TableCell align='right'>
-                        <SRemoveIconButton color='primary' aria-label='remove token' onClick={handleRemoveFromBasketFn(id)}>
-                          <RemoveCircleOutlineIcon />
-                        </SRemoveIconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-                <TableRow>
-                  <TableCell rowSpan={3} />
-                  <TableCell align='right'>
-                    <strong>Total</strong>
-                  </TableCell>
-                  <TableCell align='right'>
-                    <strong>
-                      {numberFormatter.format(
-                        basket.allIds.reduce((sum, addr) => sum + basket.byId[addr].amount * (priceQuotes?.byId[addr]?.quote || 0), 0)
-                      )}
-                    </strong>
-                  </TableCell>
-                  <TableCell />
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <SDisplayBreakdown>
+            {chartData && <BurstAssetChart data={chartData} height='300px' width='300px' />}
+            <STableContainer>
+              <Table size='small' aria-label='a dense table'>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Token</TableCell>
+                    <TableCell align='right'>Amount</TableCell>
+                    {/* <TableCell align="right">Allocation (%)</TableCell> */}
+                    <TableCell align='right'>Est. Value ($)</TableCell>
+                    <TableCell align='right'></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {basket.allIds.map((id) => {
+                    const { symbol, address, logoUrl, amount } = basket.byId[id];
+                    const totalValue = amount * (priceQuotes?.byId[address]?.quote || 0);
+                    return (
+                      <TableRow key={id}>
+                        <TableCell align='left'>
+                          <TokenName symbol={symbol} address={address} logo={logoUrl} />
+                        </TableCell>
+                        <TableCell align='right'>{amount}</TableCell>
+                        <TableCell align='right'>{numberFormatter.format(totalValue)}</TableCell>
+                        <TableCell align='right'>
+                          <SRemoveIconButton color='primary' aria-label='remove token' onClick={handleRemoveFromBasketFn(id)}>
+                            <RemoveCircleOutlineIcon />
+                          </SRemoveIconButton>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                  <TableRow>
+                    <TableCell rowSpan={3} />
+                    <TableCell align='right'>
+                      <strong>Total</strong>
+                    </TableCell>
+                    <TableCell align='right'>
+                      <strong>
+                        {numberFormatter.format(
+                          basket.allIds.reduce((sum, addr) => sum + basket.byId[addr].amount * (priceQuotes?.byId[addr]?.quote || 0), 0)
+                        )}
+                      </strong>
+                    </TableCell>
+                    <TableCell />
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </STableContainer>
+          </SDisplayBreakdown>
         )}
         <SFormActions>
           <Button color='primary' size='large' variant='contained' onClick={handleCreateBurstAsync} disabled={!basket.allIds.length}>

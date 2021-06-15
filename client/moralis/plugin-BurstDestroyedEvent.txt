@@ -19,5 +19,5 @@ BurstDestroyed(address,uint256)
       "name": "BurstDestroyed",
       "type": "event"
     }
-0xbd6c33CF0CAAE57068Fdc2EE182baC5301Fd807C
+0x2cAe19B25114cB5aA507C8314013811BAC0F0289
 BurstDestroyedEvent
