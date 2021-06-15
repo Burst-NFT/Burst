@@ -52,8 +52,27 @@ contract('BurstNFT', (accounts) => {
     // expect the NFT count in the account one to be 1
     expect(accountOneNFTInterimBalance).to.be.a.bignumber.equal(new BN (1).add(new BN(accountOneNFTStartingBalance)));
 
-    // transfer the NFT from account one to account two
-    await BurstNFTInstance.transferFrom(accountOne,accountTwo, 0);
+    const orderPrice = new BN(20000000000000000);
+
+    // create marketorder
+    await BurstMarketplaceInstance.createMarketplaceOrder(0, "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", orderPrice);
+
+    // console log the market place order info
+    const marketplaceOrderInfo = await BurstMarketplaceInstance.tokenIdToActiveMarketplaceOrders(0);
+    console.log(marketplaceOrderInfo);
+
+    await BurstNFTInstance.approve(BurstMarketplaceInstance.address, 0)
+
+    // define account two confirms the active market order
+    await accountTwo.send(BurstMarketplaceInstance)
+    await BurstMarketplaceInstance.confirmMarketplaceOrder(0, {value: orderPrice, from : accounts[1]});
+
+    
+    const finalEthBalanceAccountOne = await web3.eth.getBalance(accountOne);
+    const finalEthBalanceaccountTwo = await web3.eth.getBalance(accountTwo);
+
+    expect(finalEthBalanceAccountOne).to.be.a.bignumber.equal(initialEthBalanceAccountOne.add(orderPrice))
+
 
     // define the number of NFT held by the account one after transferring an NFT 
     const accountOneNFTEndingBalance = new BN(await BurstNFTInstance.balanceOf(accountOne));

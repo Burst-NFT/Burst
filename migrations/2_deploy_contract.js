@@ -14,4 +14,6 @@ module.exports = async (deployer) => {
   await deployer.deploy(TestToken1, '100000000000000000000000');
   await deployer.deploy(TestToken2, '100000000000000000000000');
   await deployer.deploy(TestToken3, '100000000000000000000000');
+  const BurstNFTInstance = await BurstNFT.deployed();
+  await BurstNFTInstance.setBurstMarketplaceAddress(BurstMarketplace.address);             
 };
