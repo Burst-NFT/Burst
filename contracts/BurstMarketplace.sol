@@ -151,6 +151,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
         }
         nft.safeTransferFrom(nft.ownerOf(_tokenId), msg.sender, _tokenId);
         tokenIdToActiveMarketplaceOrders[_tokenId].active = false;
+        tokenIdToActiveMarketplaceOrders[_tokenId].taker = msg.sender;
         emit MarketplaceOrderFilled(
             nft.ownerOf(_tokenId),
             msg.sender,
@@ -169,7 +170,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
         require(tokenIdToActiveMarketplaceOrders[_tokenId].active, "Marketplace order does not exists");
         require(msg.sender == nft.ownerOf(_tokenId) || msg.sender == burstNFTContract, "Not tokenID owner, marketplace order not allowed");
         tokenIdToActiveMarketplaceOrders[_tokenId].active = false;
-        emit MarketplaceOrderCreated(
+        emit MarketplaceOrderCanceled(
             nft.ownerOf(_tokenId),
             bytes32(_tokenId),
             tokenIdToActiveMarketplaceOrders[_tokenId].paymentToken,

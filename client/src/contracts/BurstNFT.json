@@ -21260,12 +21260,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xC0Eaa625a929EAEc27087Cb2A3673eea2c91Ba7a",
-      "transactionHash": "0x005dbd9540726d2dce20022fe0986cf955b221d16a7682e97c7c5eba615902f4"
+      "address": "0x290CE924E4816C435C84743fBc3f701694371E38",
+      "transactionHash": "0xf9d45e2c634665efbc5318e5a81450e9122b491b334280917e776ba33c4670c9"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-06-14T06:10:45.717Z",
+  "updatedAt": "2021-06-15T07:40:04.439Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "This contract does the following: accepts erc20 as deposit and creates erc721 mapped to deposited erc20 destroys erc721 and transfers mapped erc20 ",
