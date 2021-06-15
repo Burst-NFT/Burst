@@ -65,7 +65,7 @@ contract('BurstNFT', (accounts) => {
 
     // define account two confirms the active market order
     await accountTwo.send(BurstMarketplaceInstance)
-    await BurstMarketplaceInstance.confirmMarketplaceOrder(0, orderPrice, {from : accounts[1]});
+    await BurstMarketplaceInstance.confirmMarketplaceOrder(0, {value: orderPrice, from : accounts[1]});
 
     
     const finalEthBalanceAccountOne = await web3.eth.getBalance(accountOne);
