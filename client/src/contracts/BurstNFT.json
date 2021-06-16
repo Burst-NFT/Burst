@@ -21257,15 +21257,21 @@
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {
+    "3": {
+      "events": {},
+      "links": {},
+      "address": "0xbd791e6632FbAF6792525ff98fa9826Ff4f5AB2f",
+      "transactionHash": "0xe86f91bae0a6847a55b1e214872b0ccbb83134ad3d9d4f40f1f769c7db355f11"
+    },
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x2cAe19B25114cB5aA507C8314013811BAC0F0289",
-      "transactionHash": "0x5a654d17455079c6a4d9653c52961bfc2e1dd2c307b3692c664bab24813ad905"
+      "address": "0xB4C880ca393da1cC65D67B26EEf42B2AE7aB864b",
+      "transactionHash": "0xa2c3daddc2ca1ff69687cc23d3604acd65ee3dc9d970daaebb0d649f90e5231e"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-06-15T13:17:49.604Z",
+  "updatedAt": "2021-06-16T16:06:53.044Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "This contract does the following: accepts erc20 as deposit and creates erc721 mapped to deposited erc20 destroys erc721 and transfers mapped erc20 ",

@@ -63,9 +63,25 @@ const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.maticMumbaiTestnet.chainId]: [
     {
       ...basicBurstNftData,
-      address: '0xF6cad50Aea13C607C53a063EE059B5f6f5d6F86D',
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.maticMumbaiTestnet.networkId}`].address,
       networkId: networkByKey.maticMumbaiTestnet.networkId,
       chainId: networkByKey.maticMumbaiTestnet.chainId,
+    },
+  ],
+  [networkByKey.ropsten.chainId]: [
+    {
+      ...basicBurstNftData,
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.ropsten.networkId}`].address,
+      networkId: networkByKey.ropsten.networkId,
+      chainId: networkByKey.ropsten.chainId,
+    },
+  ],
+  [networkByKey.goerli.chainId]: [
+    {
+      ...basicBurstNftData,
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.goerli.networkId}`].address,
+      networkId: networkByKey.goerli.networkId,
+      chainId: networkByKey.goerli.chainId,
     },
   ],
   [networkByKey.mainNet.chainId]: [
@@ -89,6 +105,12 @@ const tokensByChainId: { [id: number]: Token[] } = {
     },
   ],
   [networkByKey.rinkeby.chainId]: [
+    {
+      ...basicBurstNftData,
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.rinkeby.networkId}`].address,
+      networkId: networkByKey.rinkeby.networkId,
+      chainId: networkByKey.rinkeby.chainId,
+    },
     {
       address: '0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa',
       symbol: 'DAI',

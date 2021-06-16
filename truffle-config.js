@@ -1,7 +1,7 @@
 const path = require('path');
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Web3 = require('web3');
-const AccountIndex = 0;
+const AccountIndex = 1;
 require('dotenv').config({ path: './.env' });
 
 module.exports = {
@@ -22,6 +22,10 @@ module.exports = {
       port: 7545,
       network_id: '5777',
     },
+    ropsten_infura: {
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://ropsten.infura.io/v3/${process.env.ROPSTENKEY}`, AccountIndex),
+      network_id: 3,
+    },
     kovan_infura: {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, 'https://kovan.infura.io/v3/' + process.env.KOVANKEY, AccountIndex),
       network_id: 42,
@@ -31,29 +35,28 @@ module.exports = {
       network_id: 80001,
       confirmations: 2,
       timeoutBlocks: 200,
-      skipDryRun: true
+      skipDryRun: true,
     },
     matic_mainnet: {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://rpc-mainnet.matic.network`, AccountIndex),
       network_id: 137,
       confirmations: 2,
       timeoutBlocks: 200,
-      skipDryRun: true
+      skipDryRun: true,
     },
     avalanche_mainnet: {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://api.avax.network/ext/bc/C/rpc`, AccountIndex),
       network_id: 1,
     },
     avalanche_testnet: {
-      provider: function() {
-        return new Web3.providers.HttpProvider("https://api.avax-test.network/ext/bc/C/rpc")
-       },
-       network_id: "*",
-       gas: 3000000,
-       gasPrice: 225000000000,
-       skipDryRun: true
-    }
-
+      provider: function () {
+        return new Web3.providers.HttpProvider('https://api.avax-test.network/ext/bc/C/rpc');
+      },
+      network_id: '*',
+      gas: 3000000,
+      gasPrice: 225000000000,
+      skipDryRun: true,
+    },
   },
   compilers: {
     solc: {

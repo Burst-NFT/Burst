@@ -15396,15 +15396,21 @@
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {
+    "3": {
+      "events": {},
+      "links": {},
+      "address": "0x892aA110BD2C5c4A6e7ac27333Eec4DdCD01AEcD",
+      "transactionHash": "0x0d4d6d7e1c32edcd9533aafb85ce7cc0b5a08ca7fcf9352015c2b7e7c10e863e"
+    },
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xA0Ac4dE0aa3B6985feC55B08A54Be14B1C9F6251",
-      "transactionHash": "0xa690b51bb76d20b5b046ab1ab8a4159c9c01d6940a4f47f170999c449d3c9029"
+      "address": "0xcB77180b976e36f0ba0A8F22CdDdd7D9ebB1a543",
+      "transactionHash": "0xa74d456ad06affb3e8d6c6a87e105210481d2023f0d28c1d6889bce02eb1546a"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-06-15T13:17:49.616Z",
+  "updatedAt": "2021-06-16T16:06:53.053Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "This contract does the following: Allows a maker and taker to exchange a Burst NFT for a specific amount of ETH or erc20 token ",
