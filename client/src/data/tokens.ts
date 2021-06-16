@@ -63,7 +63,7 @@ const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.maticMumbaiTestnet.chainId]: [
     {
       ...basicBurstNftData,
-      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.maticMumbaiTestnet.networkId}`].address,
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.maticMumbaiTestnet.networkId}`]?.address,
       networkId: networkByKey.maticMumbaiTestnet.networkId,
       chainId: networkByKey.maticMumbaiTestnet.chainId,
     },
@@ -71,7 +71,7 @@ const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.ropsten.chainId]: [
     {
       ...basicBurstNftData,
-      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.ropsten.networkId}`].address,
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.ropsten.networkId}`]?.address,
       networkId: networkByKey.ropsten.networkId,
       chainId: networkByKey.ropsten.chainId,
     },
@@ -79,7 +79,7 @@ const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.goerli.chainId]: [
     {
       ...basicBurstNftData,
-      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.goerli.networkId}`].address,
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.goerli.networkId}`]?.address,
       networkId: networkByKey.goerli.networkId,
       chainId: networkByKey.goerli.chainId,
     },
@@ -107,7 +107,7 @@ const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.rinkeby.chainId]: [
     {
       ...basicBurstNftData,
-      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.rinkeby.networkId}`].address,
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.rinkeby.networkId}`]?.address,
       networkId: networkByKey.rinkeby.networkId,
       chainId: networkByKey.rinkeby.chainId,
     },
@@ -134,12 +134,12 @@ const tokensByChainId: { [id: number]: Token[] } = {
 
 // TODO: Change to a single reduce function for better performance
 // Builds an object to access the token by address
-const tokenByAddress = Object.values(tokensByChainId)
-  .flat()
-  .reduce<{ [address: string]: Token }>((acc, token) => {
-    acc[token.address] = token;
-    return acc;
-  }, {});
+// const tokenByAddress = Object.values(tokensByChainId)
+//   .flat()
+//   .reduce<{ [address: string]: Token }>((acc, token) => {
+//     acc[token.address] = token;
+//     return acc;
+//   }, {});
 
 /**
  * Find the first token matching the symbol
@@ -153,4 +153,4 @@ const findTokenBySymbol = ({ chainId, symbol }: { chainId: number | undefined; s
   return undefined;
 };
 
-export { tokenByAddress, findTokenBySymbol, tokensByChainId };
+export { findTokenBySymbol, tokensByChainId };
