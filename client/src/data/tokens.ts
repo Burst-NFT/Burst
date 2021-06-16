@@ -49,13 +49,13 @@ const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.ganache.chainId]: [
     {
       ...basicBurstNftData,
-      address: (BurstNft.contractJson.networks as ContractNetworks)[`${networkByKey.ganache.networkId}`].address,
+      address: (BurstNft.contractJson.networks as ContractNetworks)[`${networkByKey.ganache.networkId}`]?.address,
       networkId: networkByKey.ganache.networkId,
       chainId: networkByKey.ganache.chainId,
     },
     {
       ...basicBurstMarketplaceData,
-      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.ganache.networkId}`].address,
+      address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.ganache.networkId}`]?.address,
       networkId: networkByKey.ganache.networkId,
       chainId: networkByKey.ganache.chainId,
     },
