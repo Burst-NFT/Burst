@@ -63,6 +63,12 @@ const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.maticMumbaiTestnet.chainId]: [
     {
       ...basicBurstNftData,
+      address: (BurstNft.contractJson.networks as ContractNetworks)[`${networkByKey.maticMumbaiTestnet.networkId}`]?.address,
+      networkId: networkByKey.maticMumbaiTestnet.networkId,
+      chainId: networkByKey.maticMumbaiTestnet.chainId,
+    },
+    {
+      ...basicBurstMarketplaceData,
       address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.maticMumbaiTestnet.networkId}`]?.address,
       networkId: networkByKey.maticMumbaiTestnet.networkId,
       chainId: networkByKey.maticMumbaiTestnet.chainId,
@@ -71,6 +77,12 @@ const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.ropsten.chainId]: [
     {
       ...basicBurstNftData,
+      address: (BurstNft.contractJson.networks as ContractNetworks)[`${networkByKey.ropsten.networkId}`]?.address,
+      networkId: networkByKey.ropsten.networkId,
+      chainId: networkByKey.ropsten.chainId,
+    },
+    {
+      ...basicBurstMarketplaceData,
       address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.ropsten.networkId}`]?.address,
       networkId: networkByKey.ropsten.networkId,
       chainId: networkByKey.ropsten.chainId,
@@ -79,6 +91,12 @@ const tokensByChainId: { [id: number]: Token[] } = {
   [networkByKey.goerli.chainId]: [
     {
       ...basicBurstNftData,
+      address: (BurstNft.contractJson.networks as ContractNetworks)[`${networkByKey.goerli.networkId}`]?.address,
+      networkId: networkByKey.goerli.networkId,
+      chainId: networkByKey.goerli.chainId,
+    },
+    {
+      ...basicBurstMarketplaceData,
       address: (BurstMarketplace.contractJson.networks as ContractNetworks)[`${networkByKey.goerli.networkId}`]?.address,
       networkId: networkByKey.goerli.networkId,
       chainId: networkByKey.goerli.chainId,

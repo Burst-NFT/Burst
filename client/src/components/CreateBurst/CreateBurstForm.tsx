@@ -97,6 +97,7 @@ export function CreateBurstForm() {
 
   const { numberFormatter } = useNumberFormatter();
   const burstAddress = React.useMemo(() => getBurstAddress({ chainId }), [chainId]);
+  // console.log(burstAddress, chainId);
 
   // Internal state
   const [basket, setBasket] = React.useState<BasketState>(initialBasketState);
@@ -185,6 +186,7 @@ export function CreateBurstForm() {
     // TODO: Batch request
     for (let i = 0; i < basket.allIds.length; i++) {
       const id = basket.allIds[i];
+      // console.log(burstAddress);
       await basket.byId[id].contract.methods.approve(burstAddress, MaxUint256).send({ from: account });
     }
 
